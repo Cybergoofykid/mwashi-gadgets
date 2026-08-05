@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Installment Payment | Mwashi Gadgets</title>
+
+<link rel="icon" href="images/logo.png">
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/installment.css">
+
+</head>
+
+
+<body>
+
+
+<header class="installment-header">
+
+<a href="index.html" class="logo">
+
+<img src="images/logo.png" alt="Mwashi Gadgets">
+
+</a>
+
+
+<h1>
+Installment Payment Application
+</h1>
+
+
+</header>
+
+
+
+<div class="installment-container">
+
+
+<div class="installment-card">
+
+
+
+<!-- PRODUCT SECTION -->
+
+<div class="product-section">
+
+
+<img id="productImage" alt="Product">
+
+
+<div>
+
+
+<h2 id="productName"></h2>
+
+
+<p>
+Cash Price:
+<strong id="cashPrice">
+0 TZS
+</strong>
+</p>
+
+
+
+<div class="storage-section">
+
+
+<label>
+Choose Storage
+</label>
+
+
+<select id="storageSelect">
+
+</select>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- FINANCING CALCULATOR -->
+
+
+<div class="calculator">
+
+
+<h3>
+Choose Your Installment Plan
+</h3>
+
+
+
+<div class="payment-options">
+
+
+
+<div class="option-group">
+
+
+<label>
+Initial Deposit
+</label>
+
+
+<input
+type="number"
+id="depositAmount"
+placeholder="Enter deposit amount">
+
+
+</div>
+
+
+
+
+
+<div class="option-group">
+
+
+<label>
+Repayment Period
+</label>
+
+
+<select id="loanPeriod">
+
+
+<option value="3">
+3 Months
+</option>
+
+
+<option value="4">
+4 Months
+</option>
+
+
+<option value="6" selected>
+6 Months
+</option>
+
+
+<option value="8">
+8 Months
+</option>
+
+
+<option value="12">
+12 Months
+</option>
+
+
+</select>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- SUMMARY -->
+
+
+<div class="summary">
+
+
+
+<div>
+
+<span>
+Cash Price
+</span>
+
+
+<strong id="cashPriceSummary">
+0 TZS
+</strong>
+
+
+</div>
+
+
+
+
+
+<div>
+
+<span>
+Deposit
+</span>
+
+
+<strong id="downAmount">
+0 TZS
+</strong>
+
+
+</div>
+
+
+
+
+
+<div>
+
+<span>
+Loan Amount
+</span>
+
+
+<strong id="remaining">
+0 TZS
+</strong>
+
+
+</div>
+
+
+
+
+
+<div>
+
+<span>
+Interest Rate
+</span>
+
+
+<strong id="interestRate">
+0%
+</strong>
+
+
+</div>
+
+
+
+
+
+<div>
+
+<span>
+Total Repayment
+</span>
+
+
+<strong id="totalPayment">
+0 TZS
+</strong>
+
+
+</div>
+
+
+
+
+
+<div class="monthly-box">
+
+
+<span>
+Monthly Payment
+</span>
+
+
+<strong id="monthly">
+0 TZS
+</strong>
+
+
+</div>
+
+
+
+
+
+<div>
+
+
+<span>
+Repayment Period
+</span>
+
+
+<strong id="duration">
+6 Months
+</strong>
+
+
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- CUSTOMER FORM -->
+
+
+<div class="customer-form">
+
+
+<h3>
+Applicant Details
+</h3>
+
+
+<p class="form-description">
+
+Please provide your information to complete your installment application.
+
+</p>
+
+
+
+
+<div class="form-grid">
+
+
+
+<div class="input-group">
+
+<label>
+Full Name
+</label>
+
+<input 
+id="customerName"
+placeholder="Enter your full name">
+
+</div>
+
+<div class="input-group">
+
+<label>
+Phone Number
+</label>
+
+<input 
+id="customerPhone"
+placeholder="07XX XXX XXX">
+
+</div>
+
+
+<div class="input-group">
+
+<label>
+National ID
+</label>
+
+<input 
+id="customerNida"
+placeholder="NIDA Number">
+
+</div>
+
+
+<div class="input-group">
+
+<label>
+Occupation
+</label>
+
+<input 
+id="occupation"
+placeholder="Your occupation">
+
+</div>
+
+
+<div class="input-group">
+
+<label>
+Employer / Business
+</label>
+
+<input 
+id="employer"
+placeholder="Employer name">
+
+</div>
+
+
+<div class="input-group">
+
+<label>
+Region
+</label>
+
+<input 
+id="region"
+placeholder="Region">
+
+</div>
+
+<div class="input-group">
+
+<label>
+District
+</label>
+
+<input 
+id="district"
+placeholder="District">
+
+</div>
+
+
+<div class="input-group full">
+
+<label>
+Residential Address
+</label>
+
+
+<textarea
+id="address"
+rows="4"
+placeholder="Enter your residential address">
+
+</textarea>
+
+
+</div>
+
+
+</div>
+
+<label class="agreement">
+
+
+<input 
+type="checkbox"
+id="agree">
+
+
+<span>
+
+I agree to Mwashi Gadgets installment terms and conditions.
+
+</span>
+
+</label>
+
+
+<button 
+id="submitApplication"
+class="submit-btn">
+
+Submit Application
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+<!-- JAVASCRIPT -->
+
+<script src="js/apple.js"></script>
+
+<script src="js/samsung.js"></script>
+
+<script src="js/pixel.js"></script>
+
+<script src="js/accessories.js"></script>
+
+<script src="js/audio.js"></script>
+
+<script src="js/products.js"></script>
+
+<script src="js/installment.js"></script>
+
+
+</body>
+
+</html>

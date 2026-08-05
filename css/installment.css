@@ -1,0 +1,552 @@
+/* ===============================
+   INSTALLMENT PAGE
+================================ */
+
+* {
+    box-sizing:border-box;
+}
+
+
+.installment-container {
+
+    width:100%;
+    max-width:900px;
+
+    margin:30px auto;
+
+    padding:15px;
+
+}
+
+
+.installment-card {
+
+    width:100%;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+
+}
+
+
+
+/* PRODUCT */
+
+.product-section {
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    text-align:center;
+
+}
+
+
+.product-section img {
+
+    width:220px;
+
+    height:220px;
+
+    object-fit:contain;
+
+    display:block;
+
+}
+
+
+
+.product-section h2 {
+
+    font-size:26px;
+
+    margin:15px 0;
+
+}
+
+
+#cashPrice {
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    color:#007bff;
+
+}
+
+
+
+
+/* OPTIONS */
+
+
+.storage-section {
+
+    margin-top:25px;
+
+}
+
+
+.storage-section select {
+
+    width:100%;
+
+    height:50px;
+
+    padding:10px;
+
+    border-radius:10px;
+
+    border:1px solid #ccc;
+
+    background:white;
+
+    font-size:16px;
+
+}
+
+
+
+/* FORM */
+
+
+.installment-form {
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+    margin-top:30px;
+
+}
+
+
+
+.form-group input,
+.form-group select {
+
+
+    width:100%;
+
+    height:45px;
+
+    padding:10px;
+
+    border-radius:10px;
+
+    border:1px solid #ccc;
+
+}
+
+
+
+/* CALCULATOR */
+
+.calculator{
+
+    margin-top:20px;
+
+    background:#0238b7;
+
+    padding:18px;
+
+    border-radius:18px;
+
+}
+
+
+
+/* Deposit + Timeline */
+
+.payment-options{
+
+    display:flex;
+
+    gap:20px;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.option-group{
+
+    flex:1;
+
+}
+
+
+
+.option-group label{
+
+    font-size:14px;
+
+    font-weight:600;
+
+    margin-bottom:6px;
+
+    display:block;
+
+}
+
+
+
+.choice-buttons{
+
+    display:flex;
+
+    gap:8px;
+
+}
+
+
+
+.choice-buttons button{
+
+    flex:1;
+
+    padding:10px 8px;
+
+    border-radius:10px;
+
+    border:1px solid #ddd;
+
+    background:white;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+}
+
+
+
+.choice-buttons button span{
+
+    display:block;
+
+    font-size:11px;
+
+}
+
+
+
+.choice-buttons button.active{
+
+    background:#007bff;
+
+    color:white;
+
+}
+
+
+
+
+/* SUMMARY */
+
+.summary{
+
+    margin-top:15px;
+
+    background:rgb(0, 0, 0);
+
+    padding:12px 15px;
+
+    border-radius:14px;
+
+}
+
+
+
+.summary div{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:8px 0;
+
+    font-size:15px;
+
+    border-bottom:1px solid #eee;
+
+}
+
+
+
+.summary div:last-child{
+
+    border:none;
+
+}
+
+
+
+.monthly-box strong{
+
+    font-size:22px;
+
+    color:#28a745;
+
+}
+
+
+
+
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+
+.payment-options{
+
+    flex-direction:column;
+
+}
+
+
+.choice-buttons{
+
+    width:100%;
+
+}
+
+
+}
+/* ===============================
+ CUSTOMER FORM
+================================ */
+
+
+.customer-form{
+
+    margin-top:30px;
+
+    background:#ffffff;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+}
+
+
+
+.customer-form h3{
+
+    font-size:22px;
+
+    margin-bottom:8px;
+
+    color:#111827;
+
+}
+
+
+
+.form-description{
+
+    color:#6b7280;
+
+    margin-bottom:25px;
+
+}
+
+
+
+
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:18px;
+
+}
+
+
+
+
+
+.input-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+
+
+
+.input-group label{
+
+    font-size:14px;
+
+    font-weight:600;
+
+    margin-bottom:7px;
+
+}
+
+
+
+
+
+.input-group input,
+.input-group textarea{
+
+
+    width:100%;
+
+    padding:13px;
+
+    border-radius:12px;
+
+    border:1px solid #d1d5db;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.2s;
+
+}
+
+
+
+
+
+.input-group input:focus,
+.input-group textarea:focus{
+
+    border-color:#2563eb;
+
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+
+}
+
+
+
+
+.full{
+
+    grid-column:1/-1;
+
+}
+
+
+
+
+
+.agreement{
+
+    display:flex;
+
+    gap:10px;
+
+    align-items:center;
+
+    margin-top:20px;
+
+    font-size:14px;
+
+    color:#374151;
+
+}
+
+
+
+
+
+.agreement input{
+
+    width:18px;
+
+    height:18px;
+
+}
+
+
+
+
+
+.submit-btn{
+
+
+    width:100%;
+
+    margin-top:25px;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:30px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+
+.submit-btn:hover{
+
+    transform:translateY(-2px);
+
+    background:#1d4ed8;
+
+}
+
+
+
+
+
+@media(max-width:700px){
+
+
+.form-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+
+.customer-form{
+
+    padding:18px;
+
+}
+
+
+}
