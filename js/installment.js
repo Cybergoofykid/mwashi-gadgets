@@ -35,7 +35,48 @@ document.getElementById(id);
 const formatMoney = (amount) =>
 "TZS " + Number(amount).toLocaleString();
 
+// ===============================
+// DEPOSIT INPUT PROTECTION
+// ===============================
 
+const depositInput = qs("depositAmount");
+
+
+// Block negative sign and scientific notation
+depositInput.addEventListener("keydown", (event) => {
+
+    if (
+        event.key === "-" ||
+        event.key === "e" ||
+        event.key === "E"
+    ) {
+        event.preventDefault();
+    }
+
+});
+
+
+// Clean pasted/typed values
+depositInput.addEventListener("input", () => {
+
+    let value = depositInput.value;
+
+    // Remove anything that is not a digit or decimal point
+    value = value.replace(/[^0-9.]/g, "");
+
+    // Allow only one decimal point
+    const parts = value.split(".");
+
+    if (parts.length > 2) {
+        value =
+            parts[0] + "." + parts.slice(1).join("");
+    }
+
+    depositInput.value = value;
+
+    calculateInstallment();
+
+});
 
 
 
@@ -305,14 +346,6 @@ months + " Months";
 // ===============================
 // CALCULATOR EVENTS
 // ===============================
-
-
-qs("depositAmount")
-.addEventListener(
-"input",
-calculateInstallment
-);
-
 
 
 qs("loanPeriod")
