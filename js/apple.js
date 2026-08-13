@@ -1,336 +1,549 @@
 const appleProducts = [
 
-/* =========================
-   Apple Smartphones
-========================= */
+    // =========================
+    // iPhone 17 Pro
+    // =========================
 
-{
-    id: 1,
-    name: "iPhone 17 Pro",
+    {
+        id: 1,
+        name: "iPhone 17 Pro",
 
-    category: "Apple",
-    brand: "Apple",
-    subcategory: "Smartphones",
+        category: "Apple",
+        brand: "Apple",
+        subcategory: "Smartphones",
 
-    featured: true,
-    latest: true,
-    installment: true,
+        featured: true,
+        latest: true,
+        installment: true,
 
-    image: "images/apple/17-pro.webp",
+        image: "images/apple/17-pro.webp",
 
-    description: "Apple flagship with advanced camera system and top performance.",
+        description:
+            "Apple flagship with advanced camera system and top performance.",
 
-    storage: {
-        "256GB": 3800000,
-        "512GB": 4200000,
-        "1TB": 4700000
+        storage: {
+
+            "256GB": {
+                new: 3800000,
+                used: 3400000
+            },
+
+            "512GB": {
+                new: 4200000,
+                used: 3800000
+            },
+
+            "1TB": {
+                new: 4700000,
+                used: 4300000
+            }
+
+        },
+
+        colours: [
+            "Black",
+            "White",
+            "Natural Titanium",
+            "Desert Titanium"
+        ]
     },
 
-    colours: [
-        "Black",
-        "White",
-        "Natural Titanium",
-        "Desert Titanium"
-    ]
-},
 
-{
-    id: 2,
-    name: "iPhone 17 Air",
+    // =========================
+    // iPhone 17 Air
+    // =========================
 
-    category: "Apple",
-    brand: "Apple",
-    subcategory: "Smartphones",
+    {
+        id: 2,
+        name: "iPhone 17 Air",
 
-    featured: true,
-    latest: true,
-    installment: true,
+        category: "Apple",
+        brand: "Apple",
+        subcategory: "Smartphones",
 
-    image: "images/apple/17-air.webp",
+        featured: true,
+        latest: true,
+        installment: true,
 
-    description: "Ultra-thin iPhone with premium lightweight design.",
+        image: "images/apple/17-air.webp",
 
-    storage: {
-        "256GB": 2700000,
-        "512GB": 3200000
+        description:
+            "Ultra-thin iPhone with premium lightweight design.",
+
+        storage: {
+
+            "256GB": {
+                new: 2700000,
+                used: 2300000
+            },
+
+            "512GB": {
+                new: 3200000,
+                used: 2800000
+            },
+
+            "1TB": {
+                new: 3600000,
+                used: 3200000
+            }
+
+        },
+
+        colours: [
+            "Black",
+            "Blue",
+            "Silver"
+        ]
     },
 
-    colours: [
-        "Black",
-        "Blue",
-        "Silver"
-    ]
-},
 
-{
-    id: 3,
-    name: "iPhone 17",
+    // =========================
+    // iPhone 17
+    // =========================
 
-    category: "Apple",
-    brand: "Apple",
-    subcategory: "Smartphones",
+    {
+        id: 3,
+        name: "iPhone 17",
 
-    featured: false,
-    latest: true,
-    installment: true,
+        category: "Apple",
+        brand: "Apple",
+        subcategory: "Smartphones",
 
-    image: "images/apple/17.webp",
+        featured: false,
+        latest: true,
+        installment: true,
 
-    description: "Balanced performance and everyday flagship experience.",
+        image: "images/apple/17.webp",
 
-    storage: {
-        "128GB": 3000000,
-        "256GB": 3350000
+        description:
+            "Balanced performance and everyday flagship experience.",
+
+        storage: {
+
+            "256GB": {
+                new: 3350000,
+                used: 2950000
+            },
+
+            "512GB": {
+                new: 3650000,
+                used: 3250000
+            }
+
+        },
+
+        colours: [
+            "Black",
+            "White",
+            "Blue",
+            "Pink"
+        ]
     },
 
-    colours: [
-        "Black",
-        "White",
-        "Blue",
-        "Pink"
-    ]
-},
 
-{
-    id: 4,
-    name: "iPhone 16 Plus",
+    // =========================
+    // iPhone 16 Plus
+    // =========================
 
-    category: "Apple",
-    brand: "Apple",
-    subcategory: "Smartphones",
+    {
+        id: 4,
+        name: "iPhone 16 Plus",
 
-    featured: false,
-    latest: true,
-    installment: true,
+        category: "Apple",
+        brand: "Apple",
+        subcategory: "Smartphones",
 
-    image: "images/apple/16-plus.webp",
+        featured: false,
+        latest: true,
+        installment: true,
 
-    description: "Large display with long battery life.",
+        image: "images/apple/16-plus.webp",
 
-    storage: {
-        "128GB": 2100000,
-        "256GB": 2200000,
-        "512GB": 2550000
+        description:
+            "Large display with long battery life.",
+
+        storage: {
+
+            "128GB": {
+                new: 2100000,
+                used: 1700000
+            },
+
+            "256GB": {
+                new: 2200000,
+                used: 1800000
+            },
+
+            "512GB": {
+                new: 2550000,
+                used: 2150000
+            }
+
+        },
+
+        colours: [
+            "Black",
+            "Blue",
+            "White",
+            "Green",
+            "Pink"
+        ]
     },
 
-    colours: [
-        "Black",
-        "Blue",
-        "White",
-        "Green",
-        "Pink"
-    ]
-},
 
-{
-    id: 5,
-    name: "iPhone 16",
+    // =========================
+    // iPhone 16
+    // =========================
 
-    category: "Apple",
-    brand: "Apple",
-    subcategory: "Smartphones",
+    {
+        id: 5,
+        name: "iPhone 16",
 
-    featured: true,
-    latest: true,
-    installment: true,
+        category: "Apple",
+        brand: "Apple",
+        subcategory: "Smartphones",
 
-    image: "images/apple/16.webp",
+        featured: true,
+        latest: true,
+        installment: true,
 
-    description: "Powerful everyday iPhone with excellent camera and battery life.",
+        image: "images/apple/16.webp",
 
-    storage: {
-        "128GB": 1900000,
-        "256GB": 2150000,
-        "512GB": 2450000
+        description:
+            "Powerful everyday iPhone with excellent camera and battery life.",
+
+        storage: {
+
+            "128GB": {
+                new: 1900000,
+                used: 1500000
+            },
+
+            "256GB": {
+                new: 2150000,
+                used: 1750000
+            },
+
+            "512GB": {
+                new: 2450000,
+                used: 2050000
+            }
+
+        },
+
+        colours: [
+            "Black",
+            "White",
+            "Pink",
+            "Teal",
+            "Ultramarine"
+        ]
     },
 
-    colours: [
-        "Black",
-        "White",
-        "Pink",
-        "Teal",
-        "Ultramarine"
-    ]
-},
 
-{
-    id: 6,
-    name: "iPhone 16 Pro",
+    // =========================
+    // iPhone 16 Pro
+    // =========================
 
-    category: "Apple",
-    brand: "Apple",
-    subcategory: "Smartphones",
+    {
+        id: 6,
+        name: "iPhone 16 Pro",
 
-    featured: true,
-    latest: true,
-    installment: true,
+        category: "Apple",
+        brand: "Apple",
+        subcategory: "Smartphones",
 
-    image: "images/apple/16-PRO.webp",
+        featured: true,
+        latest: true,
+        installment: true,
 
-    description: "Professional iPhone with titanium design and advanced camera system.",
+        image: "images/apple/16-PRO.webp",
 
-    storage: {
-        "256GB": 2600000,
-        "512GB": 2950000,
-        "1TB": 3400000
+        description:
+            "Professional iPhone with titanium design and advanced camera system.",
+
+        storage: {
+
+            "128GB": {
+                new: 2200000,
+                used: 1800000
+            },
+
+            "256GB": {
+                new: 2600000,
+                used: 2200000
+            },
+
+            "512GB": {
+                new: 2950000,
+                used: 2550000
+            },
+
+            "1TB": {
+                new: 3400000,
+                used: 3000000
+            }
+
+        },
+
+        colours: [
+            "Black Titanium",
+            "White Titanium",
+            "Natural Titanium",
+            "Desert Titanium"
+        ]
     },
 
-    colours: [
-        "Black Titanium",
-        "White Titanium",
-        "Natural Titanium",
-        "Desert Titanium"
-    ]
-},
 
-{
-    id: 7,
-    name: "iPhone 16 Pro Max",
+    // =========================
+    // iPhone 16 Pro Max
+    // =========================
 
-    category: "Apple",
-    brand: "Apple",
-    subcategory: "Smartphones",
+    {
+        id: 7,
+        name: "iPhone 16 Pro Max",
 
-    featured: true,
-    latest: true,
-    installment: true,
+        category: "Apple",
+        brand: "Apple",
+        subcategory: "Smartphones",
 
-    image: "images/apple/16-PROMAX.webp",
+        featured: true,
+        latest: true,
+        installment: true,
 
-    description: "Largest and most powerful iPhone with premium camera performance.",
+        image: "images/apple/16-PROMAX.webp",
 
-    storage: {
-        "256GB": 2900000,
-        "512GB": 3300000,
-        "1TB": 3800000
+        description:
+            "Largest and most powerful iPhone with premium camera performance.",
+
+        storage: {
+
+            "256GB": {
+                new: 2900000,
+                used: 2500000
+            },
+
+            "512GB": {
+                new: 3300000,
+                used: 2900000
+            },
+
+            "1TB": {
+                new: 3800000,
+                used: 3400000
+            }
+
+        },
+
+        colours: [
+            "Black Titanium",
+            "White Titanium",
+            "Natural Titanium",
+            "Desert Titanium"
+        ]
     },
 
-    colours: [
-        "Black Titanium",
-        "White Titanium",
-        "Natural Titanium",
-        "Desert Titanium"
-    ]
-},
 
-{
-    id: 8,
-    name: "iPhone 15",
+    // =========================
+    // iPhone 15
+    // =========================
 
-    category: "Apple",
-    brand: "Apple",
-    subcategory: "Smartphones",
+    {
+        id: 8,
+        name: "iPhone 15",
 
-    featured: false,
-    latest: false,
-    installment: true,
+        category: "Apple",
+        brand: "Apple",
+        subcategory: "Smartphones",
 
-    image: "images/apple/15-plain.webp",
+        featured: false,
+        latest: false,
+        installment: true,
 
-    description: "Reliable iPhone with Dynamic Island and USB-C connectivity.",
+        image: "images/apple/15-plain.webp",
 
-    storage: {
-        "128GB": 1650000,
-        "256GB": 1850000
+        description:
+            "Reliable iPhone with Dynamic Island and USB-C connectivity.",
+
+        storage: {
+
+            "128GB": {
+                new: 1650000,
+                used: 1250000
+            },
+
+            "256GB": {
+                new: 1850000,
+                used: 1450000
+            },
+
+            "512GB": {
+                new: 2050000,
+                used: 1650000
+            }
+
+        },
+
+        colours: [
+            "Black",
+            "Blue",
+            "Green",
+            "Pink",
+            "Yellow"
+        ]
     },
 
-    colours: [
-        "Black",
-        "Blue",
-        "Green",
-        "Pink",
-        "Yellow"
-    ]
-},
 
-{
-    id: 9,
-    name: "iPhone 15 Plus",
+    // =========================
+    // iPhone 15 Plus
+    // =========================
 
-    category: "Apple",
-    brand: "Apple",
-    subcategory: "Smartphones",
+    {
+        id: 9,
+        name: "iPhone 15 Plus",
 
-    featured: false,
-    latest: false,
-    installment: true,
+        category: "Apple",
+        brand: "Apple",
+        subcategory: "Smartphones",
 
-    image: "images/apple/15-plus.webp",
+        featured: false,
+        latest: false,
+        installment: true,
 
-    description: "Large display iPhone with excellent battery life.",
+        image: "images/apple/15-plus.webp",
 
-    storage: {
-        "128GB": 1900000,
-        "256GB": 2100000
+        description:
+            "Large display iPhone with excellent battery life.",
+
+        storage: {
+
+            "128GB": {
+                new: 1900000,
+                used: 1500000
+            },
+
+            "256GB": {
+                new: 2100000,
+                used: 1700000
+            },
+
+            "512GB": {
+                new: 2500000,
+                used: 2100000
+            }
+
+        },
+
+        colours: [
+            "Black",
+            "Blue",
+            "Green",
+            "Pink",
+            "Yellow"
+        ]
     },
 
-    colours: [
-        "Black",
-        "Blue",
-        "Green",
-        "Pink",
-        "Yellow"
-    ]
-},
 
-{
-    id: 10,
-    name: "iPhone 15 Pro",
+    // =========================
+    // iPhone 15 Pro
+    // =========================
 
-    category: "Apple",
-    brand: "Apple",
-    subcategory: "Smartphones",
+    {
+        id: 10,
+        name: "iPhone 15 Pro",
 
-    featured: false,
-    latest: false,
-    installment: true,
+        category: "Apple",
+        brand: "Apple",
+        subcategory: "Smartphones",
 
-    image: "images/apple/15-PRO.webp",
+        featured: false,
+        latest: false,
+        installment: true,
 
-    description: "Titanium iPhone built for performance and photography.",
+        image: "images/apple/15-PRO.webp",
 
-    storage: {
-        "256GB": 2350000,
-        "512GB": 2650000,
-        "1TB": 3100000
+        description:
+            "Titanium iPhone built for performance and photography.",
+
+        storage: {
+
+            "128GB": {
+                new: 1950000,
+                used: 1550000
+            },
+
+            "256GB": {
+                new: 2350000,
+                used: 1950000
+            },
+
+            "512GB": {
+                new: 2650000,
+                used: 2250000
+            },
+
+            "1TB": {
+                new: 3100000,
+                used: 2700000
+            }
+
+        },
+
+        colours: [
+            "Black Titanium",
+            "White Titanium",
+            "Blue Titanium",
+            "Natural Titanium"
+        ]
     },
 
-    colours: [
-        "Black Titanium",
-        "White Titanium",
-        "Blue Titanium",
-        "Natural Titanium"
-    ]
-},
 
-{
-    id: 11,
-    name: "iPhone 15 Pro Max",
+    // =========================
+    // iPhone 15 Pro Max
+    // =========================
 
-    category: "Apple",
-    brand: "Apple",
-    subcategory: "Smartphones",
+    {
+        id: 11,
+        name: "iPhone 15 Pro Max",
 
-    featured: true,
-    latest: false,
-    installment: true,
+        category: "Apple",
+        brand: "Apple",
+        subcategory: "Smartphones",
 
-    image: "images/apple/15-PROMAX.webp",
+        featured: true,
+        latest: false,
+        installment: true,
 
-    description: "Premium Apple flagship featuring the best cameras and performance.",
+        image: "images/apple/15-PROMAX.webp",
 
-    storage: {
-        "256GB": 2550000,
-        "512GB": 2900000,
-        "1TB": 3400000
-    },
+        description:
+            "Premium Apple flagship featuring the best cameras and performance.",
 
-    colours: [
-        "Black Titanium",
-        "White Titanium",
-        "Blue Titanium",
-        "Natural Titanium"
-    ]
-}
+        storage: {
+
+            "256GB": {
+                new: 2550000,
+                used: 2150000
+            },
+
+            "512GB": {
+                new: 2900000,
+                used: 2500000
+            },
+
+            "1TB": {
+                new: 3400000,
+                used: 3000000
+            }
+
+        },
+
+        colours: [
+            "Black Titanium",
+            "White Titanium",
+            "Blue Titanium",
+            "Natural Titanium"
+        ]
+    }
 
 ];

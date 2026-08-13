@@ -10,552 +10,744 @@ const product = products.find(
     p => p.id === productId
 );
 
-
 if (!product) {
 
     document.body.innerHTML =
-    "<h2>Product not found.</h2>";
+        "<h2>Product not found.</h2>";
 
     throw new Error("Product not found");
-
 }
-
 
 
 // ===============================
 // HELPERS
 // ===============================
 
-
 const qs = (id) =>
-document.getElementById(id);
-
+    document.getElementById(id);
 
 
 const formatMoney = (amount) =>
-"TZS " + Number(amount).toLocaleString();
-
-// ===============================
-// DEPOSIT INPUT PROTECTION
-// ===============================
-
-const depositInput = qs("depositAmount");
-
-
-// Block negative sign and scientific notation
-depositInput.addEventListener("keydown", (event) => {
-
-    if (
-        event.key === "-" ||
-        event.key === "e" ||
-        event.key === "E"
-    ) {
-        event.preventDefault();
-    }
-
-});
-
-
-// Clean pasted/typed values
-depositInput.addEventListener("input", () => {
-
-    let value = depositInput.value;
-
-    // Remove anything that is not a digit or decimal point
-    value = value.replace(/[^0-9.]/g, "");
-
-    // Allow only one decimal point
-    const parts = value.split(".");
-
-    if (parts.length > 2) {
-        value =
-            parts[0] + "." + parts.slice(1).join("");
-    }
-
-    depositInput.value = value;
-
-    calculateInstallment();
-
-});
-
+    "TZS " + Number(amount).toLocaleString();
 
 
 // ===============================
-// INTEREST CALCULATOR
+// SELECTED PRODUCT OPTIONS
 // ===============================
 
+// Try to recover the selection
+// saved from product.js
 
-function getInterestRate(months){
-
-
-    switch(months){
-
-
-        case 3:
-            return 0.05;
+const savedProduct =
+    JSON.parse(
+        localStorage.getItem("installmentProduct")
+    ) || null;
 
 
-        case 4:
-            return 0.07;
+let selectedStorage =
+    savedProduct?.storage ||
+    (
+        product.storage
+            ? Object.keys(product.storage)[0]
+            : null
+    );
 
 
-        case 6:
-            return 0.10;
+let selectedCondition =
+    savedProduct?.condition ||
+    "new";
 
 
-        case 8:
-            return 0.12;
+// ===============================
+// GET CURRENT PRODUCT PRICE
+// ===============================
 
+function getProductPrice() {
 
-        case 12:
-            return 0.15;
+    // Products without storage
+    if (!product.storage) {
 
-
-        default:
-            return 0.15;
+        return Number(product.price) || 0;
 
     }
 
+
+    const storageData =
+        product.storage[selectedStorage];
+
+
+    if (!storageData) {
+
+        return 0;
+
+    }
+
+
+    // New / Full Box
+    if (selectedCondition === "new") {
+
+        return Number(storageData.new) || 0;
+
+    }
+
+
+    // Used
+    if (selectedCondition === "used") {
+
+        return Number(storageData.used) || 0;
+
+    }
+
+
+    return 0;
 
 }
 
 
-
-
-
-
 // ===============================
-// STORAGE SELECTION
+// CASH PRICE
 // ===============================
-
 
 let cashPrice =
-product.storage
-?
-product.storage[
-Object.keys(product.storage)[0]
-]
-:
-product.price;
-
-
-
-const storageSelect =
-qs("storageSelect");
-
-
-
-if(product.storage){
-
-
-Object.entries(product.storage)
-.forEach(([storage,price])=>{
-
-
-const option =
-document.createElement("option");
-
-
-option.value = price;
-
-
-option.textContent =
-`${storage} - TZS ${price.toLocaleString()}`;
-
-
-storageSelect.appendChild(option);
-
-
-});
-
-
-
-storageSelect.addEventListener(
-"change",
-()=>{
-
-
-cashPrice =
-Number(storageSelect.value);
-
-
-
-qs("cashPrice").textContent =
-formatMoney(cashPrice);
-
-
-
-calculateInstallment();
-
-
-});
-
-
-
-}
-
-
-
-
+    getProductPrice();
 
 
 // ===============================
 // DISPLAY PRODUCT
 // ===============================
 
-
 qs("productImage").src =
-product.image;
+    product.image;
 
 
 qs("productName").textContent =
-product.name;
+    product.name;
 
 
 qs("cashPrice").textContent =
-formatMoney(cashPrice);
+    formatMoney(cashPrice);
 
 
+// ===============================
+// DISPLAY STORAGE
+// ===============================
+
+const storageSelect =
+    qs("storageSelect");
 
 
+if (
+    storageSelect &&
+    product.storage
+) {
+
+    storageSelect.innerHTML = "";
+
+
+    Object.keys(product.storage)
+        .forEach(storage => {
+
+            const option =
+                document.createElement("option");
+
+
+            option.value =
+                storage;
+
+
+            option.textContent =
+                storage;
+
+
+            if (
+                storage ===
+                selectedStorage
+            ) {
+
+                option.selected = true;
+
+            }
+
+
+            storageSelect.appendChild(option);
+
+        });
+
+
+    storageSelect.addEventListener(
+        "change",
+        () => {
+
+            selectedStorage =
+                storageSelect.value;
+
+
+            // Reset condition to NEW
+            // when storage changes
+
+            selectedCondition =
+                "new";
+
+
+            updateConditionDisplay();
+
+            updatePrice();
+
+        }
+    );
+
+}
+
+
+// ===============================
+// CONDITION DISPLAY
+// ===============================
+
+function updateConditionDisplay() {
+
+    let conditionElement =
+        qs("conditionDisplay");
+
+
+    if (!conditionElement) {
+
+        return;
+
+    }
+
+
+    if (
+        selectedCondition === "new"
+    ) {
+
+        conditionElement.textContent =
+            "New / Full Box";
+
+    }
+
+    else {
+
+        conditionElement.textContent =
+            "Used";
+
+    }
+
+}
+
+
+// ===============================
+// PRICE UPDATE
+// ===============================
+
+function updatePrice() {
+
+    cashPrice =
+        getProductPrice();
+
+
+    qs("cashPrice").textContent =
+        formatMoney(cashPrice);
+
+
+    const summary =
+        qs("cashPriceSummary");
+
+
+    if (summary) {
+
+        summary.textContent =
+            formatMoney(cashPrice);
+
+    }
+
+
+    calculateInstallment();
+
+}
+
+
+// ===============================
+// DEPOSIT INPUT PROTECTION
+// ===============================
+
+const depositInput =
+    qs("depositAmount");
+
+
+if (depositInput) {
+
+
+    // Block negative sign
+    // and scientific notation
+
+    depositInput.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "-" ||
+                event.key === "e" ||
+                event.key === "E"
+            ) {
+
+                event.preventDefault();
+
+            }
+
+        }
+    );
+
+
+    // Clean pasted values
+
+    depositInput.addEventListener(
+        "input",
+        () => {
+
+            let value =
+                depositInput.value;
+
+
+            // Remove anything except
+            // numbers and decimal point
+
+            value =
+                value.replace(
+                    /[^0-9.]/g,
+                    ""
+                );
+
+
+            // Only allow one decimal
+
+            const parts =
+                value.split(".");
+
+
+            if (parts.length > 2) {
+
+                value =
+                    parts[0] +
+                    "." +
+                    parts.slice(1).join("");
+
+            }
+
+
+            // Prevent negative values
+
+            let number =
+                Number(value);
+
+
+            if (number < 0) {
+
+                value = "0";
+
+            }
+
+
+            depositInput.value =
+                value;
+
+
+            calculateInstallment();
+
+        }
+    );
+
+}
+
+
+// ===============================
+// INTEREST RATES
+// ===============================
+
+function getInterestRate(months) {
+
+    switch (months) {
+
+        case 3:
+            return 0.05;
+
+        case 4:
+            return 0.07;
+
+        case 6:
+            return 0.10;
+
+        case 8:
+            return 0.12;
+
+        case 12:
+            return 0.15;
+
+        default:
+            return 0.15;
+
+    }
+
+}
 
 
 // ===============================
 // FINANCING CALCULATOR
 // ===============================
 
+function calculateInstallment() {
 
 
-function calculateInstallment(){
+    let deposit =
+        Number(
+            qs("depositAmount").value
+        ) || 0;
 
 
+    // Prevent negative deposit
 
-let deposit =
-Number(
-qs("depositAmount").value
-)
-||0;
+    if (deposit < 0) {
 
+        deposit = 0;
 
+    }
 
-// Prevent invalid deposit
 
-deposit =
-Math.min(
-deposit,
-cashPrice
-);
+    // Deposit cannot exceed price
 
+    deposit =
+        Math.min(
+            deposit,
+            cashPrice
+        );
 
 
+    // Keep input synchronized
 
+    qs("depositAmount").value =
+        deposit || "";
 
-const months =
-Number(
-qs("loanPeriod").value
-);
 
+    const months =
+        Number(
+            qs("loanPeriod").value
+        );
 
 
+    if (!months) {
 
+        return;
 
-const loan =
-cashPrice - deposit;
+    }
 
 
+    const loan =
+        cashPrice - deposit;
 
 
+    const interestRate =
+        getInterestRate(months);
 
-const interestRate =
-getInterestRate(months);
 
+    const interest =
+        loan * interestRate;
 
 
+    const total =
+        loan + interest;
 
 
-const interest =
-loan * interestRate;
+    const monthlyPayment =
+        total / months;
 
 
+    // ===============================
+    // UPDATE SUMMARY
+    // ===============================
 
+    const cashSummary =
+        qs("cashPriceSummary");
 
 
-const total =
-loan + interest;
+    if (cashSummary) {
 
+        cashSummary.textContent =
+            formatMoney(cashPrice);
 
+    }
 
 
+    qs("downAmount").textContent =
+        formatMoney(deposit);
 
-const monthlyPayment =
-total / months;
 
+    qs("remaining").textContent =
+        formatMoney(loan);
 
 
+    const interestElement =
+        qs("interestRate");
 
 
+    if (interestElement) {
 
+        interestElement.textContent =
+            (interestRate * 100) + "%";
 
-// UPDATE DISPLAY
+    }
 
 
-qs("cashPriceSummary").textContent =
-formatMoney(cashPrice);
+    qs("totalPayment").textContent =
+        formatMoney(total);
 
 
+    qs("monthly").textContent =
+        formatMoney(monthlyPayment);
 
-qs("downAmount").textContent =
-formatMoney(deposit);
 
+    qs("duration").textContent =
+        months + " Months";
 
 
-qs("remaining").textContent =
-formatMoney(loan);
-
-
-
-qs("interestRate").textContent =
-(interestRate * 100) + "%";
-
-
-
-qs("totalPayment").textContent =
-formatMoney(total);
-
-
-
-qs("monthly").textContent =
-formatMoney(monthlyPayment);
-
-
-
-qs("duration").textContent =
-months + " Months";
-
-
+    updateConditionDisplay();
 
 }
 
 
-
-
-
-
-
-
 // ===============================
-// CALCULATOR EVENTS
+// LOAN PERIOD
 // ===============================
 
-
-qs("loanPeriod")
-.addEventListener(
-"change",
-calculateInstallment
-);
+const loanPeriod =
+    qs("loanPeriod");
 
 
+if (loanPeriod) {
 
+    loanPeriod.addEventListener(
+        "change",
+        calculateInstallment
+    );
 
+}
 
 
 // ===============================
 // SUBMIT APPLICATION
 // ===============================
 
+qs("submitApplication").onclick =
+    () => {
 
-qs("submitApplication")
-.onclick = ()=>{
 
+        // ===============================
+        // CUSTOMER INFORMATION
+        // ===============================
 
+        const name =
+            qs("customerName")
+                .value
+                .trim();
 
-const name =
-qs("customerName")
-.value.trim();
 
+        const phone =
+            qs("customerPhone")
+                .value
+                .trim();
 
 
-const phone =
-qs("customerPhone")
-.value.trim();
+        const nida =
+            qs("customerNida")
+                .value
+                .trim();
 
 
+        const occupation =
+            qs("occupation")
+                .value
+                .trim();
 
-const nida =
-qs("customerNida")
-.value.trim();
 
+        const employer =
+            qs("employer")
+                .value
+                .trim();
 
 
-const occupation =
-qs("occupation")
-.value.trim();
+        const region =
+            qs("region")
+                .value
+                .trim();
 
 
+        const district =
+            qs("district")
+                .value
+                .trim();
 
-const employer =
-qs("employer")
-.value.trim();
 
+        const address =
+            qs("address")
+                .value
+                .trim();
 
 
-const region =
-qs("region")
-.value.trim();
+        const agree =
+            qs("agree")
+                .checked;
 
 
+        // ===============================
+        // VALIDATION
+        // ===============================
 
-const district =
-qs("district")
-.value.trim();
+        if (
+            !name ||
+            !phone ||
+            !occupation ||
+            !region ||
+            !district
+        ) {
 
+            alert(
+                "Please complete all required fields."
+            );
 
+            return;
 
-const address =
-qs("address")
-.value.trim();
+        }
 
 
+        if (!agree) {
 
-const agree =
-qs("agree")
-.checked;
+            alert(
+                "Please accept the Terms & Conditions."
+            );
 
+            return;
 
+        }
 
 
+        // ===============================
+        // FINANCING VALUES
+        // ===============================
 
-if(
-!name ||
-!phone ||
-!occupation ||
-!region ||
-!district
-){
+        let deposit =
+            Number(
+                qs("depositAmount").value
+            ) || 0;
 
 
-alert(
-"Please complete all required fields."
-);
+        deposit =
+            Math.max(
+                0,
+                Math.min(
+                    deposit,
+                    cashPrice
+                )
+            );
 
 
-return;
+        const months =
+            Number(
+                qs("loanPeriod").value
+            );
 
 
-}
+        if (
+            ![
+                3,
+                4,
+                6,
+                8,
+                12
+            ].includes(months)
+        ) {
 
+            alert(
+                "Please select a valid repayment period."
+            );
 
+            return;
 
+        }
 
 
+        const loan =
+            cashPrice - deposit;
 
-if(!agree){
 
+        const interestRate =
+            getInterestRate(months);
 
-alert(
-"Please accept the Terms & Conditions."
-);
 
+        const interest =
+            loan * interestRate;
 
-return;
 
+        const total =
+            loan + interest;
 
-}
 
+        const monthlyPayment =
+            total / months;
 
 
+        // ===============================
+        // STORAGE
+        // ===============================
 
+        const storage =
+            selectedStorage ||
+            "Standard";
 
 
+        // ===============================
+        // CONDITION
+        // ===============================
 
-let deposit =
-Number(
-qs("depositAmount").value
-)
-||0;
+        const condition =
+            selectedCondition === "new"
+                ? "New / Full Box"
+                : "Used";
 
 
+        // ===============================
+        // ACCESSORIES
+        // ===============================
 
-deposit =
-Math.min(
-deposit,
-cashPrice
-);
+        let accessoriesText =
+            "None";
 
 
+        if (
+            savedProduct &&
+            savedProduct.accessories &&
+            savedProduct.accessories.length
+        ) {
 
+            accessoriesText =
+                savedProduct.accessories
+                    .map(
+                        item =>
+                            `${item.name} - ${formatMoney(item.price)}`
+                    )
+                    .join("\n");
 
+        }
 
-const months =
-Number(
-qs("loanPeriod").value
-);
 
+        // ===============================
+        // WHATSAPP MESSAGE
+        // ===============================
 
-
-
-
-const loan =
-cashPrice - deposit;
-
-
-
-
-
-const interestRate =
-getInterestRate(months);
-
-
-
-
-
-const interest =
-loan * interestRate;
-
-
-
-
-
-const total =
-loan + interest;
-
-
-
-
-
-const monthlyPayment =
-total / months;
-
-
-
-
-
-
-const storage =
-storageSelect.value
-?
-storageSelect.options[
-storageSelect.selectedIndex
-].text
-:
-"Standard";
-
-
-
-
-
-
-
-
-const message =
+        const message =
 
 `*MWASHI GADGETS PHONE FINANCING APPLICATION*
-
 
 📱 PRODUCT
 
 ${product.name}
-
 
 
 📦 STORAGE
@@ -563,11 +755,14 @@ ${product.name}
 ${storage}
 
 
+📱 CONDITION
+
+${condition}
+
 
 💰 CASH PRICE
 
 ${formatMoney(cashPrice)}
-
 
 
 💵 DEPOSIT
@@ -575,11 +770,9 @@ ${formatMoney(cashPrice)}
 ${formatMoney(deposit)}
 
 
-
 🏦 LOAN AMOUNT
 
 ${formatMoney(loan)}
-
 
 
 📅 REPAYMENT PERIOD
@@ -587,11 +780,9 @@ ${formatMoney(loan)}
 ${months} Months
 
 
-
 📈 INTEREST RATE
 
 ${interestRate * 100}%
-
 
 
 💳 TOTAL REPAYMENT
@@ -599,12 +790,14 @@ ${interestRate * 100}%
 ${formatMoney(total)}
 
 
-
 💰 MONTHLY PAYMENT
 
 ${formatMoney(monthlyPayment)}
 
 
+🎧 ACCESSORIES
+
+${accessoriesText}
 
 
 ----------------------
@@ -612,45 +805,36 @@ ${formatMoney(monthlyPayment)}
 CUSTOMER INFORMATION
 
 
-
 Name:
 ${name}
-
 
 
 Phone:
 ${phone}
 
 
-
 National ID:
 ${nida}
-
 
 
 Occupation:
 ${occupation}
 
 
-
 Employer:
 ${employer}
-
 
 
 Region:
 ${region}
 
 
-
 District:
 ${district}
 
 
-
 Address:
 ${address}
-
 
 
 APPLICATION STATUS:
@@ -658,20 +842,26 @@ APPLICATION STATUS:
 Pending Review`;
 
 
+        // ===============================
+        // OPEN WHATSAPP
+        // ===============================
+
+        window.open(
+
+            "https://wa.me/255623468239?text=" +
+            encodeURIComponent(message),
+
+            "_blank"
+
+        );
+
+    };
 
 
+// ===============================
+// INITIALIZE
+// ===============================
 
+updateConditionDisplay();
 
-window.open(
-
-"https://wa.me/255623468239?text="
-+
-encodeURIComponent(message),
-
-"_blank"
-
-);
-
-
-
-};
+updatePrice();

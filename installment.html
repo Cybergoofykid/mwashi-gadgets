@@ -1,513 +1,485 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Installment Payment | Mwashi Gadgets</title>
+    <title>Installment Payment | Mwashi Gadgets</title>
 
-<link rel="icon" href="images/logo.png">
+    <link rel="icon" href="images/logo.PNG">
 
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/installment.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/installment.css">
 
 </head>
 
-
 <body>
-
 
 <header class="installment-header">
 
-<a href="index.html" class="logo">
+    <a href="index.html" class="logo">
+        <img src="images/logo.PNG" alt="Mwashi Gadgets">
+    </a>
 
-<img src="images/logo.PNG" alt="Mwashi Gadgets">
-
-</a>
-
-
-<h1>
-Installment Payment Application
-</h1>
-
+    <h1>Installment Payment Application</h1>
 
 </header>
 
 
+<main class="installment-container">
 
-<div class="installment-container">
+    <div class="installment-card">
 
 
-<div class="installment-card">
+        <!-- ===============================
+             PRODUCT SECTION
+        =============================== -->
 
+        <section class="product-section">
 
+            <img
+                id="productImage"
+                src=""
+                alt="Product"
+            >
 
-<!-- PRODUCT SECTION -->
+            <div class="product-info">
 
-<div class="product-section">
+                <h2 id="productName">
+                    Product
+                </h2>
 
+                <p>
+                    Cash Price:
+                    <strong id="cashPrice">
+                        TZS 0
+                    </strong>
+                </p>
 
-<img id="productImage" alt="Product">
 
+                <!-- CONDITION -->
 
-<div>
+                <div class="condition-section">
 
+                    <label for="conditionSelect">
+                        Phone Condition
+                    </label>
 
-<h2 id="productName"></h2>
+                    <select id="conditionSelect">
 
+                        <option value="new">
+                            New / Full Box
+                        </option>
 
-<p>
-Cash Price:
-<strong id="cashPrice">
-0 TZS
-</strong>
-</p>
+                        <option value="used">
+                            Used
+                        </option>
 
+                    </select>
 
+                </div>
 
-<div class="storage-section">
 
+                <!-- STORAGE -->
 
-<label>
-Choose Storage
-</label>
+                <div class="storage-section">
 
+                    <label for="storageSelect">
+                        Choose Storage
+                    </label>
 
-<select id="storageSelect">
+                    <select id="storageSelect">
+                    </select>
 
-</select>
+                </div>
 
+            </div>
 
-</div>
+        </section>
 
 
-</div>
 
+        <!-- ===============================
+             FINANCING CALCULATOR
+        =============================== -->
 
-</div>
+        <section class="calculator">
 
+            <h3>
+                Choose Your Installment Plan
+            </h3>
 
 
+            <div class="payment-options">
 
 
-<!-- FINANCING CALCULATOR -->
+                <!-- DEPOSIT -->
 
+                <div class="option-group">
 
-<div class="calculator">
+                    <label for="depositAmount">
+                        Initial Deposit
+                    </label>
 
+                    <input
+                        type="number"
+                        id="depositAmount"
+                        min="0"
+                        step="1000"
+                        inputmode="numeric"
+                        placeholder="Enter deposit amount"
+                    >
 
-<h3>
-Choose Your Installment Plan
-</h3>
+                </div>
 
 
+                <!-- REPAYMENT PERIOD -->
 
-<div class="payment-options">
+                <div class="option-group">
 
+                    <label for="loanPeriod">
+                        Repayment Period
+                    </label>
 
+                    <select id="loanPeriod">
 
-<div class="option-group">
+                        <option value="3">
+                            3 Months
+                        </option>
 
+                        <option value="4">
+                            4 Months
+                        </option>
 
-<label>
-Initial Deposit
-</label>
+                        <option value="6" selected>
+                            6 Months
+                        </option>
 
+                        <option value="8">
+                            8 Months
+                        </option>
 
-<input
-type="number"
-id="depositAmount"
-min="0"
-step="1000"
-placeholder="Enter deposit amount">
+                        <option value="12">
+                            12 Months
+                        </option>
 
+                    </select>
 
-</div>
+                </div>
 
+            </div>
 
 
 
+            <!-- ===============================
+                 PAYMENT SUMMARY
+            =============================== -->
 
-<div class="option-group">
+            <div class="summary">
 
 
-<label>
-Repayment Period
-</label>
+                <div>
 
+                    <span>
+                        Cash Price
+                    </span>
 
-<select id="loanPeriod">
+                    <strong id="cashPriceSummary">
+                        TZS 0
+                    </strong>
 
+                </div>
 
-<option value="3">
-3 Months
-</option>
 
+                <div>
 
-<option value="4">
-4 Months
-</option>
+                    <span>
+                        Deposit
+                    </span>
 
+                    <strong id="downAmount">
+                        TZS 0
+                    </strong>
 
-<option value="6" selected>
-6 Months
-</option>
+                </div>
 
 
-<option value="8">
-8 Months
-</option>
+                <div>
 
+                    <span>
+                        Loan Amount
+                    </span>
 
-<option value="12">
-12 Months
-</option>
+                    <strong id="remaining">
+                        TZS 0
+                    </strong>
 
+                </div>
 
-</select>
 
+                <div>
 
-</div>
+                    <span>
+                        Interest Rate
+                    </span>
 
+                    <strong id="interestRate">
+                        0%
+                    </strong>
 
-</div>
+                </div>
 
 
+                <div>
 
+                    <span>
+                        Total Repayment
+                    </span>
 
+                    <strong id="totalPayment">
+                        TZS 0
+                    </strong>
 
+                </div>
 
-<!-- SUMMARY -->
 
+                <div class="monthly-box">
 
-<div class="summary">
+                    <span>
+                        Monthly Payment
+                    </span>
 
+                    <strong id="monthly">
+                        TZS 0
+                    </strong>
 
+                </div>
 
-<div>
 
-<span>
-Cash Price
-</span>
+                <div>
 
+                    <span>
+                        Repayment Period
+                    </span>
 
-<strong id="cashPriceSummary">
-0 TZS
-</strong>
+                    <strong id="duration">
+                        6 Months
+                    </strong>
 
+                </div>
 
-</div>
+            </div>
 
+        </section>
 
 
 
+        <!-- ===============================
+             CUSTOMER INFORMATION
+        =============================== -->
 
-<div>
+        <section class="customer-form">
 
-<span>
-Deposit
-</span>
+            <h3>
+                Applicant Details
+            </h3>
 
+            <p class="form-description">
+                Please provide your information to complete your installment application.
+            </p>
 
-<strong id="downAmount">
-0 TZS
-</strong>
 
+            <div class="form-grid">
 
-</div>
 
+                <!-- FULL NAME -->
 
+                <div class="input-group">
 
+                    <label for="customerName">
+                        Full Name
+                    </label>
 
+                    <input
+                        type="text"
+                        id="customerName"
+                        placeholder="Enter your full name"
+                    >
 
-<div>
+                </div>
 
-<span>
-Loan Amount
-</span>
 
+                <!-- PHONE -->
 
-<strong id="remaining">
-0 TZS
-</strong>
+                <div class="input-group">
 
+                    <label for="customerPhone">
+                        Phone Number
+                    </label>
 
-</div>
+                    <input
+                        type="tel"
+                        id="customerPhone"
+                        placeholder="07XX XXX XXX"
+                    >
 
+                </div>
 
 
+                <!-- NIDA -->
 
+                <div class="input-group">
 
-<div>
+                    <label for="customerNida">
+                        National ID
+                    </label>
 
-<span>
-Interest Rate
-</span>
+                    <input
+                        type="text"
+                        id="customerNida"
+                        placeholder="NIDA Number"
+                    >
 
+                </div>
 
-<strong id="interestRate">
-0%
-</strong>
 
+                <!-- OCCUPATION -->
 
-</div>
+                <div class="input-group">
 
+                    <label for="occupation">
+                        Occupation
+                    </label>
 
+                    <input
+                        type="text"
+                        id="occupation"
+                        placeholder="Your occupation"
+                    >
 
+                </div>
 
 
-<div>
+                <!-- EMPLOYER -->
 
-<span>
-Total Repayment
-</span>
+                <div class="input-group">
 
+                    <label for="employer">
+                        Employer / Business
+                    </label>
 
-<strong id="totalPayment">
-0 TZS
-</strong>
+                    <input
+                        type="text"
+                        id="employer"
+                        placeholder="Employer name"
+                    >
 
+                </div>
 
-</div>
 
+                <!-- REGION -->
 
+                <div class="input-group">
 
+                    <label for="region">
+                        Region
+                    </label>
 
+                    <input
+                        type="text"
+                        id="region"
+                        placeholder="Region"
+                    >
 
-<div class="monthly-box">
+                </div>
 
 
-<span>
-Monthly Payment
-</span>
+                <!-- DISTRICT -->
 
+                <div class="input-group">
 
-<strong id="monthly">
-0 TZS
-</strong>
+                    <label for="district">
+                        District
+                    </label>
 
+                    <input
+                        type="text"
+                        id="district"
+                        placeholder="District"
+                    >
 
-</div>
+                </div>
 
 
+                <!-- ADDRESS -->
 
+                <div class="input-group full">
 
+                    <label for="address">
+                        Residential Address
+                    </label>
 
-<div>
+                    <textarea
+                        id="address"
+                        rows="4"
+                        placeholder="Enter your residential address"
+                    ></textarea>
 
+                </div>
 
-<span>
-Repayment Period
-</span>
+            </div>
 
 
-<strong id="duration">
-6 Months
-</strong>
+            <!-- AGREEMENT -->
 
+            <label class="agreement">
 
-</div>
+                <input
+                    type="checkbox"
+                    id="agree"
+                >
 
+                <span>
+                    I agree to Mwashi Gadgets installment terms and conditions.
+                </span>
 
+            </label>
 
 
-</div>
+            <!-- SUBMIT -->
 
+            <button
+                type="button"
+                id="submitApplication"
+                class="submit-btn"
+            >
+                Submit Application
+            </button>
 
-</div>
+        </section>
 
+    </div>
 
+</main>
 
 
 
-
-
-<!-- CUSTOMER FORM -->
-
-
-<div class="customer-form">
-
-
-<h3>
-Applicant Details
-</h3>
-
-
-<p class="form-description">
-
-Please provide your information to complete your installment application.
-
-</p>
-
-
-
-
-<div class="form-grid">
-
-
-
-<div class="input-group">
-
-<label>
-Full Name
-</label>
-
-<input 
-id="customerName"
-placeholder="Enter your full name">
-
-</div>
-
-<div class="input-group">
-
-<label>
-Phone Number
-</label>
-
-<input 
-id="customerPhone"
-placeholder="07XX XXX XXX">
-
-</div>
-
-
-<div class="input-group">
-
-<label>
-National ID
-</label>
-
-<input 
-id="customerNida"
-placeholder="NIDA Number">
-
-</div>
-
-
-<div class="input-group">
-
-<label>
-Occupation
-</label>
-
-<input 
-id="occupation"
-placeholder="Your occupation">
-
-</div>
-
-
-<div class="input-group">
-
-<label>
-Employer / Business
-</label>
-
-<input 
-id="employer"
-placeholder="Employer name">
-
-</div>
-
-
-<div class="input-group">
-
-<label>
-Region
-</label>
-
-<input 
-id="region"
-placeholder="Region">
-
-</div>
-
-<div class="input-group">
-
-<label>
-District
-</label>
-
-<input 
-id="district"
-placeholder="District">
-
-</div>
-
-
-<div class="input-group full">
-
-<label>
-Residential Address
-</label>
-
-
-<textarea
-id="address"
-rows="4"
-placeholder="Enter your residential address">
-
-</textarea>
-
-
-</div>
-
-
-</div>
-
-<label class="agreement">
-
-
-<input 
-type="checkbox"
-id="agree">
-
-
-<span>
-
-I agree to Mwashi Gadgets installment terms and conditions.
-
-</span>
-
-</label>
-
-
-<button 
-id="submitApplication"
-class="submit-btn">
-
-Submit Application
-
-</button>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-<!-- JAVASCRIPT -->
+<!-- ===============================
+     JAVASCRIPT
+=============================== -->
 
 <script src="js/apple.js"></script>
-
 <script src="js/samsung.js"></script>
-
 <script src="js/pixel.js"></script>
-
 <script src="js/accessories.js"></script>
-
 <script src="js/audio.js"></script>
-
 <script src="js/products.js"></script>
-
 <script src="js/installment.js"></script>
-
 
 </body>
 
 </html>
+```

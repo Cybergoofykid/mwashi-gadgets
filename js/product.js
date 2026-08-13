@@ -1,299 +1,828 @@
 // ===============================
 // GET PRODUCT FROM URL
 // ===============================
+
 const params = new URLSearchParams(window.location.search);
 const productId = Number(params.get("id"));
 
 const product = products.find(p => p.id === productId);
 
 if (!product) {
-    document.body.innerHTML = "<h2>Product not found</h2>";
+    document.body.innerHTML = "<h2>Product not found.</h2>";
     throw new Error("Product not found");
 }
 
-// ===============================
-// CART COUNT
-// ===============================
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-const count = document.getElementById("count");
-if (count) {
-    count.textContent = cart.reduce((t, item) => t + item.qty, 0);
+// ===============================
+// HELPERS
+// ===============================
+
+function updateCartCount() {
+
+    const cart =
+        JSON.parse(localStorage.getItem("cart")) || [];
+
+    const count =
+        document.getElementById("count");
+
+    if (count) {
+
+        count.textContent =
+            cart.reduce(
+                (total, item) =>
+                    total + (Number(item.qty) || 0),
+                0
+            );
+    }
 }
 
-// ===============================
-// STATE (SELECTED OPTIONS)
-// ===============================
-let selectedStorage = product.storage 
-    ? Object.keys(product.storage)[0] 
-    : null;
 
-let selectedColour = product.colours 
-    ? product.colours[0] 
-    : null;
+function formatMoney(amount) {
+
+    return "TZS " +
+        Number(amount || 0).toLocaleString("en-TZ");
+}
+
+
+// ===============================
+// INITIALIZE CART COUNT
+// ===============================
+
+updateCartCount();
+
+
+// ===============================
+// SELECTED OPTIONS
+// ===============================
+
+let selectedStorage =
+    product.storage
+        ? Object.keys(product.storage)[0]
+        : null;
+
+let selectedCondition = "new";
+
+let selectedColour =
+    product.colours &&
+    product.colours.length
+        ? product.colours[0]
+        : null;
 
 let selectedAccessories = [];
 
-// ===============================
-// DISPLAY PRODUCT INFO
-// ===============================
-document.getElementById("productName").textContent = product.name;
-document.getElementById("productDescription").textContent = product.description;
-document.getElementById("productImage").src = product.image;
 
 // ===============================
-// ACCESSORIES DATA
+// PRODUCT INFORMATION
 // ===============================
 
-const accessories = accessoryProducts;
+const productName =
+    document.getElementById("productName");
+
+const productDescription =
+    document.getElementById("productDescription");
+
+const productImage =
+    document.getElementById("productImage");
+
+
+if (productName) {
+
+    productName.textContent =
+        product.name;
+}
+
+
+if (productDescription) {
+
+    productDescription.textContent =
+        product.description || "";
+}
+
+
+if (productImage) {
+
+    productImage.src =
+        product.image;
+
+    productImage.alt =
+        product.name;
+}
+
+
+// ===============================
+// GET BASE PRICE
+// ===============================
+
+function getBasePrice() {
+
+    // Products without storage
+    if (!product.storage) {
+
+        return Number(product.price) || 0;
+    }
+
+
+    const storageData =
+        product.storage[selectedStorage];
+
+
+    if (!storageData) {
+
+        return 0;
+    }
+
+
+    // New / Used structure
+    if (
+        typeof storageData === "object" &&
+        storageData !== null
+    ) {
+
+        return Number(
+            storageData[selectedCondition]
+        ) || 0;
+    }
+
+
+    // Legacy price structure
+    return Number(storageData) || 0;
+}
+
+
+// ===============================
+// ACCESSORIES TOTAL
+// ===============================
+
+function getAccessoriesTotal() {
+
+    return selectedAccessories.reduce(
+        (total, item) => {
+
+            return total +
+                Number(item.price || 0);
+
+        },
+        0
+    );
+}
+
+
+// ===============================
+// FINAL PRICE
+// ===============================
+
+function getFinalPrice() {
+
+    return (
+        getBasePrice() +
+        getAccessoriesTotal()
+    );
+}
+
+
+// ===============================
+// UPDATE PRICE
+// ===============================
+
+function updatePrice() {
+
+    const price =
+        getFinalPrice();
+
+    const productPrice =
+        document.getElementById("productPrice");
+
+    if (productPrice) {
+
+        productPrice.textContent =
+            formatMoney(price);
+    }
+}
+
+
+// ===============================
+// CONDITION VALIDATION
+// ===============================
+
+function conditionExists(condition) {
+
+    if (!product.storage) {
+        return false;
+    }
+
+    const storageData =
+        product.storage[selectedStorage];
+
+    if (
+        !storageData ||
+        typeof storageData !== "object"
+    ) {
+
+        return false;
+    }
+
+    return (
+        storageData[condition] !== undefined &&
+        Number(storageData[condition]) > 0
+    );
+}
+
+
 // ===============================
 // STORAGE OPTIONS
 // ===============================
 
 const storageOptions =
-document.getElementById("storageOptions");
+    document.getElementById("storageOptions");
 
 
-if(product.storage){
+function renderStorageOptions() {
 
-    Object.entries(product.storage).forEach(
-        ([storage, price]) => {
+    if (
+        !storageOptions ||
+        !product.storage
+    ) {
 
-
-        const btn = document.createElement("button");
-
-        btn.className = "option-btn";
-
-        btn.textContent = storage;
+        return;
+    }
 
 
-        if(storage === selectedStorage){
-
-            btn.classList.add("active");
-
-        }
+    storageOptions.innerHTML = "";
 
 
-        btn.onclick = () => {
+    Object.keys(product.storage).forEach(
+        storage => {
+
+            const button =
+                document.createElement("button");
+
+            button.type = "button";
+
+            button.className =
+                "option-btn";
+
+            button.textContent =
+                storage;
 
 
-            selectedStorage = storage;
+            if (
+                storage ===
+                selectedStorage
+            ) {
+
+                button.classList.add(
+                    "active"
+                );
+            }
 
 
-            document
-            .querySelectorAll("#storageOptions .option-btn")
-            .forEach(b =>
-                b.classList.remove("active")
+            button.addEventListener(
+                "click",
+                () => {
+
+                    selectedStorage =
+                        storage;
+
+
+                    // Keep current condition
+                    // if available for this storage
+                    if (
+                        !conditionExists(
+                            selectedCondition
+                        )
+                    ) {
+
+                        selectedCondition =
+                            "new";
+                    }
+
+
+                    renderStorageOptions();
+
+                    renderConditionOptions();
+
+                    updatePrice();
+                }
             );
 
 
-            btn.classList.add("active");
-
-
-            updatePrice();
-
-        };
-
-
-        storageOptions.appendChild(btn);
-
-
-    });
-
+            storageOptions.appendChild(
+                button
+            );
+        }
+    );
 }
-// ===============================
-// COLOUR OPTIONS
-// ===============================
-const colourOptions = document.getElementById("colourOptions");
 
-product.colours.forEach(colour => {
-
-    const btn = document.createElement("button");
-    btn.className = "option-btn";
-    btn.textContent = colour;
-
-    if (colour === selectedColour) {
-        btn.classList.add("active");
-    }
-
-    btn.onclick = () => {
-
-        selectedColour = colour;
-
-        document.querySelectorAll("#colourOptions .option-btn")
-            .forEach(b => b.classList.remove("active"));
-
-        btn.classList.add("active");
-    };
-
-    colourOptions.appendChild(btn);
-});
 
 // ===============================
-// ACCESSORY OPTIONS
+// CONDITION OPTIONS
 // ===============================
 
-const accessoryOptions = document.getElementById("accessoryOptions");
-
-accessories.forEach(item => {
-
-    const card = document.createElement("div");
-    card.className = "accessory-card";
-
-    card.innerHTML = `
-        <img src="${item.image}" alt="${item.name}">
-        <h4>${item.name}</h4>
-        <p>TZS ${item.price.toLocaleString()}</p>
-
-        <button class="accessory-btn">
-            Add
-        </button>
-    `;
-
-    const button = card.querySelector(".accessory-btn");
-
-    button.onclick = () => {
-
-        const exists = selectedAccessories.find(a => a.name === item.name);
-
-        if (exists) {
-
-            selectedAccessories = selectedAccessories.filter(
-                a => a.name !== item.name
-            );
-
-            card.classList.remove("selected");
-            button.textContent = "Add";
-
-        } else {
-
-            selectedAccessories.push(item);
-
-            card.classList.add("selected");
-            button.textContent = "Added ✓";
-        }
-
-        updatePrice();
-    };
-
-    accessoryOptions.appendChild(card);
-
-});
-// ===============================
-// PRICE UPDATE
-// ===============================
-function updatePrice(){
-
-    let basePrice;
-
-
-    if(product.storage){
-
-        basePrice = product.storage[selectedStorage];
-
-    } else {
-
-        basePrice = product.price;
-
-    }
-
-
-    const accessoriesTotal = selectedAccessories.reduce(
-        (sum,item)=>sum+item.price,
-        0
+const conditionOptions =
+    document.getElementById(
+        "conditionOptions"
     );
 
 
-    const total = basePrice + accessoriesTotal;
+function renderConditionOptions() {
+
+    if (!conditionOptions) {
+        return;
+    }
 
 
-    document.getElementById("productPrice").textContent =
-    "TZS " + total.toLocaleString();
+    conditionOptions.innerHTML = "";
 
+
+    // No storage
+    if (!product.storage) {
+        return;
+    }
+
+
+    const storageData =
+        product.storage[selectedStorage];
+
+
+    if (
+        !storageData ||
+        typeof storageData !== "object"
+    ) {
+
+        return;
+    }
+
+
+    // ===============================
+    // NEW / FULL BOX
+    // ===============================
+
+    if (
+        storageData.new !== undefined &&
+        Number(storageData.new) > 0
+    ) {
+
+        const button =
+            document.createElement("button");
+
+        button.type = "button";
+
+        button.className =
+            "option-btn";
+
+        button.textContent =
+            "New / Full Box";
+
+
+        if (
+            selectedCondition === "new"
+        ) {
+
+            button.classList.add(
+                "active"
+            );
+        }
+
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                selectedCondition =
+                    "new";
+
+                renderConditionOptions();
+
+                updatePrice();
+            }
+        );
+
+
+        conditionOptions.appendChild(
+            button
+        );
+    }
+
+
+    // ===============================
+    // USED
+    // ===============================
+
+    if (
+        storageData.used !== undefined &&
+        Number(storageData.used) > 0
+    ) {
+
+        const button =
+            document.createElement("button");
+
+        button.type = "button";
+
+        button.className =
+            "option-btn";
+
+        button.textContent =
+            "Used";
+
+
+        if (
+            selectedCondition === "used"
+        ) {
+
+            button.classList.add(
+                "active"
+            );
+        }
+
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                selectedCondition =
+                    "used";
+
+                renderConditionOptions();
+
+                updatePrice();
+            }
+        );
+
+
+        conditionOptions.appendChild(
+            button
+        );
+    }
 }
 
-// INITIAL PRICE LOAD
+
+// ===============================
+// INITIALIZE OPTIONS
+// ===============================
+
+renderStorageOptions();
+
+renderConditionOptions();
+
+
+// ===============================
+// COLOUR OPTIONS
+// ===============================
+
+const colourOptions =
+    document.getElementById(
+        "colourOptions"
+    );
+
+
+if (
+    colourOptions &&
+    product.colours &&
+    product.colours.length
+) {
+
+    colourOptions.innerHTML = "";
+
+
+    product.colours.forEach(
+        colour => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+            button.type = "button";
+
+            button.className =
+                "option-btn";
+
+            button.textContent =
+                colour;
+
+
+            if (
+                colour === selectedColour
+            ) {
+
+                button.classList.add(
+                    "active"
+                );
+            }
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    selectedColour =
+                        colour;
+
+
+                    colourOptions
+                        .querySelectorAll(
+                            ".option-btn"
+                        )
+                        .forEach(btn => {
+
+                            btn.classList.remove(
+                                "active"
+                            );
+                        });
+
+
+                    button.classList.add(
+                        "active"
+                    );
+                }
+            );
+
+
+            colourOptions.appendChild(
+                button
+            );
+        }
+    );
+}
+
+
+// ===============================
+// ACCESSORIES
+// ===============================
+
+const accessoryOptions =
+    document.getElementById(
+        "accessoryOptions"
+    );
+
+
+const accessories =
+    typeof accessoryProducts !== "undefined"
+        ? accessoryProducts
+        : [];
+
+
+if (
+    accessoryOptions &&
+    accessories.length
+) {
+
+    accessoryOptions.innerHTML = "";
+
+
+    accessories.forEach(
+        item => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "accessory-card";
+
+
+            card.innerHTML = `
+
+                <img
+                    src="${item.image}"
+                    alt="${item.name}"
+                >
+
+                <h4>${item.name}</h4>
+
+                <p>
+                    ${formatMoney(item.price)}
+                </p>
+
+                <button
+                    type="button"
+                    class="accessory-btn"
+                >
+                    Add
+                </button>
+
+            `;
+
+
+            const button =
+                card.querySelector(
+                    ".accessory-btn"
+                );
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const exists =
+                        selectedAccessories.some(
+                            accessory =>
+                                accessory.name ===
+                                item.name
+                        );
+
+
+                    if (exists) {
+
+                        selectedAccessories =
+                            selectedAccessories.filter(
+                                accessory =>
+                                    accessory.name !==
+                                    item.name
+                            );
+
+
+                        card.classList.remove(
+                            "selected"
+                        );
+
+                        button.textContent =
+                            "Add";
+
+                    } else {
+
+                        selectedAccessories.push(
+                            item
+                        );
+
+
+                        card.classList.add(
+                            "selected"
+                        );
+
+                        button.textContent =
+                            "Added ✓";
+                    }
+
+
+                    updatePrice();
+                }
+            );
+
+
+            accessoryOptions.appendChild(
+                card
+            );
+        }
+    );
+}
+
+
+// ===============================
+// INITIAL PRICE
+// ===============================
+
 updatePrice();
+
 
 // ===============================
 // ADD TO CART
 // ===============================
-document.getElementById("addToCartBtn").addEventListener("click", () => {
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-   const basePrice = product.storage
-    ? product.storage[selectedStorage]
-    : product.price;
-
-    const accessoriesTotal = selectedAccessories.reduce(
-        (sum, item) => sum + item.price,
-        0
-    );
-
-    const finalPrice = basePrice + accessoriesTotal;
-
-    cart.push({
-        id: product.id,
-        name: product.name,
-        image: product.image,
-        storage: selectedStorage,
-        colour: selectedColour,
-        accessories: selectedAccessories,
-        price: finalPrice,
-        qty: 1
-    });
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-
-    alert("Added to cart successfully!");
-});
-document.getElementById("installmentBtn").onclick = () => {
-
-
-    const basePrice = product.storage
-        ? product.storage[selectedStorage]
-        : product.price;
-
-
-    const accessoriesTotal =
-        selectedAccessories.reduce(
-            (sum,item)=>sum+item.price,
-            0
-        );
-
-
-    const finalPrice =
-        basePrice + accessoriesTotal;
-
-
-
-    const installmentProduct = {
-
-        id: product.id,
-
-        name: product.name,
-
-        image: product.image,
-
-        storage: selectedStorage,
-
-        colour: selectedColour,
-
-        accessories: selectedAccessories,
-
-        price: finalPrice
-
-    };
-
-
-    localStorage.setItem(
-        "installmentProduct",
-        JSON.stringify(installmentProduct)
+const addToCartBtn =
+    document.getElementById(
+        "addToCartBtn"
     );
 
 
-    window.location.href =
-    `installment.html?id=${product.id}`;
+if (addToCartBtn) {
 
-};
+    addToCartBtn.addEventListener(
+        "click",
+        () => {
+
+            const finalPrice =
+                getFinalPrice();
+
+
+            if (finalPrice <= 0) {
+
+                alert(
+                    "This product is currently unavailable."
+                );
+
+                return;
+            }
+
+
+            const cart =
+                JSON.parse(
+                    localStorage.getItem(
+                        "cart"
+                    )
+                ) || [];
+
+
+            cart.push({
+
+                id: product.id,
+
+                name: product.name,
+
+                image: product.image,
+
+                storage:
+                    selectedStorage,
+
+                condition:
+                    selectedCondition,
+
+                colour:
+                    selectedColour,
+
+                accessories:
+                    selectedAccessories,
+
+                price:
+                    finalPrice,
+
+                qty: 1
+            });
+
+
+            localStorage.setItem(
+                "cart",
+                JSON.stringify(cart)
+            );
+
+
+            updateCartCount();
+
+
+            alert(
+                "Added to cart successfully!"
+            );
+        }
+    );
+}
+
+
+// ===============================
+// INSTALLMENT
+// ===============================
+
+const installmentBtn =
+    document.getElementById(
+        "installmentBtn"
+    );
+
+
+if (installmentBtn) {
+
+    installmentBtn.addEventListener(
+        "click",
+        () => {
+
+            const finalPrice =
+                getFinalPrice();
+
+
+            if (finalPrice <= 0) {
+
+                alert(
+                    "This product is currently unavailable."
+                );
+
+                return;
+            }
+
+
+            const installmentProduct = {
+
+                id: product.id,
+
+                name: product.name,
+
+                image: product.image,
+
+                storage:
+                    selectedStorage,
+
+                condition:
+                    selectedCondition,
+
+                colour:
+                    selectedColour,
+
+                accessories:
+                    selectedAccessories,
+
+                price:
+                    finalPrice
+            };
+
+
+            localStorage.setItem(
+                "installmentProduct",
+                JSON.stringify(
+                    installmentProduct
+                )
+            );
+
+
+            window.location.href =
+                `installment.html?id=${product.id}`;
+        }
+    );
+}

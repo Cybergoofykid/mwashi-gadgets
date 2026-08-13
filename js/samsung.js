@@ -1,298 +1,439 @@
 const samsungProducts = [
 
-/* =========================
-   Samsung Smartphones
-========================= */
+    // =========================
+    // Samsung Smartphones
+    // =========================
 
-{
-    id: 2001,
-    name: "Samsung Galaxy S26 Ultra",
+    {
+        id: 2001,
 
-    category: "Samsung",
-    brand: "Samsung",
-    subcategory: "Smartphones",
+        name: "Samsung Galaxy S26 Ultra",
 
-    featured: true,
-    latest: true,
-    installment: true,
+        category: "Samsung",
+        brand: "Samsung",
+        subcategory: "Smartphones",
 
-    image: "images/samsung/26-ULTRA.webp",
+        featured: true,
+        latest: true,
+        installment: true,
 
-    description: "Samsung premium flagship with advanced AI features, powerful performance and professional camera system.",
+        image: "images/samsung/26-ULTRA.webp",
 
-    storage: {
-        "256GB": 2700000,
-        "512GB": 3100000,
-        "1TB": 3600000
+        description:
+            "Samsung premium flagship with advanced AI features, powerful performance and professional camera system.",
+
+        storage: {
+
+            "256GB": {
+                new: 2700000,
+                used: 2300000
+            },
+
+            "512GB": {
+                new: 3100000,
+                used: 2700000
+            },
+
+            "1TB": {
+                new: 3600000,
+                used: 3200000
+            }
+
+        },
+
+        colours: [
+            "Titanium Black",
+            "Titanium Gray",
+            "Titanium Silver",
+            "Titanium Blue"
+        ]
     },
 
-    colours: [
-        "Titanium Black",
-        "Titanium Gray",
-        "Titanium Silver",
-        "Titanium Blue"
-    ]
-},
 
-{
-    id: 2002,
-    name: "Samsung Galaxy S26",
+    {
+        id: 2002,
 
-    category: "Samsung",
-    brand: "Samsung",
-    subcategory: "Smartphones",
+        name: "Samsung Galaxy S26",
 
-    featured: true,
-    latest: true,
-    installment: true,
+        category: "Samsung",
+        brand: "Samsung",
+        subcategory: "Smartphones",
 
-    image: "images/samsung/s26.webp",
+        featured: true,
+        latest: true,
+        installment: true,
 
-    description: "Compact Samsung flagship combining powerful performance, AI features and premium design.",
+        image: "images/samsung/s26.webp",
 
-    storage: {
-        "128GB": 2300000,
-        "256GB": 2600000
+        description:
+            "Compact Samsung flagship combining powerful performance, AI features and premium design.",
+
+        storage: {
+
+            "256GB": {
+                new: 2600000,
+                used: 2200000
+            },
+
+            "512GB": {
+                new: 3000000,
+                used: 2600000
+            }
+
+        },
+
+        colours: [
+            "Black",
+            "White",
+            "Blue",
+            "Silver"
+        ]
     },
 
-    colours: [
-        "Black",
-        "White",
-        "Blue",
-        "Silver"
-    ]
-},
 
-{
-    id: 2003,
-    name: "Samsung Galaxy S25 FE",
+    {
+        id: 2003,
 
-    category: "Samsung",
-    brand: "Samsung",
-    subcategory: "Smartphones",
+        name: "Samsung Galaxy S25 FE",
 
-    featured: false,
-    latest: true,
-    installment: true,
+        category: "Samsung",
+        brand: "Samsung",
+        subcategory: "Smartphones",
 
-    image: "images/samsung/s25fe.webp",
+        featured: false,
+        latest: true,
+        installment: true,
 
-    description: "Affordable flagship experience with premium display, cameras and performance.",
+        image: "images/samsung/s25fe.webp",
 
-    storage: {
-        "128GB": 2000000,
-        "256GB": 2300000
+        description:
+            "Affordable flagship experience with premium display, cameras and performance.",
+
+        storage: {
+
+            "128GB": {
+                new: 2000000,
+                used: 1600000
+            },
+
+            "256GB": {
+                new: 2300000,
+                used: 1900000
+            },
+
+            "512GB": {
+                new: 2600000,
+                used: 2200000
+            }
+
+        },
+
+        colours: [
+            "Black",
+            "Blue",
+            "White",
+            "Gray"
+        ]
     },
 
-    colours: [
-        "Black",
-        "Blue",
-        "White",
-        "Gray"
-    ]
-},
 
-{
-    id: 2004,
-    name: "Samsung Galaxy Z Fold 7",
+    {
+        id: 2004,
 
-    category: "Samsung",
-    brand: "Samsung",
-    subcategory: "Foldable Smartphones",
+        name: "Samsung Galaxy Z Fold 7",
 
-    featured: true,
-    latest: true,
-    installment: true,
+        category: "Samsung",
+        brand: "Samsung",
+        subcategory: "Foldable Smartphones",
 
-    image: "images/samsung/zfold7.webp",
+        featured: true,
+        latest: true,
+        installment: true,
 
-    description: "Premium foldable smartphone with tablet-sized display and flagship performance.",
+        image: "images/samsung/zfold7.webp",
 
-    storage: {
-        "256GB": 3500000,
-        "512GB": 3900000,
-        "1TB": 4500000
+        description:
+            "Premium foldable smartphone with tablet-sized display and flagship performance.",
+
+        storage: {
+
+            "256GB": {
+                new: 3500000,
+                used: 3100000
+            },
+
+            "512GB": {
+                new: 3900000,
+                used: 3500000
+            },
+
+            "1TB": {
+                new: 4500000,
+                used: 4100000
+            }
+
+        },
+
+        colours: [
+            "Black",
+            "Silver",
+            "Blue"
+        ]
     },
 
-    colours: [
-        "Black",
-        "Silver",
-        "Blue"
-    ]
-},
 
-{
-    id: 2005,
-    name: "Samsung Galaxy Z Flip",
+    {
+        id: 2005,
 
-    category: "Samsung",
-    brand: "Samsung",
-    subcategory: "Foldable Smartphones",
+        name: "Samsung Galaxy Z Flip 7",
 
-    featured: true,
-    latest: true,
-    installment: true,
+        category: "Samsung",
+        brand: "Samsung",
+        subcategory: "Foldable Smartphones",
 
-    image: "images/samsung/ZFLIP.webp",
+        featured: true,
+        latest: true,
+        installment: true,
 
-    description: "Stylish compact foldable smartphone with premium design and flexible display.",
+        image: "images/samsung/ZFLIP.webp",
 
-    storage: {
-        "256GB": 2800000,
-        "512GB": 3300000
+        description:
+            "Stylish compact foldable smartphone with premium design and flexible display.",
+
+        storage: {
+
+            "256GB": {
+                new: 2800000,
+                used: 2400000
+            },
+
+            "512GB": {
+                new: 3300000,
+                used: 2900000
+            }
+
+        },
+
+        colours: [
+            "Blue Shadow",
+            "Jetblack",
+            "Coralred",
+            "Mint"
+        ]
     },
 
-    colours: [
-        "Black",
-        "Blue",
-        "Pink",
-        "Silver"
-    ]
-},
 
-{
-    id: 2006,
-    name: "Samsung Galaxy S25 Ultra",
+    {
+        id: 2006,
 
-    category: "Samsung",
-    brand: "Samsung",
-    subcategory: "Smartphones",
+        name: "Samsung Galaxy S25 Ultra",
 
-    featured: true,
-    latest: false,
-    installment: true,
+        category: "Samsung",
+        brand: "Samsung",
+        subcategory: "Smartphones",
 
-    image: "images/samsung/S25-ULTRA.webp",
+        featured: true,
+        latest: false,
+        installment: true,
 
-    description: "Ultra flagship featuring S Pen support, powerful cameras and premium titanium design.",
+        image: "images/samsung/S25-ULTRA.webp",
 
-    storage: {
-        "256GB": 2600000,
-        "512GB": 3000000,
-        "1TB": 3600000
+        description:
+            "Ultra flagship featuring S Pen support, powerful cameras and premium titanium design.",
+
+        storage: {
+
+            "256GB": {
+                new: 2600000,
+                used: 2200000
+            },
+
+            "512GB": {
+                new: 3000000,
+                used: 2600000
+            },
+
+            "1TB": {
+                new: 3600000,
+                used: 3200000
+            }
+
+        },
+
+        colours: [
+            "Titanium Black",
+            "Titanium Gray",
+            "Titanium Blue",
+            "Titanium Silver"
+        ]
     },
 
-    colours: [
-        "Titanium Black",
-        "Titanium Gray",
-        "Titanium Blue",
-        "Titanium Silver"
-    ]
-},
 
-{
-    id: 2007,
-    name: "Samsung Galaxy S25+",
+    {
+        id: 2007,
 
-    category: "Samsung",
-    brand: "Samsung",
-    subcategory: "Smartphones",
+        name: "Samsung Galaxy S25+",
 
-    featured: false,
-    latest: false,
-    installment: true,
+        category: "Samsung",
+        brand: "Samsung",
+        subcategory: "Smartphones",
 
-    image: "images/samsung/S25+.webp",
+        featured: false,
+        latest: false,
+        installment: true,
 
-    description: "Large display flagship smartphone with excellent performance and battery life.",
+        image: "images/samsung/S25+.webp",
 
-    storage: {
-        "256GB": 2400000,
-        "512GB": 2800000
+        description:
+            "Large display flagship smartphone with excellent performance and battery life.",
+
+        storage: {
+
+            "256GB": {
+                new: 2400000,
+                used: 2000000
+            },
+
+            "512GB": {
+                new: 2800000,
+                used: 2400000
+            }
+
+        },
+
+        colours: [
+            "Black",
+            "Blue",
+            "Gray",
+            "Silver"
+        ]
     },
 
-    colours: [
-        "Black",
-        "Blue",
-        "Gray",
-        "Silver"
-    ]
-},
 
-{
-    id: 2008,
-    name: "Samsung Galaxy S25",
+    {
+        id: 2008,
 
-    category: "Samsung",
-    brand: "Samsung",
-    subcategory: "Smartphones",
+        name: "Samsung Galaxy S25",
 
-    featured: false,
-    latest: false,
-    installment: true,
+        category: "Samsung",
+        brand: "Samsung",
+        subcategory: "Smartphones",
 
-    image: "images/samsung/s25.webp",
+        featured: false,
+        latest: false,
+        installment: true,
 
-    description: "Powerful everyday flagship smartphone with premium Samsung features.",
+        image: "images/samsung/s25.webp",
 
-    storage: {
-        "128GB": 2100000,
-        "256GB": 2400000
+        description:
+            "Powerful everyday flagship smartphone with premium Samsung features.",
+
+        storage: {
+
+            "128GB": {
+                new: 2100000,
+                used: 1700000
+            },
+
+            "256GB": {
+                new: 2400000,
+                used: 2000000
+            },
+
+            "512GB": {
+                new: 2700000,
+                used: 2300000
+            }
+
+        },
+
+        colours: [
+            "Black",
+            "Blue",
+            "Mint",
+            "Silver"
+        ]
     },
 
-    colours: [
-        "Black",
-        "Blue",
-        "Mint",
-        "Silver"
-    ]
-},
 
-{
-    id: 2009,
-    name: "Samsung Galaxy A56",
+    {
+        id: 2009,
 
-    category: "Samsung",
-    brand: "Samsung",
-    subcategory: "Midrange Smartphones",
+        name: "Samsung Galaxy A56",
 
-    featured: false,
-    latest: true,
-    installment: true,
+        category: "Samsung",
+        brand: "Samsung",
+        subcategory: "Midrange Smartphones",
 
-    image: "images/samsung/A56.webp",
+        featured: false,
+        latest: true,
+        installment: true,
 
-    description: "Affordable Samsung smartphone with large display, great battery and reliable performance.",
+        image: "images/samsung/A56.webp",
 
-    storage: {
-        "128GB": 900000,
-        "256GB": 1100000
+        description:
+            "Affordable Samsung smartphone with large display, great battery and reliable performance.",
+
+        storage: {
+
+            "128GB": {
+                new: 900000,
+                used: 500000
+            },
+
+            "256GB": {
+                new: 1100000,
+                used: 700000
+            }
+
+        },
+
+        colours: [
+            "Black",
+            "Gray",
+            "Pink",
+            "Green"
+        ]
     },
 
-    colours: [
-        "Black",
-        "Gray",
-        "Pink",
-        "Green"
-    ]
-},
 
-{
-    id: 2010,
-    name: "Samsung Galaxy A36",
+    {
+        id: 2010,
 
-    category: "Samsung",
-    brand: "Samsung",
-    subcategory: "Midrange Smartphones",
+        name: "Samsung Galaxy A36",
 
-    featured: false,
-    latest: true,
-    installment: true,
+        category: "Samsung",
+        brand: "Samsung",
+        subcategory: "Midrange Smartphones",
 
-    image: "images/samsung/A36.webp",
+        featured: false,
+        latest: true,
+        installment: true,
 
-    description: "Modern Samsung midrange phone with balanced performance and battery life.",
+        image: "images/samsung/A36.webp",
 
-    storage: {
-        "128GB": 700000,
-        "256GB": 850000
-    },
+        description:
+            "Modern Samsung midrange phone with balanced performance and battery life.",
 
-    colours: [
-        "Black",
-        "White",
-        "Green"
-    ]
-}
+        storage: {
+
+            "128GB": {
+                new: 700000,
+                used: 300000
+            },
+
+            "256GB": {
+                new: 850000,
+                used: 450000
+            }
+
+        },
+
+        colours: [
+            "Black",
+            "White",
+            "Green"
+        ]
+    }
 
 ];
