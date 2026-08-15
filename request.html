@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Request a Device | Mwashi Gadgets</title>
+
+    <link rel="icon" href="images/logo.png">
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+    <link rel="stylesheet"
+          href="css/request.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <img src="images/logo.PNG"
+                 alt="Mwashi Gadgets">
+        </div>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="index.html">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="index.html#products">
+                    Products
+                </a>
+            </li>
+
+            <li>
+                <a href="index.html#contact">
+                    Contact
+                </a>
+            </li>
+
+            <li>
+                <a href="cart.html">
+                    🛒 Cart
+                    (<span id="count">0</span>)
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+<main class="request-page">
+
+    <!-- PAGE HEADER -->
+
+    <section class="request-header">
+
+        <span class="request-badge">
+            🔎 PRODUCT REQUEST
+        </span>
+
+        <h1>
+            Tell Us What You're Looking For
+        </h1>
+
+        <p>
+            Can't find the device or accessory you want?
+            Give us the details and we'll help you source it.
+        </p>
+
+    </section>
+
+
+    <!-- REQUEST FORM -->
+
+    <section class="request-form-container">
+
+        <form id="device-request-form">
+
+
+            <!-- =========================
+                 PRODUCT INFORMATION
+            ========================== -->
+
+            <div class="form-section">
+
+                <div class="section-title">
+
+                    <span>01</span>
+
+                    <div>
+                        <h2>Product Information</h2>
+
+                        <p>
+                            Tell us what you are looking for.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- CATEGORY -->
+
+                <div class="form-group">
+
+                    <label for="category">
+                        What are you looking for?
+                        <span>*</span>
+                    </label>
+
+                    <select id="category"
+                            name="category"
+                            required>
+
+                        <option value="">
+                            Select a category
+                        </option>
+
+                        <option value="Smartphone">
+                            📱 Smartphone
+                        </option>
+
+                        <option value="Laptop">
+                            💻 Laptop
+                        </option>
+
+                        <option value="Tablet">
+                            📲 Tablet
+                        </option>
+
+                        <option value="Audio">
+                            🎧 Audio / Music Listening
+                        </option>
+
+                        <option value="Smartwatch">
+                            ⌚ Smartwatch
+                        </option>
+
+                        <option value="Gaming">
+                            🎮 Gaming
+                        </option>
+
+                        <option value="Accessories">
+                            🔌 Accessories
+                        </option>
+
+                        <option value="Other Electronics">
+                            ⚡ Other Electronics
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <!-- BRAND -->
+
+                    <div class="form-group">
+
+                        <label for="brand">
+                            Brand
+                        </label>
+
+                        <select id="brand"
+                                name="brand">
+
+                            <option value="">
+                                Select brand
+                            </option>
+
+                            <option>Apple</option>
+                            <option>Samsung</option>
+                            <option>Google</option>
+                            <option>Xiaomi</option>
+                            <option>Huawei</option>
+                            <option>OnePlus</option>
+                            <option>Oppo</option>
+                            <option>Vivo</option>
+                            <option>HP</option>
+                            <option>Dell</option>
+                            <option>Lenovo</option>
+                            <option>Asus</option>
+                            <option>Acer</option>
+                            <option>Sony</option>
+                            <option>JBL</option>
+                            <option>Bose</option>
+                            <option>Other</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- PRODUCT NAME -->
+
+                    <div class="form-group">
+
+                        <label for="productName">
+                            Device / Product Name
+                            <span>*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="productName"
+                            name="productName"
+                            placeholder="e.g. iPhone 17 Pro"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DYNAMIC SPECIFICATIONS -->
+
+                <div id="dynamic-fields"></div>
+
+
+                <!-- CONDITION -->
+
+                <div class="form-group">
+
+                    <label>
+                        Preferred Condition
+                    </label>
+
+                    <div class="radio-options">
+
+                        <label class="radio-card">
+
+                            <input
+                                type="radio"
+                                name="condition"
+                                value="New"
+                                checked>
+
+                            <span>
+                                <strong>New</strong>
+                                <small>Brand new device</small>
+                            </span>
+
+                        </label>
+
+
+                        <label class="radio-card">
+
+                            <input
+                                type="radio"
+                                name="condition"
+                                value="Used">
+
+                            <span>
+                                <strong>Used</strong>
+                                <small>Pre-owned device</small>
+                            </span>
+
+                        </label>
+
+
+                        <label class="radio-card">
+
+                            <input
+                                type="radio"
+                                name="condition"
+                                value="Either">
+
+                            <span>
+                                <strong>Either</strong>
+                                <small>New or used</small>
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 ACCESSORIES
+            ========================== -->
+
+            <div class="form-section">
+
+                <div class="section-title">
+
+                    <span>02</span>
+
+                    <div>
+
+                        <h2>Accessories</h2>
+
+                        <p>
+                            Tell us if you need any accessories
+                            with your device.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div id="accessories-list">
+
+                    <div class="accessory-row">
+
+                        <input
+                            type="text"
+                            name="accessory[]"
+                            placeholder="e.g. Phone case">
+
+                        <button
+                            type="button"
+                            class="remove-accessory">
+                        
+                            ×
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="add-accessory"
+                    class="add-accessory">
+
+                    + Add Another Accessory
+
+                </button>
+
+            </div>
+
+
+            <!-- =========================
+                 BUDGET
+            ========================== -->
+
+            <div class="form-section">
+
+                <div class="section-title">
+
+                    <span>03</span>
+
+                    <div>
+
+                        <h2>Budget & Requirements</h2>
+
+                        <p>
+                            This helps us find the right option
+                            for you.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="budget">
+                            Your Budget
+                        </label>
+
+                        <div class="money-input">
+
+                            <span>TZS</span>
+
+                            <input
+                                type="number"
+                                id="budget"
+                                name="budget"
+                                min="0"
+                                placeholder="e.g. 3000000">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="preferredDate">
+                            When do you need it?
+                        </label>
+
+                        <select
+                            id="preferredDate"
+                            name="preferredDate">
+
+                            <option value="">
+                                Select preference
+                            </option>
+
+                            <option>
+                                As soon as possible
+                            </option>
+
+                            <option>
+                                Within a week
+                            </option>
+
+                            <option>
+                                Within a month
+                            </option>
+
+                            <option>
+                                No specific date
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="notes">
+                        Additional Requirements
+                    </label>
+
+                    <textarea
+                        id="notes"
+                        name="notes"
+                        rows="5"
+                        placeholder="Tell us anything else we should know..."></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 CUSTOMER INFORMATION
+            ========================== -->
+
+            <div class="form-section">
+
+                <div class="section-title">
+
+                    <span>04</span>
+
+                    <div>
+
+                        <h2>Your Contact Details</h2>
+
+                        <p>
+                            We'll use this information to contact you.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="customerName">
+                            Your Name
+                            <span>*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="customerName"
+                            name="customerName"
+                            placeholder="Your full name"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="phone">
+                            WhatsApp Number
+                            <span>*</span>
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="e.g. 0623468239"
+                            required>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 SUBMIT
+            ========================== -->
+
+            <div class="request-submit">
+
+                <button
+                    type="submit"
+                    class="submit-request">
+
+                    <span>💬</span>
+
+                    Send Request via WhatsApp
+
+                </button>
+
+                <p>
+                    Your request will open WhatsApp with
+                    all the information you provided.
+                </p>
+
+            </div>
+
+
+        </form>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 Mwashi Gadgets.
+        All rights reserved.
+    </p>
+
+</footer>
+
+
+<script src="js/request.js"></script>
+
+<script src="js/cart.js"></script>
+
+</body>
+
+</html>

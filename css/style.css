@@ -1310,5 +1310,271 @@ img{
     transform:translateZ(0);
 
 }
+/* =========================
+   REQUEST A DEVICE SECTION
+========================= */
 
+.request-section {
+
+    padding: 80px 20px;
+
+    background: #f5f7fa;
+
+}
+
+.request-content {
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: 1.3fr 0.7fr;
+
+    gap: 60px;
+
+    align-items: center;
+
+}
+
+
+/* LEFT SIDE */
+
+.request-text {
+
+    max-width: 650px;
+
+}
+
+.request-badge {
+
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    border-radius: 30px;
+
+    background: #e8f0ff;
+
+    color: #2563eb;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    margin-bottom: 15px;
+
+}
+
+.request-text h2 {
+
+    font-size: 42px;
+
+    line-height: 1.15;
+
+    margin-bottom: 18px;
+
+    color: #111827;
+
+}
+
+.request-text p {
+
+    font-size: 17px;
+
+    line-height: 1.7;
+
+    color: #6b7280;
+
+    max-width: 550px;
+
+}
+
+
+/* REQUEST TYPES */
+
+.request-types {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 28px;
+
+}
+
+.request-types span {
+
+    background: white;
+
+    padding: 10px 16px;
+
+    border-radius: 30px;
+
+    font-size: 14px;
+
+    color: #374151;
+
+    border: 1px solid #e5e7eb;
+
+}
+
+
+/* RIGHT CARD */
+
+.request-card {
+
+    background: white;
+
+    padding: 40px 35px;
+
+    border-radius: 24px;
+
+    text-align: center;
+
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+
+}
+
+.request-icon {
+
+    width: 70px;
+
+    height: 70px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #eef4ff;
+
+    border-radius: 50%;
+
+    font-size: 30px;
+
+}
+
+.request-card h3 {
+
+    font-size: 25px;
+
+    margin-bottom: 12px;
+
+    color: #111827;
+
+}
+
+.request-card p {
+
+    color: #6b7280;
+
+    line-height: 1.6;
+
+    margin-bottom: 25px;
+
+}
+
+.request-btn {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    width: 100%;
+
+    padding: 15px 20px;
+
+    background: #111827;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 12px;
+
+    font-weight: 600;
+
+    transition: 0.3s ease;
+
+}
+
+.request-btn:hover {
+
+    transform: translateY(-2px);
+
+    background: #2563eb;
+
+}
+
+.request-btn span {
+
+    font-size: 20px;
+
+}
+
+.request-card small {
+
+    display: block;
+
+    margin-top: 15px;
+
+    color: #9ca3af;
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    .request-content {
+
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+
+    }
+
+    .request-text {
+
+        text-align: center;
+
+        margin: auto;
+
+    }
+
+    .request-text h2 {
+
+        font-size: 32px;
+
+    }
+
+    .request-text p {
+
+        margin: auto;
+
+    }
+
+    .request-types {
+
+        justify-content: center;
+
+    }
+
+}
 
