@@ -207,8 +207,69 @@ function applyInstallment(id){
 
 }
 
+// ===============================
+// GET PRODUCT STARTING PRICE
+// ===============================
 
+function getStartingPrice(product) {
 
+    // Simple numeric price
+    if (typeof product.price === "number") {
+        return product.price;
+    }
+
+    // Products using storage pricing
+    if (product.storage && typeof product.storage === "object") {
+
+        const prices = Object.values(product.storage)
+            .map(value => {
+
+                // Old structure: 256GB: 3800000
+                if (typeof value === "number") {
+                    return value;
+                }
+
+                // New structure: 256GB: { new: 3800000, used: 3200000 }
+                if (value && typeof value === "object") {
+                    return value.new;
+                }
+
+                return null;
+            })
+            .filter(price => typeof price === "number");
+
+        if (prices.length > 0) {
+            return Math.min(...prices);
+        }
+    }
+
+    // New price structure
+    if (product.price && typeof product.price === "object") {
+
+        const prices = Object.values(product.price)
+            .map(value => {
+
+                // Example: 256GB: { new: 3800000, used: 3200000 }
+                if (value && typeof value === "object") {
+                    return value.new;
+                }
+
+                // Example: 256GB: 3800000
+                if (typeof value === "number") {
+                    return value;
+                }
+
+                return null;
+            })
+            .filter(price => typeof price === "number");
+
+        if (prices.length > 0) {
+            return Math.min(...prices);
+        }
+    }
+
+    return 0;
+}
 // ===============================
 // PRODUCT CARD DISPLAY
 // ===============================
@@ -248,13 +309,7 @@ function displayProducts(list){
     product.type?.toLowerCase()==="accessory";
 
 
-    let price =
-    product.storage
-    ?
-    Object.values(product.storage)[0]
-    :
-    product.price;
-
+const price = getStartingPrice(product);
 
 
 grid.innerHTML +=
