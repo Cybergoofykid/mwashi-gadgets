@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mwashi Gadgets | Products</title>
+
+<link rel="stylesheet" href="admin.css">
+
+<style>
+/* =========================
+   PRODUCT MANAGEMENT STYLES
+========================= */
+
+.storage-editor {
+    margin-top: 18px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    background: #fafafa;
+}
+
+.storage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.storage-header h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.storage-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr auto;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: end;
+}
+
+.storage-row label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.storage-row input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.remove-storage {
+    border: none;
+    background: #dc3545;
+    color: white;
+    padding: 9px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.remove-storage:hover {
+    background: #b02a37;
+}
+
+.add-storage {
+    border: 1px solid #198754;
+    background: white;
+    color: #198754;
+    padding: 8px 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.add-storage:hover {
+    background: #198754;
+    color: white;
+}
+
+.storage-empty {
+    color: #777;
+    font-size: 13px;
+    margin: 5px 0;
+}
+
+.product-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.product-cell img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 7px;
+    background: #f4f4f4;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.edit-btn,
+.delete-btn {
+    border: none;
+    padding: 7px 11px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.edit-btn {
+    background: #0d6efd;
+    color: white;
+}
+
+.edit-btn:hover {
+    background: #0b5ed7;
+}
+
+.delete-btn {
+    background: #dc3545;
+    color: white;
+}
+
+.delete-btn:hover {
+    background: #b02a37;
+}
+
+.status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 20px;
+    background: #198754;
+    color: white;
+    font-size: 12px;
+}
+
+.status.off {
+    background: #6c757d;
+}
+
+.status.featured {
+    background: #ffc107;
+    color: #111;
+    margin-left: 4px;
+}
+
+.status.latest {
+    background: #0dcaf0;
+    color: #111;
+    margin-left: 4px;
+}
+
+.status.installment {
+    background: #6f42c1;
+    color: white;
+    margin-left: 4px;
+}
+
+.message {
+    margin: 10px 0;
+}
+
+.message.success {
+    color: #198754;
+}
+
+.message.error {
+    color: #dc3545;
+}
+
+.confirm-box {
+    background: #fff3cd;
+    border: 1px solid #ffecb5;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 800px) {
+    .storage-row {
+        grid-template-columns: 1fr;
+    }
+
+    .table-wrap {
+        overflow-x: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <img src="../images/logo.PNG" alt="Mwashi Gadgets">
+            <span>MWASHI ADMIN</span>
+        </div>
+
+        <nav>
+            <a href="index.html">Dashboard</a>
+            <a class="active" href="products.html">Products</a>
+            <a href="../index.html">View Store</a>
+            <a href="inventory.html">Inventory</a>
+        </nav>
+
+        <button id="logout" class="logout">
+            Logout
+        </button>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="admin-main">
+
+        <header class="topbar">
+
+            <div>
+                <h1>Products</h1>
+                <p>Manage prices, storage, stock and product details.</p>
+            </div>
+
+        </header>
+
+
+        <section class="panel">
+
+            <!-- TOOLBAR -->
+            <div class="toolbar">
+
+                <input
+                    id="search"
+                    type="search"
+                    placeholder="Search products..."
+                >
+
+                <button
+                    id="newBtn"
+                    class="primary-btn"
+                    type="button"
+                >
+                    + Add Product
+                </button>
+
+            </div>
+
+
+            <!-- MESSAGE -->
+            <div id="message" class="message"></div>
+
+
+            <!-- PRODUCTS TABLE -->
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="rows"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================
+     PRODUCT MODAL
+========================= -->
+
+<div id="modal" class="modal hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-head">
+
+            <h2 id="modalTitle">
+                Add Product
+            </h2>
+
+            <button
+                id="close"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="productForm">
+
+            <input
+                type="hidden"
+                id="id"
+            >
+
+
+            <!-- BASIC PRODUCT INFORMATION -->
+
+            <div class="form-grid">
+
+                <div>
+                    <label for="name">
+                        Name
+                    </label>
+
+                    <input
+                        id="name"
+                        required
+                    >
+                </div>
+
+
+                <div>
+                    <label for="brand">
+                        Brand
+                    </label>
+
+                    <input
+                        id="brand"
+                        placeholder="Apple, Samsung, Google..."
+                    >
+                </div>
+
+
+                <div>
+                    <label for="category">
+                        Category
+                    </label>
+
+                    <select id="category">
+
+                        <option value="Smartphones">
+                            Smartphones
+                        </option>
+
+                        <option value="Tablets">
+                            Tablets
+                        </option>
+
+                        <option value="Laptops">
+                            Laptops
+                        </option>
+
+                        <option value="Gaming Consoles">
+                            Gaming Consoles
+                        </option>
+
+                        <option value="Accessories">
+                            Accessories
+                        </option>
+
+                        <option value="Audio">
+                            Audio
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+                    <label for="subcategory">
+                        Subcategory
+                    </label>
+
+                    <input
+                        id="subcategory"
+                        placeholder="Cases, Chargers, Earbuds..."
+                    >
+                </div>
+
+
+                <div>
+                    <label for="price">
+                        Main Price (TZS)
+                    </label>
+
+                    <input
+                        id="price"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="Optional"
+                    >
+                </div>
+
+
+                <div>
+                    <label for="stock">
+                        Stock
+                    </label>
+
+                    <input
+                        id="stock"
+                        type="number"
+                        min="0"
+                        value="0"
+                    >
+                </div>
+
+
+                <div>
+                    <label for="image">
+                        Image Path / URL
+                    </label>
+
+                    <input
+                        id="image"
+                        placeholder="images/apple/17-pro.webp"
+                    >
+                </div>
+
+
+                <div>
+                    <label for="colours">
+                        Colours
+                    </label>
+
+                    <input
+                        id="colours"
+                        placeholder="Black, White, Gold"
+                    >
+                </div>
+
+
+                <div>
+                    <label for="compatibility">
+                        Compatibility
+                    </label>
+
+                    <input
+                        id="compatibility"
+                        placeholder="iPhone 17 Pro, USB-C..."
+                    >
+                </div>
+
+            </div>
+
+
+            <!-- STORAGE / PRICING -->
+
+            <div class="storage-editor">
+
+                <div class="storage-header">
+
+                    <h3>
+                        Storage & New / Used Pricing
+                    </h3>
+
+                    <button
+                        type="button"
+                        id="addStorage"
+                        class="add-storage"
+                    >
+                        + Add Storage
+                    </button>
+
+                </div>
+
+                <div id="storageRows"></div>
+
+                <p
+                    id="storageEmpty"
+                    class="storage-empty"
+                >
+                    No storage options added.
+                </p>
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div style="margin-top:18px;">
+
+                <label for="description">
+                    Description
+                </label>
+
+                <textarea
+                    id="description"
+                    rows="4"
+                    placeholder="Product description..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- FLAGS -->
+
+            <div class="checks">
+
+                <label>
+                    <input
+                        id="featured"
+                        type="checkbox"
+                    >
+                    Featured
+                </label>
+
+
+                <label>
+                    <input
+                        id="latest"
+                        type="checkbox"
+                    >
+                    Latest
+                </label>
+
+
+                <label>
+                    <input
+                        id="installment"
+                        type="checkbox"
+                    >
+                    Installment
+                </label>
+
+
+                <label>
+                    <input
+                        id="active"
+                        type="checkbox"
+                        checked
+                    >
+                    Active
+                </label>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="cancel"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+                    Save Product
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="config.js"></script>
+
+<script src="supabase-client.js"></script>
+
+
+<script>
+
+"use strict";
+
+
+/* ==========================================
+   GLOBAL VARIABLES
+========================================== */
+
+let sb = null;
+
+let all = [];
+
+let storageOptions = [];
+
+
+/* ==========================================
+   HELPER
+========================================== */
+
+const $ = (id) => document.getElementById(id);
+
+
+/* ==========================================
+   ESCAPE HTML
+   Prevents product data from being injected
+========================================== */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* ==========================================
+   MONEY
+========================================== */
+
+function money(value) {
+
+    const number = Number(value || 0);
+
+    return "TZS " + number.toLocaleString("en-TZ");
+
+}
+
+
+/* ==========================================
+   SHOW MESSAGE
+========================================== */
+
+function showMessage(text, type = "") {
+
+    $("message").textContent = text;
+
+    $("message").className = "message " + type;
+
+    if (text) {
+
+        setTimeout(() => {
+
+            $("message").textContent = "";
+            $("message").className = "message";
+
+        }, 5000);
+
+    }
+
+}
+
+
+/* ==========================================
+   AUTH GUARD
+========================================== */
+
+/* ==========================================
+   AUTH GUARD
+========================================== */
+
+async function guard() {
+
+    try {
+
+        sb = requireSupabase();
+
+        const allowed = await requireAdmin();
+
+        return allowed;
+
+    } catch (error) {
+
+        console.error("Admin guard error:", error);
+
+        return false;
+
+    }
+
+}
+
+/* ==========================================
+   LOAD PRODUCTS
+========================================== */
+
+async function load() {
+
+    if (!await guard()) {
+        return;
+    }
+
+    showMessage("Loading products...");
+
+    const {
+        data,
+        error
+    } = await sb
+        .from("products")
+        .select("*")
+        .order("id", {
+            ascending: false
+        });
+
+
+    if (error) {
+
+        console.error(error);
+
+        showMessage(
+            "Could not load products: " + error.message,
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    all = data || [];
+
+    render();
+
+    showMessage(
+        `${all.length} product${all.length === 1 ? "" : "s"} loaded.`,
+        "success"
+    );
+
+}
+
+
+/* ==========================================
+   GET DISPLAY PRICE
+========================================== */
+
+function getDisplayPrice(product) {
+
+    if (
+        product.price !== null &&
+        product.price !== undefined
+    ) {
+
+        return product.price;
+
+    }
+
+
+    if (
+        product.storage &&
+        typeof product.storage === "object"
+    ) {
+
+        const values = Object.values(product.storage);
+
+        if (values.length) {
+
+            const first = values[0];
+
+            if (first && first.new) {
+
+                return first.new;
+
+            }
+
+            if (first && first.used) {
+
+                return first.used;
+
+            }
+
+        }
+
+    }
+
+
+    return 0;
+
+}
+
+
+/* ==========================================
+   RENDER PRODUCTS
+========================================== */
+
+function render() {
+
+    const query =
+        $("search")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const filtered = all.filter(product => {
+
+        const name =
+            String(product.name || "")
+                .toLowerCase();
+
+        const brand =
+            String(product.brand || "")
+                .toLowerCase();
+
+        const category =
+            String(product.category || "")
+                .toLowerCase();
+
+        return (
+            name.includes(query) ||
+            brand.includes(query) ||
+            category.includes(query)
+        );
+
+    });
+
+
+    if (!filtered.length) {
+
+        $("rows").innerHTML = `
+            <tr>
+                <td colspan="6" style="text-align:center;padding:30px;">
+                    No products found.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    $("rows").innerHTML = filtered.map(product => {
+
+        const price =
+            getDisplayPrice(product);
+
+
+        const image =
+            product.image ||
+            "../images/logo.PNG";
+
+
+        let badges = "";
+
+
+        if (product.featured) {
+
+            badges += `
+                <span class="status featured">
+                    Featured
+                </span>
+            `;
+
+        }
+
+
+        if (product.latest) {
+
+            badges += `
+                <span class="status latest">
+                    Latest
+                </span>
+            `;
+
+        }
+
+
+        if (product.installment) {
+
+            badges += `
+                <span class="status installment">
+                    Installment
+                </span>
+            `;
+
+        }
+
+
+        return `
+
+            <tr>
+
+                <td>
+
+                    <div class="product-cell">
+
+                        <img
+                            src="${escapeHtml(image)}"
+                            alt="${escapeHtml(product.name)}"
+                            onerror="this.src='../images/logo.PNG'"
+                        >
+
+                        <span>
+                            ${escapeHtml(product.name)}
+                        </span>
+
+                    </div>
+
+                </td>
+
+
+                <td>
+                    ${escapeHtml(product.category || "")}
+                </td>
+
+
+                <td>
+                    ${money(price)}
+                </td>
+
+
+                <td>
+                    ${Number(product.stock || 0).toLocaleString()}
+                </td>
+
+
+                <td>
+
+                    <span class="status ${product.active === false ? "off" : ""}">
+                        ${product.active === false ? "Inactive" : "Active"}
+                    </span>
+
+                    ${badges}
+
+                </td>
+
+
+                <td>
+
+                    <div class="action-buttons">
+
+                        <button
+                            class="edit-btn"
+                            type="button"
+                            onclick="editProduct('${escapeHtml(product.id)}')"
+                        >
+                            Edit
+                        </button>
+
+
+                        <button
+                            class="delete-btn"
+                            type="button"
+                            onclick="deleteProduct('${escapeHtml(product.id)}')"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }).join("");
+
+}
+
+
+/* ==========================================
+   STORAGE EDITOR
+========================================== */
+
+function renderStorageRows() {
+
+    const container = $("storageRows");
+
+    const empty = $("storageEmpty");
+
+
+    if (!storageOptions.length) {
+
+        container.innerHTML = "";
+
+        empty.style.display = "block";
+
+        return;
+
+    }
+
+
+    empty.style.display = "none";
+
+
+    container.innerHTML =
+        storageOptions.map((item, index) => {
+
+            return `
+
+                <div class="storage-row">
+
+                    <div>
+
+                        <label>
+                            Storage
+                        </label>
+
+                        <input
+                            type="text"
+                            class="storage-name"
+                            data-index="${index}"
+                            value="${escapeHtml(item.name)}"
+                            placeholder="128GB"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            New Price (TZS)
+                        </label>
+
+                        <input
+                            type="number"
+                            class="storage-new"
+                            data-index="${index}"
+                            value="${item.new || ""}"
+                            min="0"
+                            step="0.01"
+                            placeholder="0"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Used Price (TZS)
+                        </label>
+
+                        <input
+                            type="number"
+                            class="storage-used"
+                            data-index="${index}"
+                            value="${item.used || ""}"
+                            min="0"
+                            step="0.01"
+                            placeholder="0"
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="remove-storage"
+                        onclick="removeStorage(${index})"
+                    >
+                        Remove
+                    </button>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* ==========================================
+   READ STORAGE INPUTS
+========================================== */
+
+function collectStorageInputs() {
+
+    const rows =
+        document.querySelectorAll(".storage-row");
+
+
+    storageOptions =
+        Array.from(rows).map((row) => {
+
+            const name =
+                row.querySelector(".storage-name")
+                    ?.value
+                    .trim();
+
+
+            const newPrice =
+                Number(
+                    row.querySelector(".storage-new")
+                        ?.value || 0
+                );
+
+
+            const usedPrice =
+                Number(
+                    row.querySelector(".storage-used")
+                        ?.value || 0
+                );
+
+
+            return {
+
+                name: name || "Standard",
+
+                new: newPrice,
+
+                used: usedPrice
+
+            };
+
+        }).filter(item => item.name);
+
+
+}
+
+
+/* ==========================================
+   ADD STORAGE
+========================================== */
+
+$("addStorage").onclick = () => {
+
+    collectStorageInputs();
+
+
+    storageOptions.push({
+
+        name: "",
+
+        new: 0,
+
+        used: 0
+
+    });
+
+
+    renderStorageRows();
+
+};
+
+
+/* ==========================================
+   REMOVE STORAGE
+========================================== */
+
+window.removeStorage = function(index) {
+
+    storageOptions.splice(index, 1);
+
+    renderStorageRows();
+
+};
+
+
+/* ==========================================
+   CREATE STORAGE JSON
+========================================== */
+
+function buildStorageObject() {
+
+    collectStorageInputs();
+
+
+    const storage = {};
+
+
+    storageOptions.forEach(item => {
+
+        if (!item.name) {
+            return;
+        }
+
+
+        storage[item.name] = {
+
+            new: Number(item.new || 0),
+
+            used: Number(item.used || 0)
+
+        };
+
+    });
+
+
+    return Object.keys(storage).length
+        ? storage
+        : null;
+
+}
+
+
+/* ==========================================
+   EDIT PRODUCT
+========================================== */
+
+window.editProduct = function(id) {
+
+    const product =
+        all.find(
+            item => String(item.id) === String(id)
+        );
+
+
+    if (!product) {
+
+        showMessage(
+            "Product could not be found.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    $("modalTitle").textContent =
+        "Edit Product";
+
+
+    $("id").value =
+        product.id;
+
+
+    $("name").value =
+        product.name || "";
+
+
+    $("brand").value =
+        product.brand || "";
+
+
+    $("category").value =
+        product.category || "Other";
+
+
+    $("subcategory").value =
+        product.subcategory || "";
+
+
+    $("price").value =
+        product.price ?? "";
+
+
+    $("stock").value =
+        product.stock ?? 0;
+
+
+    $("image").value =
+        product.image || "";
+
+
+    $("description").value =
+        product.description || "";
+
+
+    $("colours").value =
+        Array.isArray(product.colours)
+            ? product.colours.join(", ")
+            : "";
+
+
+    $("compatibility").value =
+        Array.isArray(product.compatibility)
+            ? product.compatibility.join(", ")
+            : "";
+
+
+    $("featured").checked =
+        product.featured === true;
+
+
+    $("latest").checked =
+        product.latest === true;
+
+
+    $("installment").checked =
+        product.installment === true;
+
+
+    $("active").checked =
+        product.active !== false;
+
+
+    /* STORAGE */
+
+    storageOptions = [];
+
+
+    if (
+        product.storage &&
+        typeof product.storage === "object"
+    ) {
+
+        storageOptions =
+            Object.entries(product.storage)
+                .map(([name, values]) => {
+
+                    return {
+
+                        name,
+
+                        new: Number(
+                            values?.new || 0
+                        ),
+
+                        used: Number(
+                            values?.used || 0
+                        )
+
+                    };
+
+                });
+
+    }
+
+
+    renderStorageRows();
+
+
+    $("modal")
+        .classList
+        .remove("hidden");
+
+};
+
+
+/* ==========================================
+   RESET FORM
+========================================== */
+
+function resetForm() {
+
+    $("productForm").reset();
+
+    $("id").value = "";
+
+    $("modalTitle").textContent =
+        "Add Product";
+
+
+    $("active").checked = true;
+
+
+    storageOptions = [];
+
+
+    renderStorageRows();
+
+}
+
+
+/* ==========================================
+   NEW PRODUCT
+========================================== */
+
+$("newBtn").onclick = () => {
+
+    resetForm();
+
+    $("modal")
+        .classList
+        .remove("hidden");
+
+};
+
+
+/* ==========================================
+   CLOSE MODAL
+========================================== */
+
+function closeModal() {
+
+    $("modal")
+        .classList
+        .add("hidden");
+
+}
+
+
+$("close").onclick =
+    closeModal;
+
+
+$("cancel").onclick =
+    closeModal;
+
+
+/* ==========================================
+   SEARCH
+========================================== */
+
+$("search").oninput =
+    render;
+
+
+/* ==========================================
+   LOGOUT
+========================================== */
+
+$("logout").onclick = async () => {
+
+    try {
+
+        await sb.auth.signOut();
+
+    } finally {
+
+        location.href =
+            "login.html";
+
+    }
+
+};
+
+
+/* ==========================================
+   DELETE PRODUCT
+========================================== */
+
+window.deleteProduct = async function(id) {
+
+    const product =
+        all.find(
+            item => String(item.id) === String(id)
+        );
+
+
+    if (!product) {
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            `Delete "${product.name}"?\n\nThis action cannot be undone.`
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    showMessage(
+        "Deleting product..."
+    );
+
+
+    const {
+        error
+    } = await sb
+        .from("products")
+        .delete()
+        .eq("id", id);
+
+
+    if (error) {
+
+        console.error(error);
+
+        showMessage(
+            "Delete failed: " + error.message,
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    showMessage(
+        "Product deleted successfully.",
+        "success"
+    );
+
+
+    await load();
+
+};
+
+
+/* ==========================================
+   SAVE PRODUCT
+========================================== */
+
+$("productForm").onsubmit =
+    async function(event) {
+
+        event.preventDefault();
+
+
+        try {
+
+            showMessage(
+                "Saving product..."
+            );
+
+
+            /* =========================
+               PRODUCT ID
+            ========================= */
+
+            const existingId =
+                $("id").value.trim();
+
+
+            const id =
+                existingId
+                    ? Number(existingId)
+                    : Date.now();
+
+
+            /* =========================
+               STORAGE
+            ========================= */
+
+            const storage =
+                buildStorageObject();
+
+
+            /* =========================
+               COLOURS
+            ========================= */
+
+            const colours =
+                $("colours")
+                    .value
+                    .split(",")
+                    .map(value => value.trim())
+                    .filter(Boolean);
+
+
+            /* =========================
+               COMPATIBILITY
+            ========================= */
+
+            const compatibility =
+                $("compatibility")
+                    .value
+                    .split(",")
+                    .map(value => value.trim())
+                    .filter(Boolean);
+
+
+            /* =========================
+               CATEGORY
+            ========================= */
+
+            const category =
+                $("category").value;
+
+
+            const type =
+                (
+                    category === "Accessories" ||
+                    category === "Audio"
+                )
+                    ? "accessory"
+                    : "product";
+
+
+            /* =========================
+               MAIN PRICE
+            ========================= */
+
+            const mainPrice =
+                $("price").value.trim();
+
+
+            /* =========================
+               PRODUCT RECORD
+            ========================= */
+
+            const record = {
+
+                id,
+
+                name:
+                    $("name")
+                        .value
+                        .trim(),
+
+                type,
+
+                category,
+
+                brand:
+                    $("brand")
+                        .value
+                        .trim(),
+
+                subcategory:
+                    $("subcategory")
+                        .value
+                        .trim(),
+
+                featured:
+                    $("featured")
+                        .checked,
+
+                latest:
+                    $("latest")
+                        .checked,
+
+                installment:
+                    $("installment")
+                        .checked,
+
+                image:
+                    $("image")
+                        .value
+                        .trim(),
+
+                description:
+                    $("description")
+                        .value
+                        .trim(),
+
+                price:
+                    mainPrice
+                        ? Number(mainPrice)
+                        : null,
+
+                storage,
+
+                colours,
+
+                compatibility,
+
+                stock:
+                    Number(
+                        $("stock")
+                            .value || 0
+                    ),
+
+                active:
+                    $("active")
+                        .checked,
+
+                updated_at:
+                    new Date()
+                        .toISOString()
+
+            };
+
+
+            /* =========================
+               INSERT / UPDATE
+            ========================= */
+
+            const {
+                error
+            } = await sb
+                .from("products")
+                .upsert(
+                    record,
+                    {
+                        onConflict: "id"
+                    }
+                );
+
+
+            if (error) {
+
+                console.error(error);
+
+                showMessage(
+                    "Save failed: " + error.message,
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /* =========================
+               SUCCESS
+            ========================= */
+
+            closeModal();
+
+
+            showMessage(
+                existingId
+                    ? "Product updated successfully."
+                    : "Product added successfully.",
+                "success"
+            );
+
+
+            await load();
+
+        } catch (error) {
+
+            console.error(error);
+
+            showMessage(
+                "Unexpected error: " + error.message,
+                "error"
+            );
+
+        }
+
+    };
+
+
+/* ==========================================
+   START
+========================================== */
+
+load();
+
+</script>
+
+</body>
+</html>
