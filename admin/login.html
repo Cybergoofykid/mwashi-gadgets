@@ -19,15 +19,12 @@
         <button type="submit" class="primary-btn">Login</button>
     </form>
     <div id="loginMessage" class="message"></div>
-<<<<<<< HEAD
-=======
 <script>
 if (new URLSearchParams(location.search).get("unauthorized") === "1") {
     document.getElementById("loginMessage").textContent =
         "This account is not authorized to access the admin area.";
 }
 </script>
->>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
     <a href="../index.html" class="back-link">← Back to store</a>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -45,16 +42,12 @@ form.addEventListener("submit",async e=>{
      email:email.value.trim(),password:password.value
    });
    if(error) throw error;
-<<<<<<< HEAD
-=======
-
    const isAdmin = await requireAdmin({ redirect: false });
    if (!isAdmin) {
      await sb.auth.signOut();
      throw new Error("This account is not authorized to access the Mwashi Gadgets admin area.");
    }
 
->>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
    location.href="index.html";
  }catch(err){msg.textContent=err.message;}
 });
