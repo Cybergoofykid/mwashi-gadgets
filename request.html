@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Mwashi Gadgets | Product Request</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/request.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="site-header">
+
+        <div class="container">
+
+            <a
+                href="index.html"
+                class="logo"
+            >
+                Mwashi Gadgets
+            </a>
+
+            <nav class="main-nav">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="products.html">
+                    Products
+                </a>
+
+                <a
+                    href="request.html"
+                    class="active"
+                >
+                    Request Product
+                </a>
+
+                <a href="cart.html">
+                    Cart
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         PAGE
+    ====================================================== -->
+
+    <main class="request-page">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <section class="request-header">
+
+            <span class="request-badge">
+                PRODUCT REQUEST
+            </span>
+
+            <h1>
+                Can't Find What You're Looking For?
+            </h1>
+
+            <p>
+                Tell us exactly what device or accessory you want,
+                your preferred specifications and your budget.
+                We'll help you find it.
+            </p>
+
+        </section>
+
+
+        <!-- =================================================
+             FORM
+        ================================================== -->
+
+        <section class="request-form-container">
+
+            <form
+                id="device-request-form"
+                novalidate
+            >
+
+
+                <!-- =========================================
+                     PRODUCT INFORMATION
+                ========================================== -->
+
+                <section class="form-section">
+
+                    <div class="section-title">
+
+                        <span>
+                            01
+                        </span>
+
+                        <div>
+
+                            <h2>
+                                Product Information
+                            </h2>
+
+                            <p>
+                                Tell us about the product you want.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CATEGORY + BRAND -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="category">
+                                Product Category
+                                <span>*</span>
+                            </label>
+
+                            <select
+                                id="category"
+                                name="category"
+                                required
+                            >
+
+                                <option value="">
+                                    Select category
+                                </option>
+
+                                <option value="Smartphone">
+                                    Smartphone
+                                </option>
+
+                                <option value="Laptop">
+                                    Laptop
+                                </option>
+
+                                <option value="Tablet">
+                                    Tablet
+                                </option>
+
+                                <option value="Audio">
+                                    Audio
+                                </option>
+
+                                <option value="Smartwatch">
+                                    Smartwatch
+                                </option>
+
+                                <option value="Gaming">
+                                    Gaming
+                                </option>
+
+                                <option value="Accessories">
+                                    Accessories
+                                </option>
+
+                                <option value="Other Electronics">
+                                    Other Electronics
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="brand">
+                                Brand
+                            </label>
+
+                            <select
+                                id="brand"
+                                name="brand"
+                            >
+
+                                <option value="">
+                                    Select category first
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRODUCT NAME -->
+
+                    <div class="form-group">
+
+                        <label for="productName">
+
+                            Product / Model Name
+                            <span>*</span>
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="productName"
+                            name="productName"
+                            placeholder="e.g. iPhone 17 Pro Max"
+                            maxlength="150"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- DYNAMIC FIELDS -->
+
+                    <div id="dynamic-fields"></div>
+
+
+                    <!-- GAMING FIELDS -->
+
+                    <div
+                        id="gaming-fields"
+                        class="gaming-details"
+                        hidden
+                    >
+
+                        <div class="dynamic-category-header">
+
+                            <div class="dynamic-category-icon">
+                                🎮
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Gaming Configuration
+                                </strong>
+
+                                <span>
+                                    Tell us which gaming product and
+                                    specifications you need.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div
+                            id="gaming-dynamic-fields"
+                            class="dynamic-grid"
+                        ></div>
+
+                    </div>
+
+
+                    <!-- CONDITION -->
+
+                    <div class="form-group condition-group">
+
+                        <label>
+                            Product Condition
+                        </label>
+
+                        <div class="radio-options">
+
+                            <label class="radio-card">
+
+                                <input
+                                    type="radio"
+                                    name="condition"
+                                    value="New"
+                                    checked
+                                >
+
+                                <span>
+
+                                    <strong>
+                                        New
+                                    </strong>
+
+                                    <small>
+                                        Brand new product
+                                    </small>
+
+                                </span>
+
+                            </label>
+
+
+                            <label class="radio-card">
+
+                                <input
+                                    type="radio"
+                                    name="condition"
+                                    value="Used"
+                                >
+
+                                <span>
+
+                                    <strong>
+                                        Used
+                                    </strong>
+
+                                    <small>
+                                        Pre-owned product
+                                    </small>
+
+                                </span>
+
+                            </label>
+
+
+                            <label class="radio-card">
+
+                                <input
+                                    type="radio"
+                                    name="condition"
+                                    value="Either"
+                                >
+
+                                <span>
+
+                                    <strong>
+                                        Either
+                                    </strong>
+
+                                    <small>
+                                        New or used
+                                    </small>
+
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =========================================
+                     ACCESSORIES
+                ========================================== -->
+
+                <section class="form-section">
+
+                    <div class="section-title">
+
+                        <span>
+                            02
+                        </span>
+
+                        <div>
+
+                            <h2>
+                                Accessories
+                            </h2>
+
+                            <p>
+                                Add any accessories you would like
+                                with your request.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="accessories-list"
+                        class="accessories-list"
+                    >
+
+                        <div class="accessory-row">
+
+                            <input
+                                type="text"
+                                name="accessory[]"
+                                placeholder="e.g. Phone case"
+                                maxlength="100"
+                            >
+
+                            <button
+                                type="button"
+                                class="remove-accessory"
+                                aria-label="Remove accessory"
+                                title="Remove accessory"
+                            >
+                                ×
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="add-accessory"
+                        class="add-accessory"
+                    >
+                        + Add Another Accessory
+                    </button>
+
+                </section>
+
+
+
+                <!-- =========================================
+                     BUDGET + DELIVERY
+                ========================================== -->
+
+                <section class="form-section">
+
+                    <div class="section-title">
+
+                        <span>
+                            03
+                        </span>
+
+                        <div>
+
+                            <h2>
+                                Budget & Delivery
+                            </h2>
+
+                            <p>
+                                Tell us your budget and how you want
+                                to receive your product.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BUDGET -->
+
+                    <div class="form-group">
+
+                        <label for="budget">
+
+                            Your Budget
+                            <span>*</span>
+
+                        </label>
+
+                        <div class="money-input">
+
+                            <span>
+                                TZS
+                            </span>
+
+                            <input
+                                type="number"
+                                id="budget"
+                                name="budget"
+                                min="1"
+                                step="1000"
+                                placeholder="e.g. 1500000"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DELIVERY -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Delivery Method
+                            <span>*</span>
+                        </label>
+
+                        <div class="radio-options delivery-options">
+
+                            <label class="radio-card">
+
+                                <input
+                                    type="radio"
+                                    name="deliveryMethod"
+                                    value="Self Pickup"
+                                    checked
+                                    required
+                                >
+
+                                <span>
+
+                                    <strong>
+                                        🚶 Self Pickup
+                                    </strong>
+
+                                    <small>
+                                        Collect your order yourself
+                                    </small>
+
+                                </span>
+
+                            </label>
+
+
+                            <label class="radio-card">
+
+                                <input
+                                    type="radio"
+                                    name="deliveryMethod"
+                                    value="Doorstep Delivery"
+                                    required
+                                >
+
+                                <span>
+
+                                    <strong>
+                                        🚚 Doorstep Delivery
+                                    </strong>
+
+                                    <small>
+                                        Have your order delivered
+                                    </small>
+
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DATE -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="preferredDate">
+                                Preferred Date
+                            </label>
+
+                            <select
+                                id="preferredDate"
+                                name="preferredDate"
+                            >
+
+                                <option value="">
+                                    No preference
+                                </option>
+
+                                <option value="As soon as possible">
+                                    As soon as possible
+                                </option>
+
+                                <option value="Within 1-2 days">
+                                    Within 1-2 days
+                                </option>
+
+                                <option value="Within 3-5 days">
+                                    Within 3-5 days
+                                </option>
+
+                                <option value="Within 1 week">
+                                    Within 1 week
+                                </option>
+
+                                <option value="Within 2 weeks">
+                                    Within 2 weeks
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="notes">
+                                Additional Notes
+                            </label>
+
+                            <textarea
+                                id="notes"
+                                name="notes"
+                                rows="4"
+                                maxlength="1000"
+                                placeholder="Any other specifications or instructions..."
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =========================================
+                     CUSTOMER INFORMATION
+                ========================================== -->
+
+                <section class="form-section">
+
+                    <div class="section-title">
+
+                        <span>
+                            04
+                        </span>
+
+                        <div>
+
+                            <h2>
+                                Your Contact Information
+                            </h2>
+
+                            <p>
+                                We'll contact you about your request.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="customerName">
+
+                                Full Name
+                                <span>*</span>
+
+                            </label>
+
+                            <input
+                                type="text"
+                                id="customerName"
+                                name="customerName"
+                                placeholder="Enter your full name"
+                                maxlength="100"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="phone">
+
+                                Phone Number
+                                <span>*</span>
+
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="e.g. 0712345678"
+                                maxlength="15"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =========================================
+                     SUBMIT
+                ========================================== -->
+
+                <div class="request-submit">
+
+                    <button
+                        type="submit"
+                        id="submitRequest"
+                        class="submit-request"
+                    >
+
+                        <span>
+                            📱
+                        </span>
+
+                        Send Product Request
+
+                    </button>
+
+                    <p>
+                        Your request will be saved and you will
+                        continue to WhatsApp.
+                    </p>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        © 2026 Mwashi Gadgets.
+        All rights reserved.
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         SUPABASE
+    ====================================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="admin/config.js"></script>
+
+    <script src="admin/supabase-client.js"></script>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="js/request.js"></script>
+
+    <script src="js/cart.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Installment Payment | Mwashi Gadgets</title>
+
+    <link rel="icon" href="images/logo.PNG">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/installment.css">
+
+</head>
+
+<body>
+
+<header class="installment-header">
+
+    <a href="index.html" class="logo">
+        <img src="images/logo.PNG" alt="Mwashi Gadgets">
+    </a>
+
+    <h1>Installment Payment Application</h1>
+
+</header>
+
+
+<main class="installment-container">
+
+    <div class="installment-card">
+
+
+        <!-- ===============================
+             PRODUCT SECTION
+        =============================== -->
+
+        <section class="product-section">
+
+            <img
+                id="productImage"
+                src=""
+                alt="Product"
+            >
+
+            <div class="product-info">
+
+                <h2 id="productName">
+                    Product
+                </h2>
+
+                <p>
+                    Cash Price:
+                    <strong id="cashPrice">
+                        TZS 0
+                    </strong>
+                </p>
+
+
+                <!-- CONDITION -->
+
+                <div class="condition-section">
+
+                    <label for="conditionSelect">
+                        Phone Condition
+                    </label>
+
+                    <select id="conditionSelect">
+
+                        <option value="new">
+                            New / Full Box
+                        </option>
+
+                        <option value="used">
+                            Used
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- STORAGE -->
+
+                <div class="storage-section">
+
+                    <label for="storageSelect">
+                        Choose Storage
+                    </label>
+
+                    <select id="storageSelect">
+                    </select>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ===============================
+             FINANCING CALCULATOR
+        =============================== -->
+
+        <section class="calculator">
+
+            <h3>
+                Choose Your Installment Plan
+            </h3>
+
+
+            <div class="payment-options">
+
+
+                <!-- DEPOSIT -->
+
+                <div class="option-group">
+
+                    <label for="depositAmount">
+                        Initial Deposit
+                    </label>
+
+                    <input
+                        type="number"
+                        id="depositAmount"
+                        min="0"
+                        step="1000"
+                        inputmode="numeric"
+                        placeholder="Enter deposit amount"
+                    >
+
+                </div>
+
+
+                <!-- REPAYMENT PERIOD -->
+
+                <div class="option-group">
+
+                    <label for="loanPeriod">
+                        Repayment Period
+                    </label>
+
+                    <select id="loanPeriod">
+
+                        <option value="3">
+                            3 Months
+                        </option>
+
+                        <option value="4">
+                            4 Months
+                        </option>
+
+                        <option value="6" selected>
+                            6 Months
+                        </option>
+
+                        <option value="8">
+                            8 Months
+                        </option>
+
+                        <option value="12">
+                            12 Months
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ===============================
+                 PAYMENT SUMMARY
+            =============================== -->
+
+            <div class="summary">
+
+
+                <div>
+
+                    <span>
+                        Cash Price
+                    </span>
+
+                    <strong id="cashPriceSummary">
+                        TZS 0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Deposit
+                    </span>
+
+                    <strong id="downAmount">
+                        TZS 0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Loan Amount
+                    </span>
+
+                    <strong id="remaining">
+                        TZS 0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Interest Rate
+                    </span>
+
+                    <strong id="interestRate">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Total Repayment
+                    </span>
+
+                    <strong id="totalPayment">
+                        TZS 0
+                    </strong>
+
+                </div>
+
+
+                <div class="monthly-box">
+
+                    <span>
+                        Monthly Payment
+                    </span>
+
+                    <strong id="monthly">
+                        TZS 0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Repayment Period
+                    </span>
+
+                    <strong id="duration">
+                        6 Months
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ===============================
+             CUSTOMER INFORMATION
+        =============================== -->
+
+        <section class="customer-form">
+
+            <h3>
+                Applicant Details
+            </h3>
+
+            <p class="form-description">
+                Please provide your information to complete your installment application.
+            </p>
+
+
+            <div class="form-grid">
+
+
+                <!-- FULL NAME -->
+
+                <div class="input-group">
+
+                    <label for="customerName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customerName"
+                        placeholder="Enter your full name"
+                    >
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="input-group">
+
+                    <label for="customerPhone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="customerPhone"
+                        placeholder="07XX XXX XXX"
+                    >
+
+                </div>
+
+
+                <!-- NIDA -->
+
+                <div class="input-group">
+
+                    <label for="customerNida">
+                        National ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customerNida"
+                        placeholder="NIDA Number"
+                    >
+
+                </div>
+
+
+                <!-- OCCUPATION -->
+
+                <div class="input-group">
+
+                    <label for="occupation">
+                        Occupation
+                    </label>
+
+                    <input
+                        type="text"
+                        id="occupation"
+                        placeholder="Your occupation"
+                    >
+
+                </div>
+
+
+                <!-- EMPLOYER -->
+
+                <div class="input-group">
+
+                    <label for="employer">
+                        Employer / Business
+                    </label>
+
+                    <input
+                        type="text"
+                        id="employer"
+                        placeholder="Employer name"
+                    >
+
+                </div>
+
+
+                <!-- REGION -->
+
+                <div class="input-group">
+
+                    <label for="region">
+                        Region
+                    </label>
+
+                    <input
+                        type="text"
+                        id="region"
+                        placeholder="Region"
+                    >
+
+                </div>
+
+
+                <!-- DISTRICT -->
+
+                <div class="input-group">
+
+                    <label for="district">
+                        District
+                    </label>
+
+                    <input
+                        type="text"
+                        id="district"
+                        placeholder="District"
+                    >
+
+                </div>
+
+
+                <!-- ADDRESS -->
+
+                <div class="input-group full">
+
+                    <label for="address">
+                        Residential Address
+                    </label>
+
+                    <textarea
+                        id="address"
+                        rows="4"
+                        placeholder="Enter your residential address"
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- AGREEMENT -->
+
+            <label class="agreement">
+
+                <input
+                    type="checkbox"
+                    id="agree"
+                >
+
+                <span>
+                    I agree to Mwashi Gadgets installment terms and conditions.
+                </span>
+
+            </label>
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="button"
+                id="submitApplication"
+                class="submit-btn"
+            >
+                Submit Application
+            </button>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+
+<!-- ===============================
+     JAVASCRIPT
+=============================== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="admin/config.js"></script>
+<script src="admin/supabase-client.js"></script>
+<script src="js/products.js"></script>
+<script src="js/installment.js"></script>
+
+</body>
+
+</html>

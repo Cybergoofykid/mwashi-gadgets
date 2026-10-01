@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mwashi Gadgets | Inventory</title>
+
+<link rel="stylesheet" href="admin.css">
+
+<style>
+
+.inventory-toolbar {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.inventory-toolbar input,
+.inventory-toolbar select {
+    padding: 11px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+}
+
+.inventory-toolbar input {
+    min-width: 260px;
+    flex: 1;
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.inventory-table th,
+.inventory-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.inventory-table th {
+    font-size: 13px;
+    color: #666;
+    font-weight: 600;
+    background: #fafafa;
+}
+
+.inventory-table td {
+    font-size: 14px;
+}
+
+.product-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.product-cell img {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #f7f7f7;
+}
+
+.product-name {
+    font-weight: 700;
+}
+
+.product-meta {
+    color: #777;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.stock-input {
+    width: 90px;
+    padding: 9px 10px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    font-size: 14px;
+}
+
+.stock-input:focus {
+    outline: none;
+    border-color: #111827;
+}
+
+.stock-badge {
+    display: inline-flex;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.stock-in {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.stock-low {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.stock-out {
+    background: #f8d7da;
+    color: #842029;
+}
+
+.active-badge {
+    display: inline-flex;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.active-yes {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.active-no {
+    background: #e2e3e5;
+    color: #41464b;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.save-btn,
+.toggle-btn {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.save-btn {
+    background: #111827;
+    color: white;
+}
+
+.toggle-btn {
+    background: #e9ecef;
+    color: #212529;
+}
+
+.save-btn:hover,
+.toggle-btn:hover {
+    opacity: .9;
+}
+
+.save-btn:disabled,
+.toggle-btn:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.message {
+    margin: 15px 0;
+    color: #555;
+}
+
+.empty {
+    text-align: center;
+    padding: 40px;
+    color: #777;
+}
+
+.inventory-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.inventory-summary-card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 18px;
+}
+
+.inventory-summary-card span {
+    display: block;
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.inventory-summary-card strong {
+    font-size: 24px;
+}
+
+@media (max-width: 900px) {
+
+    .inventory-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .panel {
+        overflow-x: auto;
+    }
+
+    .inventory-table {
+        min-width: 950px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .inventory-summary {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="admin-layout">
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar">
+
+<div class="brand">
+
+    <img src="../images/logo.PNG">
+
+    <span>MWASHI ADMIN</span>
+
+</div>
+
+<nav>
+
+    <a href="index.html">
+        Dashboard
+    </a>
+
+    <a href="products.html">
+        Products
+    </a>
+
+    <a href="orders.html">
+        Orders
+    </a>
+
+    <a class="active" href="inventory.html">
+        Inventory
+    </a>
+
+    <a href="../index.html">
+        View Store
+    </a>
+
+</nav>
+
+<button id="logout" class="logout">
+    Logout
+</button>
+
+</aside>
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="admin-main">
+
+<header class="topbar">
+
+<div>
+
+    <h1>Inventory</h1>
+
+    <p>
+        Manage product stock and availability.
+    </p>
+
+</div>
+
+</header>
+
+<!-- =========================
+     SUMMARY
+========================= -->
+
+<section class="inventory-summary">
+
+<div class="inventory-summary-card">
+
+    <span>Total Products</span>
+
+    <strong id="totalProducts">
+        —
+    </strong>
+
+</div>
+
+
+<div class="inventory-summary-card">
+
+    <span>In Stock</span>
+
+    <strong id="inStock">
+        —
+    </strong>
+
+</div>
+
+
+<div class="inventory-summary-card">
+
+    <span>Low Stock</span>
+
+    <strong id="lowStock">
+        —
+    </strong>
+
+</div>
+
+
+<div class="inventory-summary-card">
+
+    <span>Out of Stock</span>
+
+    <strong id="outOfStock">
+        —
+    </strong>
+
+</div>
+
+</section>
+
+<!-- =========================
+     INVENTORY PANEL
+========================= -->
+
+<section class="panel">
+
+<div class="panel-head">
+
+<h2>Product Inventory</h2>
+
+</div>
+
+<div class="inventory-toolbar">
+
+<input
+    type="text"
+    id="search"
+    placeholder="Search product, brand or category..."
+>
+
+
+<select id="stockFilter">
+
+    <option value="">
+        All Stock
+    </option>
+
+    <option value="in">
+        In Stock
+    </option>
+
+    <option value="low">
+        Low Stock
+    </option>
+
+    <option value="out">
+        Out of Stock
+    </option>
+
+</select>
+
+
+<select id="activeFilter">
+
+    <option value="">
+        All Products
+    </option>
+
+    <option value="active">
+        Active
+    </option>
+
+    <option value="inactive">
+        Inactive
+    </option>
+
+</select>
+
+</div>
+
+<div id="message" class="message"></div>
+
+<table class="inventory-table">
+
+<thead>
+
+<tr>
+
+<th>Product</th>
+
+<th>Brand</th>
+
+<th>Category</th>
+
+<th>Stock</th>
+
+<th>Status</th>
+
+<th>Availability</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="inventoryBody">
+
+</tbody>
+
+</table>
+
+</section>
+
+</main>
+
+</div>
+
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="config.js"></script>
+
+<script src="supabase-client.js"></script>
+
+<script>
+
+let sb;
+
+let products = [];
+
+
+/* =========================
+   AUTH GUARD
+========================= */
+
+async function guard() {
+
+    sb = requireSupabase();
+
+    const {
+        data
+    } = await sb.auth.getSession();
+
+    if (!data.session) {
+
+        location.href = "login.html";
+
+        return false;
+
+    }
+
+    return true;
+
+}
+
+
+/* =========================
+   LOAD PRODUCTS
+========================= */
+
+async function loadProducts() {
+
+    try {
+
+        if (!await guard()) return;
+
+
+        const {
+            data,
+            error
+        } = await sb
+
+            .from("products")
+
+            .select("*")
+
+            .order("id", {
+                ascending: true
+            });
+
+
+        if (error) throw error;
+
+
+        products = data || [];
+
+
+        updateSummary();
+
+        renderProducts();
+
+    }
+
+    catch (error) {
+
+        document.getElementById("message").textContent =
+            error.message;
+
+    }
+
+}
+
+
+/* =========================
+   STOCK STATUS
+========================= */
+
+function getStockStatus(stock) {
+
+    stock = Number(stock || 0);
+
+
+    if (stock <= 0) {
+
+        return "out";
+
+    }
+
+
+    if (stock <= 5) {
+
+        return "low";
+
+    }
+
+
+    return "in";
+
+}
+
+
+/* =========================
+   STOCK BADGE
+========================= */
+
+function stockBadge(stock) {
+
+    const status =
+        getStockStatus(stock);
+
+
+    if (status === "out") {
+
+        return `
+            <span class="stock-badge stock-out">
+                Out of Stock
+            </span>
+        `;
+
+    }
+
+
+    if (status === "low") {
+
+        return `
+            <span class="stock-badge stock-low">
+                Low Stock
+            </span>
+        `;
+
+    }
+
+
+    return `
+        <span class="stock-badge stock-in">
+            In Stock
+        </span>
+    `;
+
+}
+
+
+/* =========================
+   SUMMARY
+========================= */
+
+function updateSummary() {
+
+    document.getElementById("totalProducts")
+        .textContent =
+        products.length;
+
+
+    document.getElementById("inStock")
+        .textContent =
+        products.filter(p =>
+            getStockStatus(p.stock) === "in"
+        ).length;
+
+
+    document.getElementById("lowStock")
+        .textContent =
+        products.filter(p =>
+            getStockStatus(p.stock) === "low"
+        ).length;
+
+
+    document.getElementById("outOfStock")
+        .textContent =
+        products.filter(p =>
+            getStockStatus(p.stock) === "out"
+        ).length;
+
+}
+
+
+/* =========================
+   RENDER PRODUCTS
+========================= */
+
+function renderProducts() {
+
+    const body =
+        document.getElementById("inventoryBody");
+
+
+    const search =
+        document.getElementById("search")
+            .value
+            .toLowerCase()
+            .trim();
+
+
+    const stockFilter =
+        document.getElementById("stockFilter")
+            .value;
+
+
+    const activeFilter =
+        document.getElementById("activeFilter")
+            .value;
+
+
+    const filtered =
+        products.filter(product => {
+
+
+            const text =
+                `${product.name || ""}
+                 ${product.brand || ""}
+                 ${product.category || ""}
+                 ${product.subcategory || ""}`
+                    .toLowerCase();
+
+
+            const matchesSearch =
+                !search ||
+                text.includes(search);
+
+
+            const stockStatus =
+                getStockStatus(product.stock);
+
+
+            const matchesStock =
+                !stockFilter ||
+                stockStatus === stockFilter;
+
+
+            const isActive =
+                product.active !== false;
+
+
+            const matchesActive =
+                !activeFilter ||
+
+                (activeFilter === "active" && isActive) ||
+
+                (activeFilter === "inactive" && !isActive);
+
+
+            return (
+                matchesSearch &&
+                matchesStock &&
+                matchesActive
+            );
+
+        });
+
+
+    if (!filtered.length) {
+
+        body.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="7"
+                    class="empty"
+                >
+                    No products found.
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    body.innerHTML =
+
+        filtered.map(product => {
+
+
+            const stock =
+                Number(product.stock || 0);
+
+
+            const image =
+                product.image ||
+                "../images/logo.PNG";
+
+
+            return `
+
+            <tr>
+
+                <td>
+
+                    <div class="product-cell">
+
+                        <img
+                            src="${escapeAttr(image)}"
+                            onerror="this.src='../images/logo.PNG'"
+                            alt=""
+                        >
+
+                        <div>
+
+                            <div class="product-name">
+
+                                ${escapeHtml(
+                                    product.name || "Product"
+                                )}
+
+                            </div>
+
+                            <div class="product-meta">
+
+                                ID:
+                                ${escapeHtml(product.id)}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHtml(
+                        product.brand || "—"
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHtml(
+                        product.category || "—"
+                    )}
+
+                    ${
+                        product.subcategory
+                            ? `<div class="product-meta">
+                                ${escapeHtml(product.subcategory)}
+                               </div>`
+                            : ""
+                    }
+
+                </td>
+
+
+                <td>
+
+                    <input
+                        class="stock-input"
+                        type="number"
+                        min="0"
+                        value="${stock}"
+                        id="stock-${product.id}"
+                    >
+
+                </td>
+
+
+                <td>
+
+                    ${stockBadge(stock)}
+
+                </td>
+
+
+                <td>
+
+                    ${
+                        product.active !== false
+
+                        ? `
+                            <span class="active-badge active-yes">
+                                Active
+                            </span>
+                          `
+
+                        : `
+                            <span class="active-badge active-no">
+                                Inactive
+                            </span>
+                          `
+                    }
+
+                </td>
+
+
+                <td>
+
+                    <div class="action-buttons">
+
+                        <button
+                            class="save-btn"
+                            onclick="saveStock(${product.id})"
+                        >
+                            Save
+                        </button>
+
+
+                        <button
+                            class="toggle-btn"
+                            onclick="toggleActive(${product.id})"
+                        >
+                            ${
+                                product.active !== false
+                                    ? "Disable"
+                                    : "Enable"
+                            }
+                        </button>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =========================
+   SAVE STOCK
+========================= */
+
+async function saveStock(productId) {
+
+    const input =
+        document.getElementById(
+            `stock-${productId}`
+        );
+
+
+    if (!input) return;
+
+
+    const stock =
+        Number(input.value);
+
+
+    if (!Number.isInteger(stock) || stock < 0) {
+
+        alert(
+            "Stock must be a whole number greater than or equal to 0."
+        );
+
+        return;
+
+    }
+
+
+    const product =
+        products.find(p =>
+            Number(p.id) === Number(productId)
+        );
+
+
+    if (!product) return;
+
+
+    try {
+
+        const {
+            error
+        } = await sb
+
+            .from("products")
+
+            .update({
+
+                stock: stock
+
+            })
+
+            .eq("id", productId);
+
+
+        if (error) throw error;
+
+
+        product.stock = stock;
+
+
+        updateSummary();
+
+        renderProducts();
+
+
+        document.getElementById("message")
+            .textContent =
+            `${product.name} stock updated successfully.`;
+
+    }
+
+    catch (error) {
+
+        document.getElementById("message")
+            .textContent =
+            error.message;
+
+    }
+
+}
+
+
+/* =========================
+   TOGGLE ACTIVE
+========================= */
+
+async function toggleActive(productId) {
+
+    const product =
+        products.find(p =>
+            Number(p.id) === Number(productId)
+        );
+
+
+    if (!product) return;
+
+
+    const newValue =
+        product.active === false;
+
+
+    try {
+
+        const {
+            error
+        } = await sb
+
+            .from("products")
+
+            .update({
+
+                active: newValue
+
+            })
+
+            .eq("id", productId);
+
+
+        if (error) throw error;
+
+
+        product.active = newValue;
+
+
+        renderProducts();
+
+
+        document.getElementById("message")
+            .textContent =
+
+            newValue
+
+                ? `${product.name} is now active.`
+
+                : `${product.name} has been disabled.`;
+
+    }
+
+    catch (error) {
+
+        document.getElementById("message")
+            .textContent =
+            error.message;
+
+    }
+
+}
+
+
+/* =========================
+   SEARCH / FILTER
+========================= */
+
+document.getElementById("search")
+    .addEventListener(
+        "input",
+        renderProducts
+    );
+
+
+document.getElementById("stockFilter")
+    .addEventListener(
+        "change",
+        renderProducts
+    );
+
+
+document.getElementById("activeFilter")
+    .addEventListener(
+        "change",
+        renderProducts
+    );
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+document.getElementById("logout")
+    .onclick = async () => {
+
+        await requireSupabase()
+            .auth
+            .signOut();
+
+        location.href =
+            "login.html";
+
+    };
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function escapeAttr(value) {
+
+    return escapeHtml(value);
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+loadProducts();
+
+</script>
+
+</body>
+
+</html>

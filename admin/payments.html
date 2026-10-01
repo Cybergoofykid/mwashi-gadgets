@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Mwashi Gadgets | Payments</title>
+
+    <link
+        rel="stylesheet"
+        href="admin.css"
+    >
+
+    <style>
+        /* =====================================================
+           PAYMENTS PAGE
+        ===================================================== */
+
+        .payment-stat strong {
+            font-size: 26px;
+        }
+
+        .payment-stat small {
+            display: block;
+            margin-top: 6px;
+            color: #667085;
+        }
+
+        .payment-toolbar {
+            display: grid;
+            grid-template-columns: 1fr 180px 180px;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .payment-table {
+            min-width: 1050px;
+        }
+
+        .amount-paid {
+            color: #087443;
+            font-weight: 700;
+        }
+
+        .amount-balance {
+            color: #b54708;
+            font-weight: 700;
+        }
+
+        .amount-zero {
+            color: #667085;
+        }
+
+        .payment-actions {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        .view-btn,
+        .add-payment-btn {
+            border: 1px solid #d8dee8;
+            background: #fff;
+            padding: 8px 11px;
+            border-radius: 7px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .add-payment-btn {
+            background: #111827;
+            color: #fff;
+            border-color: #111827;
+        }
+
+        .view-btn:hover,
+        .add-payment-btn:hover {
+            opacity: .88;
+        }
+
+        .payment-status {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .payment-status.paid {
+            background: #e9f9ef;
+            color: #087443;
+        }
+
+        .payment-status.partial {
+            background: #fff4e5;
+            color: #b54708;
+        }
+
+        .payment-status.pending {
+            background: #eef2ff;
+            color: #3730a3;
+        }
+
+        .payment-status.failed {
+            background: #feecec;
+            color: #b42318;
+        }
+
+        .payment-status.refunded {
+            background: #f3e8ff;
+            color: #7e22ce;
+        }
+
+        .payment-status.overpaid {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .order-number {
+            font-weight: 700;
+            color: #172033;
+            white-space: nowrap;
+        }
+
+        .customer-name {
+            font-weight: 600;
+        }
+
+        .customer-phone {
+            color: #667085;
+            font-size: 13px;
+            margin-top: 3px;
+        }
+
+        .modal-wide {
+            width: min(900px, 100%);
+        }
+
+        .order-summary {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0 20px;
+        }
+
+        .order-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .summary-item span {
+            display: block;
+            color: #667085;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .summary-item strong {
+            display: block;
+            font-size: 15px;
+        }
+
+        .history-table {
+            min-width: 700px;
+        }
+
+        .history-section {
+            margin-top: 25px;
+        }
+
+        .history-section h3 {
+            margin: 0 0 12px;
+        }
+
+        .empty-history {
+            padding: 20px;
+            text-align: center;
+            color: #667085;
+            background: #f8fafc;
+            border-radius: 10px;
+        }
+
+        .payment-message {
+            min-height: 20px;
+            margin-top: 10px;
+            color: #b54708;
+        }
+
+        .success-message {
+            color: #087443;
+        }
+
+        .danger-message {
+            color: #b42318;
+        }
+
+        .method-badge {
+            display: inline-block;
+            background: #f2f4f7;
+            color: #344054;
+            padding: 5px 9px;
+            border-radius: 7px;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        @media(max-width:1000px) {
+            .payment-toolbar {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .payment-toolbar input {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media(max-width:700px) {
+            .payment-toolbar {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-toolbar input {
+                grid-column: auto;
+            }
+
+            .order-summary-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media(max-width:500px) {
+            .order-summary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="admin-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <img
+                src="../images/logo.PNG"
+                alt="Mwashi Gadgets"
+            >
+
+            <span>MWASHI ADMIN</span>
+        </div>
+
+        <nav>
+
+            <a href="index.html">
+                Dashboard
+            </a>
+
+            <a href="products.html">
+                Products
+            </a>
+
+            <a href="orders.html">
+                Orders
+            </a>
+
+            <a href="payments.html" class="active">
+                Payments
+            </a>
+
+            <a href="inventory.html">
+                Inventory
+            </a>
+
+            <a href="../index.html">
+                View Store
+            </a>
+
+        </nav>
+
+        <button
+            class="logout"
+            id="logout"
+        >
+            Logout
+        </button>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="admin-main">
+
+        <!-- TOP BAR -->
+
+        <div class="topbar">
+
+            <div>
+                <h1>Payments</h1>
+
+                <p>
+                    Manage customer payments and outstanding balances.
+                </p>
+            </div>
+
+            <a
+                href="orders.html"
+                class="primary-btn"
+            >
+                View Orders
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             PAYMENT STATS
+        ================================================== -->
+
+        <section class="stats">
+
+            <div class="stat payment-stat">
+
+                <span>Total Collected</span>
+
+                <strong id="totalCollected">
+                    TZS 0
+                </strong>
+
+                <small>
+                    Completed payments
+                </small>
+
+            </div>
+
+
+            <div class="stat payment-stat">
+
+                <span>Outstanding Balance</span>
+
+                <strong id="outstandingBalance">
+                    TZS 0
+                </strong>
+
+                <small>
+                    Amount still owed
+                </small>
+
+            </div>
+
+
+            <div class="stat payment-stat">
+
+                <span>Total Payments</span>
+
+                <strong id="totalPayments">
+                    0
+                </strong>
+
+                <small>
+                    Payment records
+                </small>
+
+            </div>
+
+
+            <div class="stat payment-stat">
+
+                <span>Pending / Failed</span>
+
+                <strong id="pendingPayments">
+                    0
+                </strong>
+
+                <small>
+                    Payments requiring attention
+                </small>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PAYMENTS PANEL
+        ================================================== -->
+
+        <section class="panel">
+
+            <div class="panel-head">
+
+                <h2>
+                    Payment Records
+                </h2>
+
+            </div>
+
+
+            <!-- TOOLBAR -->
+
+            <div class="payment-toolbar">
+
+                <input
+                    type="search"
+                    id="searchPayments"
+                    placeholder="Search order, customer or phone..."
+                >
+
+                <select id="statusFilter">
+
+                    <option value="all">
+                        All Payment Status
+                    </option>
+
+                    <option value="paid">
+                        Paid
+                    </option>
+
+                    <option value="partial">
+                        Partial
+                    </option>
+
+                    <option value="pending">
+                        Pending
+                    </option>
+
+                    <option value="failed">
+                        Failed
+                    </option>
+
+                    <option value="refunded">
+                        Refunded
+                    </option>
+
+                </select>
+
+
+                <select id="methodFilter">
+
+                    <option value="all">
+                        All Methods
+                    </option>
+
+                    <option value="Cash">
+                        Cash
+                    </option>
+
+                    <option value="M-Pesa">
+                        M-Pesa
+                    </option>
+
+                    <option value="Airtel Money">
+                        Airtel Money
+                    </option>
+
+                    <option value="Mixx by Yas">
+                        Mixx by Yas
+                    </option>
+
+                    <option value="Halopesa">
+                        Halopesa
+                    </option>
+
+                    <option value="Bank Transfer">
+                        Bank Transfer
+                    </option>
+
+                    <option value="Card">
+                        Card
+                    </option>
+
+                    <option value="WhatsApp">
+                        WhatsApp
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- MESSAGE -->
+
+            <div
+                id="paymentMessage"
+                class="payment-message"
+            ></div>
+
+
+            <!-- TABLE -->
+
+            <div class="table-wrap">
+
+                <table class="payment-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Order
+                            </th>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Order Total
+                            </th>
+
+                            <th>
+                                Paid
+                            </th>
+
+                            <th>
+                                Balance
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Method
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="paymentsTable">
+
+                        <tr>
+
+                            <td
+                                colspan="9"
+                                style="text-align:center;padding:30px"
+                            >
+                                Loading payments...
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     ADD PAYMENT MODAL
+========================================================== -->
+
+<div
+    id="paymentModal"
+    class="modal hidden"
+>
+
+    <div class="modal-card">
+
+        <div class="modal-head">
+
+            <h2>
+                Add Payment
+            </h2>
+
+            <button
+                type="button"
+                id="closePaymentModal"
+            >
+                &times;
+            </button>
+
+        </div>
+
+
+        <div
+            id="selectedOrderSummary"
+            class="order-summary"
+        >
+
+            <div class="order-summary-grid">
+
+                <div class="summary-item">
+
+                    <span>
+                        Order
+                    </span>
+
+                    <strong id="summaryOrderNumber">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span>
+                        Customer
+                    </span>
+
+                    <strong id="summaryCustomer">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span>
+                        Order Total
+                    </span>
+
+                    <strong id="summaryTotal">
+                        TZS 0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span>
+                        Already Paid
+                    </span>
+
+                    <strong id="summaryPaid">
+                        TZS 0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <span>
+                        Current Balance
+                    </span>
+
+                    <strong id="summaryBalance">
+                        TZS 0
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <form id="paymentForm">
+
+            <input
+                type="hidden"
+                id="paymentOrderId"
+            >
+
+
+            <div class="form-grid">
+
+                <div>
+
+                    <label for="paymentAmount">
+                        Amount
+                    </label>
+
+                    <input
+                        type="number"
+                        id="paymentAmount"
+                        min="1"
+                        step="0.01"
+                        placeholder="Enter payment amount"
+                        required
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="paymentMethod">
+                        Payment Method
+                    </label>
+
+                    <select
+                        id="paymentMethod"
+                        required
+                    >
+
+                        <option value="">
+                            Select method
+                        </option>
+
+                        <option value="Cash">
+                            Cash
+                        </option>
+
+                        <option value="M-Pesa">
+                            M-Pesa
+                        </option>
+
+                        <option value="Airtel Money">
+                            Airtel Money
+                        </option>
+
+                        <option value="Mixx by Yas">
+                            Mixx by Yas
+                        </option>
+
+                        <option value="Halopesa">
+                            Halopesa
+                        </option>
+
+                        <option value="Bank Transfer">
+                            Bank Transfer
+                        </option>
+
+                        <option value="Card">
+                            Card
+                        </option>
+
+                        <option value="WhatsApp">
+                            WhatsApp
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label for="transactionReference">
+                        Transaction Reference
+                    </label>
+
+                    <input
+                        type="text"
+                        id="transactionReference"
+                        placeholder="e.g. MPESA123456"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="paymentDate">
+                        Payment Date
+                    </label>
+
+                    <input
+                        type="datetime-local"
+                        id="paymentDate"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <label for="paymentStatus">
+                Payment Status
+            </label>
+
+            <select id="paymentStatus">
+
+                <option value="completed">
+                    Completed
+                </option>
+
+                <option value="pending">
+                    Pending
+                </option>
+
+                <option value="failed">
+                    Failed
+                </option>
+
+                <option value="refunded">
+                    Refunded
+                </option>
+
+            </select>
+
+
+            <label for="paymentNotes">
+                Notes
+            </label>
+
+            <textarea
+                id="paymentNotes"
+                rows="3"
+                placeholder="Optional payment notes..."
+            ></textarea>
+
+
+            <div
+                id="formMessage"
+                class="payment-message"
+            ></div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelPayment"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+                    Save Payment
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     PAYMENT HISTORY MODAL
+========================================================== -->
+
+<div
+    id="historyModal"
+    class="modal hidden"
+>
+
+    <div class="modal-card modal-wide">
+
+        <div class="modal-head">
+
+            <h2>
+                Payment History
+            </h2>
+
+            <button
+                type="button"
+                id="closeHistoryModal"
+            >
+                &times;
+            </button>
+
+        </div>
+
+
+        <div
+            id="historySummary"
+            class="order-summary"
+        ></div>
+
+
+        <div class="history-section">
+
+            <h3>
+                Payments
+            </h3>
+
+            <div class="table-wrap">
+
+                <table class="history-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Amount
+                            </th>
+
+                            <th>
+                                Method
+                            </th>
+
+                            <th>
+                                Reference
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Notes
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="historyTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     SCRIPTS
+========================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="config.js"></script>
+
+<script src="supabase-client.js"></script>
+
+<script src="payments.js"></script>
+
+</body>
+
+</html>
