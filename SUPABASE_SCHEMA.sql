@@ -31,6 +31,7 @@ create policy "Public can read active products"
 on public.products for select
 using (active = true);
 
+<<<<<<< HEAD
 -- Authenticated admins can manage products.
 drop policy if exists "Authenticated admins can manage products" on public.products;
 create policy "Authenticated admins can manage products"
@@ -38,12 +39,55 @@ on public.products for all
 to authenticated
 using (true)
 with check (true);
+=======
+-- Admin authorization table: only auth.users IDs listed here are owners/admins.
+create table if not exists public.admin_users (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  created_at timestamptz default now()
+);
+
+alter table public.admin_users enable row level security;
+
+drop policy if exists "Admins can read their own admin record" on public.admin_users;
+create policy "Admins can read their own admin record"
+on public.admin_users for select
+to authenticated
+using (user_id = auth.uid());
+
+-- Security-definer helper used by RLS. It checks the authenticated user's
+-- auth.uid() against the allow-list above without exposing the whole table.
+create or replace function public.is_admin()
+returns boolean
+language sql
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.admin_users
+    where user_id = auth.uid()
+  );
+$$;
+
+revoke all on function public.is_admin() from public;
+grant execute on function public.is_admin() to authenticated;
+
+-- Only authorized admins can manage products.
+drop policy if exists "Authenticated admins can manage products" on public.products;
+drop policy if exists "Admins can manage products" on public.products;
+create policy "Admins can manage products"
+on public.products for all
+to authenticated
+using (public.is_admin())
+with check (public.is_admin());
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 
 create index if not exists products_category_idx on public.products(category);
 create index if not exists products_brand_idx on public.products(brand);
 create index if not exists products_active_idx on public.products(active);
 
 -- Optional: create an admin user in Supabase Dashboard > Authentication > Users.
+<<<<<<< HEAD
 
 
 -- Product image storage
@@ -81,3 +125,5 @@ create policy "Authenticated users can delete product images"
 on storage.objects for delete
 to authenticated
 using (bucket_id = 'product-images');
+=======
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a

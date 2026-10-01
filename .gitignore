@@ -10,4 +10,12 @@ Thumbs.db
 *.log
 
 # Node (if you ever use it)
+<<<<<<< HEAD
 node_modules/
+=======
+node_modules/
+# Local/private configuration
+.env
+.env.*
+*.local
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a

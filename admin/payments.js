@@ -98,6 +98,7 @@ function getSupabase() {
 
     return requireSupabase();
 }
+<<<<<<< HEAD
 
 
 /* =====================================================
@@ -156,6 +157,24 @@ function money(value) {
    ESCAPE HTML
 ===================================================== */
 
+=======
+function money(amount) {
+
+    const value =
+        Number(amount) || 0;
+
+    return new Intl.NumberFormat(
+        "en-TZ",
+        {
+            style: "currency",
+            currency: "TZS",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        }
+    ).format(value);
+
+}
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 function escapeHtml(value) {
 
     return String(value ?? "")
@@ -164,6 +183,7 @@ function escapeHtml(value) {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
+<<<<<<< HEAD
 }
 
 
@@ -273,6 +293,36 @@ function paymentStatusBadge(status) {
             ${escapeHtml(label)}
         </span>
     `;
+=======
+
+}
+
+/* =====================================================
+   AUTHENTICATION
+===================================================== */
+
+async function guard() {
+
+    try {
+
+        sb = getSupabase();
+
+        const allowed = await requireAdmin();
+
+        return allowed;
+
+    } catch (error) {
+
+        console.error(
+            "Admin guard error:",
+            error
+        );
+
+        return false;
+
+    }
+
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 }
 
 
@@ -451,6 +501,102 @@ function buildPaymentRows() {
 
 }
 
+<<<<<<< HEAD
+=======
+/* =====================================================
+   PAYMENT STATUS
+===================================================== */
+
+function getPaymentStatus(
+    total,
+    paid
+) {
+
+    total =
+        Number(total) || 0;
+
+    paid =
+        Number(paid) || 0;
+
+
+    if (paid <= 0) {
+
+        return "pending";
+
+    }
+
+
+    if (paid < total) {
+
+        return "partial";
+
+    }
+
+
+    return "completed";
+
+}
+
+/* =====================================================
+   PAYMENT STATUS BADGE
+===================================================== */
+
+function paymentStatusBadge(status) {
+
+    const value =
+        String(status || "pending").toLowerCase();
+
+    let label = "Pending";
+
+    if (value === "completed") {
+
+        label = "Completed";
+
+    } else if (value === "partial") {
+
+        label = "Partially Paid";
+
+    } else if (value === "failed") {
+
+        label = "Failed";
+
+    } else if (value === "refunded") {
+
+        label = "Refunded";
+
+    }
+
+    return `
+        <span class="badge status-${escapeHtml(value)}">
+            ${escapeHtml(label)}
+        </span>
+    `;
+
+}
+
+function formatDate(dateValue) {
+
+    if (!dateValue) {
+        return "-";
+    }
+
+    const date = new Date(dateValue);
+
+    if (Number.isNaN(date.getTime())) {
+        return "-";
+    }
+
+    return new Intl.DateTimeFormat(
+        "en-TZ",
+        {
+            dateStyle: "medium",
+            timeStyle: "short",
+            timeZone: "Africa/Dar_es_Salaam"
+        }
+    ).format(date);
+
+}
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 
 /* =====================================================
    UPDATE STATS

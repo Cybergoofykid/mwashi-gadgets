@@ -1796,6 +1796,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 async function guard() {
 
+<<<<<<< HEAD
     sb = requireSupabase();
 
     const {
@@ -1812,16 +1813,36 @@ async function guard() {
     if (!data || !data.session) {
 
         window.location.href = "login.html";
+=======
+    try {
+
+        sb = requireSupabase();
+
+        const allowed = await requireAdmin();
+
+        return allowed;
+
+    } catch (error) {
+
+        console.error(
+            "Admin guard error:",
+            error
+        );
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 
         return false;
 
     }
 
+<<<<<<< HEAD
     return true;
 
 }
 
 
+=======
+}
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 /* =========================================================
    LOAD ORDERS
 ========================================================= */

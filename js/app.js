@@ -676,6 +676,20 @@ function filterProducts() {
 
                 } else if (
                     selectedCategory.includes(
+<<<<<<< HEAD
+=======
+                        "nothing"
+                    )
+                ) {
+
+                    matchesCategory =
+                        brand.includes("nothing") ||
+                        category.includes("nothing") ||
+                        name.includes("nothing");
+
+                } else if (
+                    selectedCategory.includes(
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
                         "audio"
                     )
                 ) {

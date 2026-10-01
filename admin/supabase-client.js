@@ -17,3 +17,56 @@ function requireSupabase() {
     }
     return supabaseClient;
 }
+<<<<<<< HEAD
+=======
+
+/**
+ * Verify that the currently signed-in Supabase user is an authorized
+ * Mwashi Gadgets administrator.
+ *
+ * Authentication alone is NOT enough: the user's auth.users id must also
+ * exist in public.admin_users.
+ */
+async function requireAdmin(options = {}) {
+    const { redirect = true } = options;
+    const sb = requireSupabase();
+
+    try {
+        const { data: sessionData, error: sessionError } =
+            await sb.auth.getSession();
+
+        if (sessionError || !sessionData?.session) {
+            if (redirect) window.location.href = "login.html";
+            return false;
+        }
+
+        const userId = sessionData.session.user.id;
+
+        const { data: adminUser, error: adminError } = await sb
+            .from("admin_users")
+            .select("user_id")
+            .eq("user_id", userId)
+            .maybeSingle();
+
+        if (adminError) {
+            console.error("Admin authorization error:", adminError);
+            if (redirect) window.location.href = "login.html";
+            return false;
+        }
+
+        if (!adminUser) {
+            console.warn("Signed-in user is not an authorized Mwashi Gadgets admin.");
+            await sb.auth.signOut();
+            if (redirect) window.location.href = "login.html?unauthorized=1";
+            return false;
+        }
+
+        return true;
+    } catch (error) {
+        console.error("Admin authorization error:", error);
+        if (redirect) window.location.href = "login.html";
+        return false;
+    }
+}
+
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a

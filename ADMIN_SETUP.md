@@ -8,11 +8,28 @@ Create a project at https://supabase.com/
 ## 2. Create the table
 Open SQL Editor and run `SUPABASE_SCHEMA.sql`.
 
+<<<<<<< HEAD
 ## 3. Create your admin account
+=======
+## 3. Create your owner/admin account
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 In Supabase Dashboard:
 Authentication -> Users -> Add user.
 Create the email/password you will use for `/admin/login.html`.
 
+<<<<<<< HEAD
+=======
+Then add that Auth user's UUID to `public.admin_users` in SQL Editor:
+
+```sql
+insert into public.admin_users (user_id)
+values ('YOUR_AUTH_USER_UUID')
+on conflict (user_id) do nothing;
+```
+
+The UUID is the user's `id` shown under Authentication -> Users. Only users listed in `admin_users` can enter the admin area.
+
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 ## 4. Add public Supabase credentials
 Open `admin/config.js` and replace:
 - YOUR_SUPABASE_PROJECT_URL

@@ -849,6 +849,12 @@
         View Store
     </a>
 
+<<<<<<< HEAD
+=======
+    <button id="importCatalog">
+        Import Current Catalogue
+    </button>
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 
 </div>
 
@@ -957,6 +963,16 @@
 <!-- =========================================================
      PRODUCT CATALOGUE
 ========================================================= -->
+<<<<<<< HEAD
+=======
+
+<script src="../js/apple.js"></script>
+<script src="../js/samsung.js"></script>
+<script src="../js/pixel.js"></script>
+<script src="../js/nothing.js"></script>
+<script src="../js/accessories.js"></script>
+<script src="../js/audio.js"></script>
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 <script src="../js/products.js"></script>
 
 <script>
@@ -981,6 +997,7 @@ let dashboardProducts = [];
 
 async function guard() {
 
+<<<<<<< HEAD
     sb = requireSupabase();
 
     const {
@@ -997,11 +1014,25 @@ async function guard() {
 
         location.href =
             "login.html";
+=======
+    try {
+
+        sb = requireSupabase();
+
+        const allowed = await requireAdmin();
+
+        return allowed;
+
+    } catch (error) {
+
+        console.error("Admin guard error:", error);
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 
         return false;
 
     }
 
+<<<<<<< HEAD
     if (!data.session) {
 
         location.href =
@@ -1016,6 +1047,10 @@ async function guard() {
 }
 
 
+=======
+}
+
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 /* =========================================================
    MONEY FORMAT
 ========================================================= */
@@ -2143,6 +2178,338 @@ function renderRecentOrders() {
 
 
 /* =========================================================
+<<<<<<< HEAD
+=======
+   IMPORT CURRENT CATALOGUE
+========================================================= */
+
+document.getElementById("importCatalog").onclick = async function () {
+
+    const message =
+        document.getElementById("ordersMessage");
+
+    const button = this;
+
+    try {
+
+        if (!await guard())
+            return;
+
+        button.disabled = true;
+        button.textContent = "⬆ Importing...";
+
+        message.textContent =
+            "Preparing catalogue...";
+
+
+        /* =====================================================
+           COLLECT LOCAL CATALOGUES
+        ===================================================== */
+
+        const catalogues = [
+
+            {
+                name: "Apple",
+                products:
+                    Array.isArray(appleProducts)
+                        ? appleProducts
+                        : []
+            },
+
+            {
+                name: "Samsung",
+                products:
+                    Array.isArray(samsungProducts)
+                        ? samsungProducts
+                        : []
+            },
+
+            {
+                name: "Google Pixel",
+                products:
+                    Array.isArray(pixelProducts)
+                        ? pixelProducts
+                        : []
+            },
+
+            {
+                name: "Nothing",
+                products:
+                    Array.isArray(nothingProducts)
+                        ? nothingProducts
+                        : []
+            },
+
+            {
+                name: "Accessories",
+                products:
+                    Array.isArray(accessoryProducts)
+                        ? accessoryProducts
+                        : []
+            },
+
+            {
+                name: "Audio",
+                products:
+                    Array.isArray(audioProducts)
+                        ? audioProducts
+                        : []
+            }
+
+        ];
+
+
+        /* =====================================================
+           COMBINE ALL CATALOGUES
+        ===================================================== */
+
+        const combinedCatalogue = [];
+
+        catalogues.forEach(catalogue => {
+
+            combinedCatalogue.push(
+                ...catalogue.products
+            );
+
+        });
+
+
+        if (!combinedCatalogue.length) {
+
+            throw new Error(
+                "No catalogue products were found."
+            );
+
+        }
+
+
+        /* =====================================================
+           VALIDATE PRODUCT IDS
+        ===================================================== */
+
+        const invalidProducts =
+            combinedCatalogue.filter(product => {
+
+                return !Number.isFinite(
+                    Number(product.id)
+                );
+
+            });
+
+
+        if (invalidProducts.length) {
+
+            throw new Error(
+                `${invalidProducts.length} product(s) have invalid IDs.`
+            );
+
+        }
+
+
+        const ids =
+            combinedCatalogue.map(product =>
+                Number(product.id)
+            );
+
+
+        const duplicateIds =
+            ids.filter(
+                (id, index) =>
+                    ids.indexOf(id) !== index
+            );
+
+
+        if (duplicateIds.length) {
+
+            const uniqueDuplicates =
+                [...new Set(duplicateIds)];
+
+
+            throw new Error(
+                "Duplicate product IDs found: " +
+                uniqueDuplicates.join(", ")
+            );
+
+        }
+
+
+        /* =====================================================
+           PREPARE SUPABASE PAYLOAD
+        ===================================================== */
+
+        const payload =
+            combinedCatalogue.map(product => ({
+
+                id:
+                    Number(product.id),
+
+                name:
+                    product.name || "",
+
+                type:
+                    product.type ||
+                    "product",
+
+                category:
+                    product.category ||
+                    null,
+
+                brand:
+                    product.brand ||
+                    null,
+
+                subcategory:
+                    product.subcategory ||
+                    null,
+
+                featured:
+                    !!product.featured,
+
+                latest:
+                    !!product.latest,
+
+                installment:
+                    !!product.installment,
+
+                image:
+                    product.image ||
+                    null,
+
+                description:
+                    product.description ||
+                    "",
+
+                price:
+                    product.price == null
+                        ? null
+                        : Number(product.price),
+
+                storage:
+                    product.storage ||
+                    null,
+
+                colours:
+                    Array.isArray(product.colours)
+                        ? product.colours
+                        : [],
+
+                compatibility:
+                    Array.isArray(product.compatibility)
+                        ? product.compatibility
+                        : [],
+
+                stock:
+                    Number(product.stock || 0),
+
+                active:
+                    true
+
+            }));
+
+
+        /* =====================================================
+           IMPORT INTO SUPABASE
+        ===================================================== */
+
+        message.textContent =
+            `Importing ${payload.length} products...`;
+
+
+        const {
+            error
+        } = await sb
+            .from("products")
+            .upsert(
+                payload,
+                {
+                    onConflict: "id"
+                }
+            );
+
+
+        if (error)
+            throw error;
+
+
+        /* =====================================================
+           COUNTS
+        ===================================================== */
+
+        const appleCount =
+            Array.isArray(appleProducts)
+                ? appleProducts.length
+                : 0;
+
+        const samsungCount =
+            Array.isArray(samsungProducts)
+                ? samsungProducts.length
+                : 0;
+
+        const pixelCount =
+            Array.isArray(pixelProducts)
+                ? pixelProducts.length
+                : 0;
+
+        const nothingCount =
+            Array.isArray(nothingProducts)
+                ? nothingProducts.length
+                : 0;
+
+        const accessoryCount =
+            Array.isArray(accessoryProducts)
+                ? accessoryProducts.length
+                : 0;
+
+        const audioCount =
+            Array.isArray(audioProducts)
+                ? audioProducts.length
+                : 0;
+
+
+        message.textContent =
+            `Catalogue imported successfully: ` +
+            `${payload.length} products ` +
+            `(Apple ${appleCount}, ` +
+            `Samsung ${samsungCount}, ` +
+            `Pixel ${pixelCount}, ` +
+            `Nothing ${nothingCount}, ` +
+            `Accessories ${accessoryCount}, ` +
+            `Audio ${audioCount}).`;
+
+
+        /* =====================================================
+           REFRESH DASHBOARD
+        ===================================================== */
+
+        await loadDashboard();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Catalogue import error:",
+            error
+        );
+
+        message.textContent =
+            error.message ||
+            "Catalogue import failed.";
+
+    }
+
+    finally {
+
+        button.disabled = false;
+
+        button.textContent =
+            "⬆ Import Current Catalogue";
+
+    }
+
+};
+/* =========================================================
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
    REFRESH DASHBOARD
 ========================================================= */
 

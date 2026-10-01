@@ -435,6 +435,7 @@
 
 
                 <div>
+<<<<<<< HEAD
                     <label for="imageFile">
                         Product Image
                     </label>
@@ -458,6 +459,16 @@
                         <img id="imagePreviewImg" src="" alt="Product preview" style="width:70px;height:70px;object-fit:contain;border:1px solid #ddd;border-radius:8px;background:#f7f7f7;">
                         <span id="imageStatus" style="font-size:13px;color:#666;"></span>
                     </div>
+=======
+                    <label for="image">
+                        Image Path / URL
+                    </label>
+
+                    <input
+                        id="image"
+                        placeholder="images/apple/17-pro.webp"
+                    >
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
                 </div>
 
 
@@ -696,12 +707,20 @@ function showMessage(text, type = "") {
    AUTH GUARD
 ========================================== */
 
+<<<<<<< HEAD
+=======
+/* ==========================================
+   AUTH GUARD
+========================================== */
+
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 async function guard() {
 
     try {
 
         sb = requireSupabase();
 
+<<<<<<< HEAD
         const {
             data,
             error
@@ -738,6 +757,15 @@ async function guard() {
             error.message,
             "error"
         );
+=======
+        const allowed = await requireAdmin();
+
+        return allowed;
+
+    } catch (error) {
+
+        console.error("Admin guard error:", error);
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 
         return false;
 
@@ -745,7 +773,10 @@ async function guard() {
 
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 /* ==========================================
    LOAD PRODUCTS
 ========================================== */
@@ -1312,6 +1343,7 @@ window.editProduct = function(id) {
     $("image").value =
         product.image || "";
 
+<<<<<<< HEAD
     $("imageFile").value = "";
 
     showImagePreview(
@@ -1319,6 +1351,8 @@ window.editProduct = function(id) {
         product.image ? "Current product image" : ""
     );
 
+=======
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 
     $("description").value =
         product.description || "";
@@ -1414,9 +1448,12 @@ function resetForm() {
 
     storageOptions = [];
 
+<<<<<<< HEAD
     $("imageFile").value = "";
     $("image").value = "";
     showImagePreview();
+=======
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 
     renderStorageRows();
 
@@ -1554,6 +1591,7 @@ window.deleteProduct = async function(id) {
 
 
 /* ==========================================
+<<<<<<< HEAD
    SUPABASE PRODUCT IMAGE UPLOAD
 ========================================== */
 
@@ -1649,6 +1687,8 @@ $("imageFile").addEventListener("change", function () {
 
 
 /* ==========================================
+=======
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
    SAVE PRODUCT
 ========================================== */
 
@@ -1660,6 +1700,7 @@ $("productForm").onsubmit =
 
         try {
 
+<<<<<<< HEAD
             if (!sb) {
                 sb = requireSupabase();
             }
@@ -1670,6 +1711,8 @@ $("productForm").onsubmit =
                 throw new Error("Your admin session has expired. Please log in again.");
             }
 
+=======
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
             showMessage(
                 "Saving product..."
             );
@@ -1747,6 +1790,7 @@ $("productForm").onsubmit =
 
 
             /* =========================
+<<<<<<< HEAD
                PRODUCT IMAGE
             ========================= */
 
@@ -1763,6 +1807,8 @@ $("productForm").onsubmit =
 
 
             /* =========================
+=======
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
                PRODUCT RECORD
             ========================= */
 
@@ -1801,7 +1847,14 @@ $("productForm").onsubmit =
                     $("installment")
                         .checked,
 
+<<<<<<< HEAD
                 image: imageUrl,
+=======
+                image:
+                    $("image")
+                        .value
+                        .trim(),
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 
                 description:
                     $("description")
@@ -1854,6 +1907,7 @@ $("productForm").onsubmit =
 
             if (error) {
 
+<<<<<<< HEAD
                 console.error("Supabase product save error:", error);
 
                 const details = [
@@ -1865,6 +1919,12 @@ $("productForm").onsubmit =
 
                 showMessage(
                     "Save failed: " + details,
+=======
+                console.error(error);
+
+                showMessage(
+                    "Save failed: " + error.message,
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
                     "error"
                 );
 

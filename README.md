@@ -1,5 +1,6 @@
 # mwashi_gadgets
 SMARTPHONE SELLING WEBSITE
+<<<<<<< HEAD
 
 
 ## Current Supabase image-upload setup
@@ -20,3 +21,5 @@ Create/verify these policies under **Storage → Files → Policies → product-
 4. `DELETE` for `authenticated` with `bucket_id = 'product-images'`.
 
 The first two are the policies needed for the normal add-product upload flow.
+=======
+>>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
