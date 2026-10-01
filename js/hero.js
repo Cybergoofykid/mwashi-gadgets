@@ -1,4 +1,4 @@
-```javascript
+
 "use strict";
 
 /*
@@ -152,4 +152,3 @@ setInterval(() => {
     heroIndex = (heroIndex + 1) % heroProducts.length;
     renderHeroProduct(heroProducts[heroIndex]);
 }, 4000);
-```
