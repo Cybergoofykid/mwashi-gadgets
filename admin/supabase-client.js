@@ -17,8 +17,6 @@ function requireSupabase() {
     }
     return supabaseClient;
 }
-<<<<<<< HEAD
-=======
 
 /**
  * Verify that the currently signed-in Supabase user is an authorized
@@ -68,5 +66,3 @@ async function requireAdmin(options = {}) {
         return false;
     }
 }
-
->>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a

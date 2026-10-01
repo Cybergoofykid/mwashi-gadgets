@@ -63,18 +63,13 @@ const submitButton =
 /* =====================================================
    CATEGORY BRANDS
 ===================================================== */
-
 const categoryBrands = {
 
     Smartphone: [
         "Apple",
         "Samsung",
-<<<<<<< HEAD
-        "Google Pixel"
-=======
         "Google Pixel",
         "Nothing"
->>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
     ],
 
     Laptop: [
@@ -115,10 +110,7 @@ const categoryBrands = {
         "Apple",
         "Samsung",
         "Google",
-<<<<<<< HEAD
-=======
         "Nothing",
->>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
         "Oraimo",
         "Huawei",
         "Xiaomi",

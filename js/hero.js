@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+```javascript
 "use strict";
 
 /*
@@ -9,7 +9,10 @@ SUPABASE-DRIVEN HERO
 
 The hero catalogue is NOT hard-coded.
 It uses products loaded by js/products.js.
+
 Only active Supabase products are considered.
+Featured products are preferred, followed by latest
+products, then all active products.
 =========================================================
 */
 
@@ -22,12 +25,20 @@ function getHeroProducts(products) {
     }
 
     const active = products.filter(product => {
-        return product && product.active !== false && product.image;
+        return product &&
+            product.active !== false &&
+            product.image;
     });
 
-    // Prefer featured products; if none exist, use latest products.
-    const featured = active.filter(product => product.featured === true);
-    const latest = active.filter(product => product.latest === true);
+    // Prefer featured products.
+    const featured = active.filter(product => {
+        return product.featured === true;
+    });
+
+    // If there are no featured products, use latest products.
+    const latest = active.filter(product => {
+        return product.latest === true;
+    });
 
     const selected = featured.length > 0
         ? featured
@@ -42,6 +53,7 @@ function getHeroPrice(product) {
     }
 
     const direct = Number(product.price);
+
     if (Number.isFinite(direct) && direct > 0) {
         return direct;
     }
@@ -49,16 +61,24 @@ function getHeroPrice(product) {
     const prices = [];
 
     function collect(value) {
-        if (value === null || value === undefined) return;
+        if (value === null || value === undefined) {
+            return;
+        }
 
         if (typeof value === "number") {
-            if (value > 0) prices.push(value);
+            if (value > 0) {
+                prices.push(value);
+            }
             return;
         }
 
         if (typeof value === "string") {
             const number = Number(value);
-            if (Number.isFinite(number) && number > 0) prices.push(number);
+
+            if (Number.isFinite(number) && number > 0) {
+                prices.push(number);
+            }
+
             return;
         }
 
@@ -111,17 +131,19 @@ function loadHeroProducts(products) {
     }
 }
 
+// Receive products after js/products.js finishes loading.
 window.addEventListener("mwashiProductsLoaded", event => {
     loadHeroProducts(event.detail?.products || []);
 });
 
+// Handle cases where products loaded before this script ran.
 document.addEventListener("DOMContentLoaded", () => {
-    // Handles cases where products finished loading before this script ran.
     if (Array.isArray(window.products) && window.products.length > 0) {
         loadHeroProducts(window.products);
     }
 });
 
+// Automatically rotate hero products every 4 seconds.
 setInterval(() => {
     if (heroProducts.length < 2) {
         return;
@@ -130,68 +152,4 @@ setInterval(() => {
     heroIndex = (heroIndex + 1) % heroProducts.length;
     renderHeroProduct(heroProducts[heroIndex]);
 }, 4000);
-=======
-const heroProducts = [
-
-{
-name:"iPhone 17 Pro",
-price:"From TZS 3,800,000",
-image:"images/apple/17-pro.webp"
-},
-
-
-{
-name:"Samsung Galaxy S26 Ultra",
-price:"From TZS 2,700,000",
-image:"images/samsung/26-ULTRA.webp"
-},
-
-
-{
-name:"Google Pixel 10 Pro",
-price:"From TZS 2,900,000",
-image:"images/pixel/pixel10pro.webp"
-}
-
-
-];
-
-
-let heroIndex = 0;
-
-
-function changeHeroProduct(){
-
-
-const product = heroProducts[heroIndex];
-
-
-document.getElementById("hero-image").src =
-product.image;
-
-
-document.getElementById("hero-name").textContent =
-product.name;
-
-
-document.getElementById("hero-price").textContent =
-product.price;
-
-
-
-heroIndex++;
-
-
-if(heroIndex >= heroProducts.length){
-
-heroIndex=0;
-
-}
-
-
-}
-
-
-
-setInterval(changeHeroProduct,4000);
->>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
+```
