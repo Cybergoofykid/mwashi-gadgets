@@ -3,24 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Mwashi Gadgets | Orders</title>
 
-    <link
-        rel="stylesheet"
-        href="admin.css"
-    >
+    <link rel="stylesheet" href="admin.css">
 
     <style>
-        /* =====================================================
-           ORDERS PAGE
-        ===================================================== */
-
         .orders-page {
             padding: 24px;
         }
@@ -47,10 +36,6 @@
             display: flex;
             gap: 10px;
         }
-
-        /* =====================================================
-           BUTTONS
-        ===================================================== */
 
         button {
             font-family: inherit;
@@ -94,10 +79,6 @@
             color: white;
         }
 
-        /* =====================================================
-           STATS
-        ===================================================== */
-
         .order-stats {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -122,10 +103,6 @@
             font-size: 26px;
             font-weight: 800;
         }
-
-        /* =====================================================
-           FILTERS
-        ===================================================== */
 
         .filters-card {
             background: white;
@@ -156,10 +133,6 @@
         .filters select:focus {
             border-color: #2563eb;
         }
-
-        /* =====================================================
-           TABLE
-        ===================================================== */
 
         .table-card {
             background: white;
@@ -205,12 +178,12 @@
             font-weight: 600;
         }
 
-.action-buttons {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    align-items: center;
-}
+        .action-buttons {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
 
         .action-btn {
             border: none;
@@ -236,9 +209,14 @@
             color: #374151;
         }
 
-        /* =====================================================
-           BADGES
-        ===================================================== */
+        .delete-btn {
+            background: #dc2626;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #b91c1c;
+        }
 
         .badge {
             display: inline-flex;
@@ -310,10 +288,6 @@
             background: #fef3c7;
             color: #92400e;
         }
-
-        /* =====================================================
-           MODAL
-        ===================================================== */
 
         .modal-overlay {
             position: fixed;
@@ -401,10 +375,6 @@
             font-size: 18px;
         }
 
-        /* =====================================================
-           ORDER ITEMS
-        ===================================================== */
-
         .order-items {
             display: flex;
             flex-direction: column;
@@ -446,10 +416,6 @@
             font-weight: 700;
         }
 
-        /* =====================================================
-           TOTALS
-        ===================================================== */
-
         .totals {
             margin-top: 18px;
             border-top: 1px solid #e5e7eb;
@@ -471,10 +437,6 @@
             margin-top: 8px;
             padding-top: 12px;
         }
-
-        /* =====================================================
-           PAYMENT SUMMARY
-        ===================================================== */
 
         .payment-summary {
             display: grid;
@@ -510,10 +472,6 @@
             border-color: #bbf7d0;
         }
 
-        /* =====================================================
-           PAYMENT HISTORY
-        ===================================================== */
-
         .payment-history {
             overflow-x: auto;
         }
@@ -548,10 +506,6 @@
             display: flex;
             justify-content: flex-end;
         }
-
-        /* =====================================================
-           PAYMENT FORM
-        ===================================================== */
 
         .payment-form {
             display: grid;
@@ -615,20 +569,12 @@
             color: #1d4ed8;
         }
 
-        /* =====================================================
-           LOADING / EMPTY
-        ===================================================== */
-
         .loading,
         .empty-state {
             text-align: center;
             padding: 50px 20px;
             color: #6b7280;
         }
-
-        /* =====================================================
-           RESPONSIVE
-        ===================================================== */
 
         @media (max-width: 1100px) {
             .filters {
@@ -673,23 +619,7 @@
             .order-stats {
                 grid-template-columns: 1fr;
             }
-            
         }
-        /* =========================================================
-   DELETE BUTTON
-========================================================= */
-
-.delete-btn {
-    background: #dc2626;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.delete-btn:hover {
-    background: #b91c1c;
-}
-        
     </style>
 </head>
 
@@ -697,10 +627,7 @@
 
 <div class="admin-layout">
 
-    <!-- =====================================================
-         SIDEBAR
-    ====================================================== -->
-
+    <!-- SIDEBAR -->
     <aside class="sidebar">
 
         <div class="brand">
@@ -708,47 +635,24 @@
         </div>
 
         <nav>
-
             <a href="index.html">Dashboard</a>
-
-            <a href="products.html">
-                Products
-            </a>
-
-            <a href="orders.html" class="active">
-                Orders
-            </a>
-
-            <a href="inventory.html">
-                Inventory
-            </a>
-
-            <a href="payments.html">
-                Payments
-            </a>
-
+            <a href="products.html">Products</a>
+            <a href="orders.html" class="active">Orders</a>
+            <a href="inventory.html">Inventory</a>
+            <a href="payments.html">Payments</a>
         </nav>
 
         <div style="margin-top:auto;">
-
-            <a href="../index.html">
-                View Store
-            </a>
-
+            <a href="../index.html">View Store</a>
         </div>
 
     </aside>
 
 
-    <!-- =====================================================
-         MAIN
-    ====================================================== -->
-
+    <!-- MAIN -->
     <main class="main-content">
 
         <div class="orders-page">
-
-            <!-- HEADER -->
 
             <div class="page-header">
 
@@ -774,82 +678,33 @@
             </div>
 
 
-            <!-- =================================================
-                 STATS
-            ================================================== -->
-
+            <!-- STATS -->
             <div class="order-stats">
 
                 <div class="stat-card">
-
-                    <div class="stat-label">
-                        Total Orders
-                    </div>
-
-                    <div
-                        class="stat-value"
-                        id="totalOrders"
-                    >
-                        0
-                    </div>
-
+                    <div class="stat-label">Total Orders</div>
+                    <div class="stat-value" id="totalOrders">0</div>
                 </div>
 
-
                 <div class="stat-card">
-
-                    <div class="stat-label">
-                        Pending
-                    </div>
-
-                    <div
-                        class="stat-value"
-                        id="pendingOrders"
-                    >
-                        0
-                    </div>
-
+                    <div class="stat-label">Pending</div>
+                    <div class="stat-value" id="pendingOrders">0</div>
                 </div>
 
-
                 <div class="stat-card">
-
-                    <div class="stat-label">
-                        Processing
-                    </div>
-
-                    <div
-                        class="stat-value"
-                        id="processingOrders"
-                    >
-                        0
-                    </div>
-
+                    <div class="stat-label">Processing</div>
+                    <div class="stat-value" id="processingOrders">0</div>
                 </div>
 
-
                 <div class="stat-card">
-
-                    <div class="stat-label">
-                        Completed
-                    </div>
-
-                    <div
-                        class="stat-value"
-                        id="completedOrders"
-                    >
-                        0
-                    </div>
-
+                    <div class="stat-label">Completed</div>
+                    <div class="stat-value" id="completedOrders">0</div>
                 </div>
 
             </div>
 
 
-            <!-- =================================================
-                 FILTERS
-            ================================================== -->
-
+            <!-- FILTERS -->
             <div class="filters-card">
 
                 <div class="filters">
@@ -861,112 +716,41 @@
                     >
 
                     <select id="typeFilter">
-
-                        <option value="">
-                            All Types
-                        </option>
-
-                        <option value="normal">
-                            Normal
-                        </option>
-
-                        <option value="installment">
-                            Installment
-                        </option>
-
-                        <option value="request">
-                            Request
-                        </option>
-
+                        <option value="">All Types</option>
+                        <option value="normal">Normal</option>
+                        <option value="installment">Installment</option>
+                        <option value="request">Request</option>
                     </select>
-
 
                     <select id="statusFilter">
-
-                        <option value="">
-                            All Status
-                        </option>
-
-                        <option value="pending">
-                            Pending
-                        </option>
-
-                        <option value="confirmed">
-                            Confirmed
-                        </option>
-
-                        <option value="processing">
-                            Processing
-                        </option>
-
-                        <option value="shipped">
-                            Shipped
-                        </option>
-
-                        <option value="delivered">
-                            Delivered
-                        </option>
-
-                        <option value="completed">
-                            Completed
-                        </option>
-
-                        <option value="cancelled">
-                            Cancelled
-                        </option>
-
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="processing">Processing</option>
+                        <option value="shipped">Shipped</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
                     </select>
-
 
                     <select id="paymentFilter">
-
-                        <option value="">
-                            All Payments
-                        </option>
-
-                        <option value="pending">
-                            Pending
-                        </option>
-
-                        <option value="paid">
-                            Paid
-                        </option>
-
-                        <option value="failed">
-                            Failed
-                        </option>
-
-                        <option value="refunded">
-                            Refunded
-                        </option>
-
+                        <option value="">All Payments</option>
+                        <option value="pending">Pending</option>
+                        <option value="paid">Paid</option>
+                        <option value="failed">Failed</option>
+                        <option value="refunded">Refunded</option>
                     </select>
-
 
                     <input
                         type="date"
                         id="dateFilter"
                     >
 
-
                     <select id="sortFilter">
-
-                        <option value="newest">
-                            Newest
-                        </option>
-
-                        <option value="oldest">
-                            Oldest
-                        </option>
-
-                        <option value="highest">
-                            Highest Total
-                        </option>
-
-                        <option value="lowest">
-                            Lowest Total
-                        </option>
-
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="highest">Highest Total</option>
+                        <option value="lowest">Lowest Total</option>
                     </select>
 
                 </div>
@@ -985,10 +769,7 @@
             </div>
 
 
-            <!-- =================================================
-                 TABLE
-            ================================================== -->
-
+            <!-- TABLE -->
             <div class="table-card">
 
                 <div class="table-wrapper">
@@ -996,52 +777,20 @@
                     <table class="orders-table">
 
                         <thead>
-
                             <tr>
-
-                                <th>
-                                    Order
-                                </th>
-
-                                <th>
-                                    Type
-                                </th>
-
-                                <th>
-                                    Customer
-                                </th>
-
-                                <th>
-                                    Phone
-                                </th>
-
-                                <th>
-                                    Total
-                                </th>
-
-                                <th>
-                                    Payment
-                                </th>
-
-                                <th>
-                                    Status
-                                </th>
-
-                                <th>
-                                    Date
-                                </th>
-
-                                <th>
-                                    Actions
-                                </th>
-
+                                <th>Order</th>
+                                <th>Type</th>
+                                <th>Customer</th>
+                                <th>Phone</th>
+                                <th>Total</th>
+                                <th>Payment</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
                             </tr>
-
                         </thead>
 
-                        <tbody id="ordersBody">
-
-                        </tbody>
+                        <tbody id="ordersBody"></tbody>
 
                     </table>
 
@@ -1056,22 +805,14 @@
 </div>
 
 
-<!-- =========================================================
-     ORDER DETAILS MODAL
-========================================================= -->
-
-<div
-    class="modal-overlay"
-    id="orderModal"
->
+<!-- ORDER DETAILS MODAL -->
+<div class="modal-overlay" id="orderModal">
 
     <div class="modal">
 
         <div class="modal-header">
 
-            <h2>
-                Order Details
-            </h2>
+            <h2>Order Details</h2>
 
             <button
                 class="close-btn"
@@ -1082,243 +823,117 @@
 
         </div>
 
-
         <div class="modal-body">
-
-            <!-- CUSTOMER DETAILS -->
 
             <div class="detail-grid">
 
                 <div class="detail-item">
-
-                    <div class="detail-label">
-                        Customer
-                    </div>
-
-                    <div
-                        class="detail-value"
-                        id="modalCustomer"
-                    >
-                    </div>
-
+                    <div class="detail-label">Customer</div>
+                    <div class="detail-value" id="modalCustomer"></div>
                 </div>
 
-
                 <div class="detail-item">
-
-                    <div class="detail-label">
-                        Phone
-                    </div>
-
-                    <div
-                        class="detail-value"
-                        id="modalPhone"
-                    >
-                    </div>
-
+                    <div class="detail-label">Phone</div>
+                    <div class="detail-value" id="modalPhone"></div>
                 </div>
 
-
                 <div class="detail-item">
-
-                    <div class="detail-label">
-                        Order Number
-                    </div>
-
-                    <div
-                        class="detail-value"
-                        id="modalOrderNumber"
-                    >
-                    </div>
-
+                    <div class="detail-label">Order Number</div>
+                    <div class="detail-value" id="modalOrderNumber"></div>
                 </div>
 
-
                 <div class="detail-item">
-
-                    <div class="detail-label">
-                        Order Type
-                    </div>
-
-                    <div
-                        class="detail-value"
-                        id="modalOrderType"
-                    >
-                    </div>
-
+                    <div class="detail-label">Order Type</div>
+                    <div class="detail-value" id="modalOrderType"></div>
                 </div>
 
-
                 <div class="detail-item">
-
-                    <div class="detail-label">
-                        Created
-                    </div>
-
-                    <div
-                        class="detail-value"
-                        id="modalCreated"
-                    >
-                    </div>
-
+                    <div class="detail-label">Created</div>
+                    <div class="detail-value" id="modalCreated"></div>
                 </div>
 
-
                 <div class="detail-item">
-
-                    <div class="detail-label">
-                        Payment Method
-                    </div>
-
-                    <div
-                        class="detail-value"
-                        id="modalPaymentMethod"
-                    >
-                    </div>
-
+                    <div class="detail-label">Payment Method</div>
+                    <div class="detail-value" id="modalPaymentMethod"></div>
                 </div>
 
-
                 <div class="detail-item">
-
-                    <div class="detail-label">
-                        Notes
-                    </div>
-
-                    <div
-                        class="detail-value"
-                        id="modalNotes"
-                    >
-                    </div>
-
+                    <div class="detail-label">Notes</div>
+                    <div class="detail-value" id="modalNotes"></div>
                 </div>
 
             </div>
 
 
-            <!-- =================================================
-                 ORDER ITEMS
-            ================================================== -->
-
+            <!-- ORDER ITEMS -->
             <div class="section">
 
-                <h3>
-                    Order Items
-                </h3>
+                <h3>Order Items</h3>
 
                 <div
                     class="order-items"
                     id="orderItems"
-                >
-                </div>
+                ></div>
 
             </div>
 
 
-            <!-- =================================================
-                 ORDER TOTALS
-            ================================================== -->
-
+            <!-- TOTALS -->
             <div class="totals">
 
                 <div class="total-row">
-
-                    <span>
-                        Subtotal
-                    </span>
-
-                    <strong id="modalSubtotal">
-                        TZS 0
-                    </strong>
-
+                    <span>Subtotal</span>
+                    <strong id="modalSubtotal">TZS 0</strong>
                 </div>
-
 
                 <div class="total-row">
-
-                    <span>
-                        Delivery Fee
-                    </span>
-
-                    <strong id="modalDeliveryFee">
-                        TZS 0
-                    </strong>
-
+                    <span>Delivery Fee</span>
+                    <strong id="modalDeliveryFee">TZS 0</strong>
                 </div>
 
-
                 <div class="total-row grand-total">
-
-                    <span>
-                        Total
-                    </span>
-
-                    <strong id="modalTotal">
-                        TZS 0
-                    </strong>
-
+                    <span>Total</span>
+                    <strong id="modalTotal">TZS 0</strong>
                 </div>
 
             </div>
 
 
-            <!-- =================================================
-                 PAYMENT SUMMARY
-            ================================================== -->
-
+            <!-- PAYMENT SUMMARY -->
             <div class="section">
 
-                <h3>
-                    Payment Summary
-                </h3>
+                <h3>Payment Summary</h3>
 
                 <div class="payment-summary">
 
                     <div class="payment-box">
-
-                        <div class="payment-box-label">
-                            Order Total
-                        </div>
-
+                        <div class="payment-box-label">Order Total</div>
                         <div
                             class="payment-box-value"
                             id="paymentTotal"
                         >
                             TZS 0
                         </div>
-
                     </div>
 
-
                     <div class="payment-box paid">
-
-                        <div class="payment-box-label">
-                            Amount Paid
-                        </div>
-
+                        <div class="payment-box-label">Amount Paid</div>
                         <div
                             class="payment-box-value"
                             id="paymentPaid"
                         >
                             TZS 0
                         </div>
-
                     </div>
 
-
                     <div class="payment-box balance">
-
-                        <div class="payment-box-label">
-                            Remaining Balance
-                        </div>
-
+                        <div class="payment-box-label">Remaining Balance</div>
                         <div
                             class="payment-box-value"
                             id="paymentBalance"
                         >
                             TZS 0
                         </div>
-
                     </div>
 
                 </div>
@@ -1339,60 +954,31 @@
             </div>
 
 
-            <!-- =================================================
-                 PAYMENT HISTORY
-            ================================================== -->
-
+            <!-- PAYMENT HISTORY -->
             <div class="section">
 
-                <h3>
-                    Payment History
-                </h3>
+                <h3>Payment History</h3>
 
                 <div class="payment-history">
 
                     <table class="payments-table">
 
                         <thead>
-
                             <tr>
-
-                                <th>
-                                    Date
-                                </th>
-
-                                <th>
-                                    Method
-                                </th>
-
-                                <th>
-                                    Amount
-                                </th>
-
-                                <th>
-                                    Reference
-                                </th>
-
-                                <th>
-                                    Status
-                                </th>
-
-                                <th>
-                                    Notes
-                                </th>
-
+                                <th>Date</th>
+                                <th>Method</th>
+                                <th>Amount</th>
+                                <th>Reference</th>
+                                <th>Status</th>
+                                <th>Notes</th>
                             </tr>
-
                         </thead>
 
-                        <tbody id="paymentHistoryBody">
-
-                        </tbody>
+                        <tbody id="paymentHistoryBody"></tbody>
 
                     </table>
 
                 </div>
-
 
                 <div class="add-payment-wrapper">
 
@@ -1408,89 +994,43 @@
             </div>
 
 
-            <!-- =================================================
-                 UPDATE ORDER
-            ================================================== -->
-
+            <!-- UPDATE ORDER -->
             <div class="section">
 
-                <h3>
-                    Update Order
-                </h3>
+                <h3>Update Order</h3>
 
                 <div class="payment-form">
 
                     <div class="form-group">
 
-                        <label>
-                            Order Status
-                        </label>
+                        <label>Order Status</label>
 
                         <select id="orderStatus">
-
-                            <option value="pending">
-                                Pending
-                            </option>
-
-                            <option value="confirmed">
-                                Confirmed
-                            </option>
-
-                            <option value="processing">
-                                Processing
-                            </option>
-
-                            <option value="shipped">
-                                Shipped
-                            </option>
-
-                            <option value="delivered">
-                                Delivered
-                            </option>
-
-                            <option value="completed">
-                                Completed
-                            </option>
-
-                            <option value="cancelled">
-                                Cancelled
-                            </option>
-
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
                         </select>
 
                     </div>
 
-
                     <div class="form-group">
 
-                        <label>
-                            Payment Status
-                        </label>
+                        <label>Payment Status</label>
 
                         <select id="orderPaymentStatus">
-
-                            <option value="pending">
-                                Pending
-                            </option>
-
-                            <option value="paid">
-                                Paid
-                            </option>
-
-                            <option value="failed">
-                                Failed
-                            </option>
-
-                            <option value="refunded">
-                                Refunded
-                            </option>
-
+                            <option value="pending">Pending</option>
+                            <option value="paid">Paid</option>
+                            <option value="failed">Failed</option>
+                            <option value="refunded">Refunded</option>
                         </select>
 
                     </div>
 
                 </div>
-
 
                 <div style="margin-top:16px;">
 
@@ -1512,22 +1052,14 @@
 </div>
 
 
-<!-- =========================================================
-     ADD PAYMENT MODAL
-========================================================= -->
-
-<div
-    class="modal-overlay"
-    id="paymentModal"
->
+<!-- ADD PAYMENT MODAL -->
+<div class="modal-overlay" id="paymentModal">
 
     <div class="modal">
 
         <div class="modal-header">
 
-            <h2>
-                Add Payment
-            </h2>
+            <h2>Add Payment</h2>
 
             <button
                 class="close-btn"
@@ -1538,24 +1070,19 @@
 
         </div>
 
-
         <div class="modal-body">
 
             <div class="payment-order-info">
 
                 Order:
 
-                <strong id="paymentOrderNumber">
-                    -
-                </strong>
+                <strong id="paymentOrderNumber">-</strong>
 
                 <br>
 
                 Remaining Balance:
 
-                <strong id="paymentRemaining">
-                    TZS 0
-                </strong>
+                <strong id="paymentRemaining">TZS 0</strong>
 
             </div>
 
@@ -1564,9 +1091,7 @@
 
                 <div class="form-group">
 
-                    <label>
-                        Amount *
-                    </label>
+                    <label>Amount *</label>
 
                     <input
                         type="number"
@@ -1581,47 +1106,19 @@
 
                 <div class="form-group">
 
-                    <label>
-                        Payment Method *
-                    </label>
+                    <label>Payment Method *</label>
 
                     <select id="paymentMethod">
 
-                        <option value="Cash">
-                            Cash
-                        </option>
-
-                        <option value="M-Pesa">
-                            M-Pesa
-                        </option>
-
-                        <option value="Airtel Money">
-                            Airtel Money
-                        </option>
-
-                        <option value="Mixx by Yas">
-                            Mixx by Yas
-                        </option>
-
-                        <option value="Halopesa">
-                            Halopesa
-                        </option>
-
-                        <option value="Bank Transfer">
-                            Bank Transfer
-                        </option>
-
-                        <option value="Card">
-                            Card
-                        </option>
-
-                        <option value="WhatsApp">
-                            WhatsApp
-                        </option>
-
-                        <option value="Other">
-                            Other
-                        </option>
+                        <option value="Cash">Cash</option>
+                        <option value="M-Pesa">M-Pesa</option>
+                        <option value="Airtel Money">Airtel Money</option>
+                        <option value="Mixx by Yas">Mixx by Yas</option>
+                        <option value="Halopesa">Halopesa</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
+                        <option value="Card">Card</option>
+                        <option value="WhatsApp">WhatsApp</option>
+                        <option value="Other">Other</option>
 
                     </select>
 
@@ -1630,9 +1127,7 @@
 
                 <div class="form-group">
 
-                    <label>
-                        Transaction Reference
-                    </label>
+                    <label>Transaction Reference</label>
 
                     <input
                         type="text"
@@ -1645,27 +1140,14 @@
 
                 <div class="form-group">
 
-                    <label>
-                        Payment Status *
-                    </label>
+                    <label>Payment Status *</label>
 
                     <select id="newPaymentStatus">
 
-                        <option value="completed">
-                            Completed
-                        </option>
-
-                        <option value="pending">
-                            Pending
-                        </option>
-
-                        <option value="failed">
-                            Failed
-                        </option>
-
-                        <option value="refunded">
-                            Refunded
-                        </option>
+                        <option value="completed">Completed</option>
+                        <option value="pending">Pending</option>
+                        <option value="failed">Failed</option>
+                        <option value="refunded">Refunded</option>
 
                     </select>
 
@@ -1674,9 +1156,7 @@
 
                 <div class="form-group full">
 
-                    <label>
-                        Notes
-                    </label>
+                    <label>Notes</label>
 
                     <textarea
                         id="paymentNotes"
@@ -1714,19 +1194,12 @@
 </div>
 
 
-<!-- =========================================================
-     SUPABASE
-========================================================= -->
-
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script src="config.js"></script>
-
 <script src="supabase-client.js"></script>
 
-
 <script>
-
 "use strict";
 
 
@@ -1735,13 +1208,9 @@
 ========================================================= */
 
 let sb = null;
-
 let allOrders = [];
-
 let filteredOrders = [];
-
 let selectedOrder = null;
-
 let selectedPayments = [];
 
 
@@ -1753,7 +1222,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
 
-        await guard();
+        if (!await guard()) {
+            return;
+        }
 
         document
             .getElementById("searchInput")
@@ -1783,7 +1254,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Orders initialization error:",
+            error
+        );
 
     }
 
@@ -1796,24 +1270,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 async function guard() {
 
-<<<<<<< HEAD
-    sb = requireSupabase();
-
-    const {
-        data,
-        error
-    } = await sb.auth.getSession();
-
-    if (error) {
-
-        console.error(error);
-
-    }
-
-    if (!data || !data.session) {
-
-        window.location.href = "login.html";
-=======
     try {
 
         sb = requireSupabase();
@@ -1828,24 +1284,18 @@ async function guard() {
             "Admin guard error:",
             error
         );
->>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 
         return false;
 
     }
 
-<<<<<<< HEAD
-    return true;
-
 }
 
 
-=======
-}
->>>>>>> 9b90dc5dbddaf105b4e6afdb9327c233a7c59b9a
 /* =========================================================
    LOAD ORDERS
 ========================================================= */
+
 async function loadOrders() {
 
     const ordersBody =
@@ -1867,6 +1317,7 @@ async function loadOrders() {
             </tr>
         `;
 
+
         const {
             data,
             error
@@ -1877,15 +1328,17 @@ async function loadOrders() {
                 ascending: false
             });
 
+
         if (error) {
             throw error;
         }
 
+
         allOrders = data || [];
 
         updateStatistics();
-
         applyFilters();
+
 
         console.log(
             "Orders loaded:",
@@ -1899,18 +1352,23 @@ async function loadOrders() {
             error
         );
 
+
         ordersBody.innerHTML = `
             <tr>
                 <td colspan="9">
                     <div class="empty-state">
+
                         Unable to load orders.
+
                         <br>
+
                         <small>
                             ${escapeHtml(
                                 error.message ||
                                 "Unknown error"
                             )}
                         </small>
+
                     </div>
                 </td>
             </tr>
@@ -1920,41 +1378,61 @@ async function loadOrders() {
 
 }
 
+
 /* =========================================================
    STATISTICS
 ========================================================= */
 
 function updateStatistics() {
 
-    const total = allOrders.length;
-
-    const pending = allOrders.filter(
-        order => order.order_status === "pending"
-    ).length;
-
-    const processing = allOrders.filter(
-        order =>
-            [
-                "confirmed",
-                "processing",
-                "shipped",
-                "delivered"
-            ].includes(order.order_status)
-    ).length;
-
-    const completed = allOrders.filter(
-        order =>
-            order.order_status === "completed"
-    ).length;
+    const total =
+        allOrders.length;
 
 
-    document.getElementById("totalOrders").textContent = total;
+    const pending =
+        allOrders.filter(
+            order =>
+                order.order_status === "pending"
+        ).length;
 
-    document.getElementById("pendingOrders").textContent = pending;
 
-    document.getElementById("processingOrders").textContent = processing;
+    const processing =
+        allOrders.filter(
+            order =>
+                [
+                    "confirmed",
+                    "processing",
+                    "shipped",
+                    "delivered"
+                ].includes(order.order_status)
+        ).length;
 
-    document.getElementById("completedOrders").textContent = completed;
+
+    const completed =
+        allOrders.filter(
+            order =>
+                order.order_status === "completed"
+        ).length;
+
+
+    document.getElementById(
+        "totalOrders"
+    ).textContent = total;
+
+
+    document.getElementById(
+        "pendingOrders"
+    ).textContent = pending;
+
+
+    document.getElementById(
+        "processingOrders"
+    ).textContent = processing;
+
+
+    document.getElementById(
+        "completedOrders"
+    ).textContent = completed;
 
 }
 
@@ -1972,121 +1450,125 @@ function applyFilters() {
             .trim()
             .toLowerCase();
 
+
     const type =
         document.getElementById("typeFilter").value;
+
 
     const status =
         document.getElementById("statusFilter").value;
 
+
     const payment =
         document.getElementById("paymentFilter").value;
 
+
     const date =
         document.getElementById("dateFilter").value;
+
 
     const sort =
         document.getElementById("sortFilter").value;
 
 
-    filteredOrders = allOrders.filter(order => {
+    filteredOrders =
+        allOrders.filter(order => {
 
-        const searchable =
-            `
-            ${order.order_number || ""}
-            ${order.customer_name || ""}
-            ${order.customer_phone || ""}
+            const searchable = `
+                ${order.order_number || ""}
+                ${order.customer_name || ""}
+                ${order.customer_phone || ""}
             `.toLowerCase();
 
 
-        if (
-            search &&
-            !searchable.includes(search)
-        ) {
-
-            return false;
-
-        }
-
-
-        if (
-            type &&
-            order.order_type !== type
-        ) {
-
-            return false;
-
-        }
-
-
-        if (
-            status &&
-            order.order_status !== status
-        ) {
-
-            return false;
-
-        }
-
-
-        if (
-            payment &&
-            order.payment_status !== payment
-        ) {
-
-            return false;
-
-        }
-
-
-        if (date) {
-
-            const orderDate =
-                new Date(order.created_at)
-                    .toISOString()
-                    .split("T")[0];
-
-            if (orderDate !== date) {
-
+            if (
+                search &&
+                !searchable.includes(search)
+            ) {
                 return false;
+            }
+
+
+            if (
+                type &&
+                order.order_type !== type
+            ) {
+                return false;
+            }
+
+
+            if (
+                status &&
+                order.order_status !== status
+            ) {
+                return false;
+            }
+
+
+            if (
+                payment &&
+                order.payment_status !== payment
+            ) {
+                return false;
+            }
+
+
+            if (date) {
+
+                const orderDate =
+                    new Date(order.created_at)
+                        .toISOString()
+                        .split("T")[0];
+
+
+                if (orderDate !== date) {
+                    return false;
+                }
 
             }
 
-        }
 
+            return true;
 
-        return true;
-
-    });
+        });
 
 
     filteredOrders.sort((a, b) => {
 
         if (sort === "oldest") {
 
-            return new Date(a.created_at) -
-                new Date(b.created_at);
+            return (
+                new Date(a.created_at) -
+                new Date(b.created_at)
+            );
 
         }
 
 
         if (sort === "highest") {
 
-            return Number(b.total || 0) -
-                Number(a.total || 0);
+            return (
+                Number(b.total || 0) -
+                Number(a.total || 0)
+            );
 
         }
 
 
         if (sort === "lowest") {
 
-            return Number(a.total || 0) -
-                Number(b.total || 0);
+            return (
+                Number(a.total || 0) -
+                Number(b.total || 0)
+            );
 
         }
 
 
-        return new Date(b.created_at) -
-            new Date(a.created_at);
+        return (
+            new Date(b.created_at) -
+            new Date(a.created_at)
+        );
 
     });
 
@@ -2102,17 +1584,35 @@ function applyFilters() {
 
 function clearFilters() {
 
-    document.getElementById("searchInput").value = "";
+    document.getElementById(
+        "searchInput"
+    ).value = "";
 
-    document.getElementById("typeFilter").value = "";
 
-    document.getElementById("statusFilter").value = "";
+    document.getElementById(
+        "typeFilter"
+    ).value = "";
 
-    document.getElementById("paymentFilter").value = "";
 
-    document.getElementById("dateFilter").value = "";
+    document.getElementById(
+        "statusFilter"
+    ).value = "";
 
-    document.getElementById("sortFilter").value = "newest";
+
+    document.getElementById(
+        "paymentFilter"
+    ).value = "";
+
+
+    document.getElementById(
+        "dateFilter"
+    ).value = "";
+
+
+    document.getElementById(
+        "sortFilter"
+    ).value = "newest";
+
 
     applyFilters();
 
@@ -2154,91 +1654,94 @@ function renderOrders() {
                     <tr>
 
                         <td>
-
                             <div class="order-number">
                                 ${escapeHtml(
                                     order.order_number || "-"
                                 )}
                             </div>
-
                         </td>
 
-
                         <td>
-
                             ${typeBadge(
                                 order.order_type
                             )}
-
                         </td>
 
-
                         <td>
-
                             <div class="customer-name">
                                 ${escapeHtml(
                                     order.customer_name || "-"
                                 )}
                             </div>
-
                         </td>
 
-
                         <td>
-
                             ${escapeHtml(
                                 order.customer_phone || "-"
                             )}
-
                         </td>
 
-
                         <td>
-
                             <strong>
                                 ${formatCurrency(
                                     order.total
                                 )}
                             </strong>
-
                         </td>
 
-
                         <td>
-
                             ${paymentBadge(
                                 order.payment_status
                             )}
-
                         </td>
 
-
                         <td>
-
                             ${statusBadge(
                                 order.order_status
                             )}
-
                         </td>
 
-
                         <td>
-
                             ${formatDate(
                                 order.created_at
                             )}
-
                         </td>
-
 
                         <td>
 
                             <div class="action-buttons">
 
-                      <button class="action-btn view-btn" onclick="viewOrder(${order.id})">View</button>
-<button class="action-btn whatsapp-btn" onclick="openWhatsApp('${escapeJs(order.customer_phone || "")}')">WhatsApp</button>
-<button class="action-btn call-btn" onclick="callCustomer('${escapeJs(order.customer_phone || "")}')">Call</button>
-<button class="action-btn delete-btn" onclick="deleteOrder(${order.id})">Delete</button>
+                                <button
+                                    class="action-btn view-btn"
+                                    onclick="viewOrder(${order.id})"
+                                >
+                                    View
+                                </button>
+
+                                <button
+                                    class="action-btn whatsapp-btn"
+                                    onclick="openWhatsApp('${escapeJs(
+                                        order.customer_phone || ""
+                                    )}')"
+                                >
+                                    WhatsApp
+                                </button>
+
+                                <button
+                                    class="action-btn call-btn"
+                                    onclick="callCustomer('${escapeJs(
+                                        order.customer_phone || ""
+                                    )}')"
+                                >
+                                    Call
+                                </button>
+
+                                <button
+                                    class="action-btn delete-btn"
+                                    onclick="deleteOrder(${order.id})"
+                                >
+                                    Delete
+                                </button>
 
                             </div>
 
@@ -2252,14 +1755,20 @@ function renderOrders() {
 
 }
 
+
 /* =========================================================
    DELETE ORDER
 ========================================================= */
+
 async function deleteOrder(orderId) {
 
-    const order = allOrders.find(
-        o => Number(o.id) === Number(orderId)
-    );
+    const order =
+        allOrders.find(
+            item =>
+                Number(item.id) ===
+                Number(orderId)
+        );
+
 
     if (!order) {
 
@@ -2269,18 +1778,20 @@ async function deleteOrder(orderId) {
 
     }
 
-    const confirmed = confirm(
-        `Are you sure you want to delete order ${order.order_number}?\n\n` +
-        `Customer: ${order.customer_name || "N/A"}\n` +
-        `Total: ${formatCurrency(order.total || 0)}\n\n` +
-        `This will permanently delete the order, its items, and payment records.`
-    );
+
+    const confirmed =
+        confirm(
+            `Are you sure you want to delete order ${order.order_number}?\n\n` +
+            `Customer: ${order.customer_name || "N/A"}\n` +
+            `Total: ${formatCurrency(order.total || 0)}\n\n` +
+            `This will permanently delete the order, its items, and payment records.`
+        );
+
 
     if (!confirmed) {
-
         return;
-
     }
+
 
     try {
 
@@ -2293,20 +1804,11 @@ async function deleteOrder(orderId) {
             .eq("id", orderId)
             .select("id");
 
+
         if (error) {
-
-            console.error(
-                "Supabase delete error:",
-                error
-            );
-
             throw error;
-
         }
 
-        /*
-         * Make sure Supabase actually deleted the order.
-         */
 
         if (!data || data.length === 0) {
 
@@ -2316,21 +1818,26 @@ async function deleteOrder(orderId) {
 
         }
 
-        /*
-         * Remove it from the local data.
-         */
 
-        allOrders = allOrders.filter(
-            o => Number(o.id) !== Number(orderId)
-        );
+        allOrders =
+            allOrders.filter(
+                item =>
+                    Number(item.id) !==
+                    Number(orderId)
+            );
 
-        filteredOrders = filteredOrders.filter(
-            o => Number(o.id) !== Number(orderId)
-        );
+
+        filteredOrders =
+            filteredOrders.filter(
+                item =>
+                    Number(item.id) !==
+                    Number(orderId)
+            );
+
 
         updateStatistics();
-
         applyFilters();
+
 
         alert(
             `Order ${order.order_number} deleted successfully.`
@@ -2343,6 +1850,7 @@ async function deleteOrder(orderId) {
             error
         );
 
+
         alert(
             "Failed to delete order.\n\n" +
             error.message
@@ -2351,6 +1859,8 @@ async function deleteOrder(orderId) {
     }
 
 }
+
+
 /* =========================================================
    VIEW ORDER
 ========================================================= */
@@ -2359,7 +1869,9 @@ async function viewOrder(orderId) {
 
     const order =
         allOrders.find(
-            item => Number(item.id) === Number(orderId)
+            item =>
+                Number(item.id) ===
+                Number(orderId)
         );
 
 
@@ -2375,46 +1887,80 @@ async function viewOrder(orderId) {
     selectedOrder = order;
 
 
-    document.getElementById("modalCustomer").textContent =
+    document.getElementById(
+        "modalCustomer"
+    ).textContent =
         order.customer_name || "-";
 
-    document.getElementById("modalPhone").textContent =
+
+    document.getElementById(
+        "modalPhone"
+    ).textContent =
         order.customer_phone || "-";
 
-    document.getElementById("modalOrderNumber").textContent =
+
+    document.getElementById(
+        "modalOrderNumber"
+    ).textContent =
         order.order_number || "-";
 
-    document.getElementById("modalOrderType").innerHTML =
+
+    document.getElementById(
+        "modalOrderType"
+    ).innerHTML =
         typeBadge(order.order_type);
 
-    document.getElementById("modalCreated").textContent =
+
+    document.getElementById(
+        "modalCreated"
+    ).textContent =
         formatDate(order.created_at);
 
-    document.getElementById("modalPaymentMethod").textContent =
+
+    document.getElementById(
+        "modalPaymentMethod"
+    ).textContent =
         order.payment_method || "-";
 
-    document.getElementById("modalNotes").textContent =
+
+    document.getElementById(
+        "modalNotes"
+    ).textContent =
         order.notes || "-";
 
 
-    document.getElementById("modalSubtotal").textContent =
+    document.getElementById(
+        "modalSubtotal"
+    ).textContent =
         formatCurrency(order.subtotal);
 
-    document.getElementById("modalDeliveryFee").textContent =
+
+    document.getElementById(
+        "modalDeliveryFee"
+    ).textContent =
         formatCurrency(order.delivery_fee);
 
-    document.getElementById("modalTotal").textContent =
+
+    document.getElementById(
+        "modalTotal"
+    ).textContent =
         formatCurrency(order.total);
 
 
-    document.getElementById("orderStatus").value =
+    document.getElementById(
+        "orderStatus"
+    ).value =
         order.order_status || "pending";
 
-    document.getElementById("orderPaymentStatus").value =
+
+    document.getElementById(
+        "orderPaymentStatus"
+    ).value =
         order.payment_status || "pending";
 
 
-    document.getElementById("orderModal")
+    document
+        .getElementById("orderModal")
         .classList.add("active");
 
 
@@ -2432,7 +1978,9 @@ async function viewOrder(orderId) {
 async function loadOrderItems(orderId) {
 
     const container =
-        document.getElementById("orderItems");
+        document.getElementById(
+            "orderItems"
+        );
 
 
     container.innerHTML = `
@@ -2454,14 +2002,13 @@ async function loadOrderItems(orderId) {
 
 
         if (error) {
-
             throw error;
-
         }
 
 
-        renderOrderItems(data || []);
-
+        renderOrderItems(
+            data || []
+        );
 
     } catch (error) {
 
@@ -2489,7 +2036,9 @@ async function loadOrderItems(orderId) {
 function renderOrderItems(items) {
 
     const container =
-        document.getElementById("orderItems");
+        document.getElementById(
+            "orderItems"
+        );
 
 
     if (!items.length) {
@@ -2510,7 +2059,10 @@ function renderOrderItems(items) {
             .map(item => {
 
                 const quantity =
-                    Number(item.quantity || 1);
+                    Number(
+                        item.quantity || 1
+                    );
+
 
                 const unitPrice =
                     Number(
@@ -2518,6 +2070,7 @@ function renderOrderItems(items) {
                         item.price ??
                         0
                     );
+
 
                 const totalPrice =
                     Number(
@@ -2534,7 +2087,10 @@ function renderOrderItems(items) {
                                 ? `
                                     <img
                                         src="${escapeHtml(item.image)}"
-                                        alt="${escapeHtml(item.name || "Product")}"
+                                        alt="${escapeHtml(
+                                            item.name ||
+                                            "Product"
+                                        )}"
                                     >
                                 `
                                 : `
@@ -2554,7 +2110,6 @@ function renderOrderItems(items) {
                                 `
                         }
 
-
                         <div class="item-info">
 
                             <div class="item-name">
@@ -2569,19 +2124,25 @@ function renderOrderItems(items) {
 
                                 ${
                                     item.storage
-                                        ? `Storage: ${escapeHtml(item.storage)}`
+                                        ? `Storage: ${escapeHtml(
+                                            item.storage
+                                          )}`
                                         : ""
                                 }
 
                                 ${
                                     item.condition
-                                        ? ` | Condition: ${escapeHtml(item.condition)}`
+                                        ? ` | Condition: ${escapeHtml(
+                                            item.condition
+                                          )}`
                                         : ""
                                 }
 
                                 ${
                                     item.colour
-                                        ? ` | Colour: ${escapeHtml(item.colour)}`
+                                        ? ` | Colour: ${escapeHtml(
+                                            item.colour
+                                          )}`
                                         : ""
                                 }
 
@@ -2593,11 +2154,8 @@ function renderOrderItems(items) {
 
                         </div>
 
-
                         <div class="item-price">
-
                             ${formatCurrency(totalPrice)}
-
                         </div>
 
                     </div>
@@ -2645,18 +2203,22 @@ async function loadPayments(orderId) {
 
 
         if (error) {
-
             throw error;
-
         }
 
 
-        selectedPayments = data || [];
+        selectedPayments =
+            data || [];
 
 
-        renderPayments(selectedPayments);
+        renderPayments(
+            selectedPayments
+        );
 
-        updatePaymentSummary(selectedPayments);
+
+        updatePaymentSummary(
+            selectedPayments
+        );
 
 
     } catch (error) {
@@ -2771,33 +2333,50 @@ function renderPayments(payments) {
 function updatePaymentSummary(payments) {
 
     const total =
-        Number(selectedOrder?.total || 0);
+        Number(
+            selectedOrder?.total || 0
+        );
 
 
     const paid =
         payments
             .filter(
                 payment =>
-                    payment.payment_status === "completed"
+                    payment.payment_status ===
+                    "completed"
             )
             .reduce(
                 (sum, payment) =>
-                    sum + Number(payment.amount || 0),
+                    sum +
+                    Number(
+                        payment.amount || 0
+                    ),
                 0
             );
 
 
     const balance =
-        Math.max(total - paid, 0);
+        Math.max(
+            total - paid,
+            0
+        );
 
 
-    document.getElementById("paymentTotal").textContent =
+    document.getElementById(
+        "paymentTotal"
+    ).textContent =
         formatCurrency(total);
 
-    document.getElementById("paymentPaid").textContent =
+
+    document.getElementById(
+        "paymentPaid"
+    ).textContent =
         formatCurrency(paid);
 
-    document.getElementById("paymentBalance").textContent =
+
+    document.getElementById(
+        "paymentBalance"
+    ).textContent =
         formatCurrency(balance);
 
 
@@ -2809,7 +2388,8 @@ function updatePaymentSummary(payments) {
 
     if (total <= 0) {
 
-        statusElement.textContent = "No Payment Required";
+        statusElement.textContent =
+            "No Payment Required";
 
         statusElement.className =
             "badge status-pending";
@@ -2821,21 +2401,24 @@ function updatePaymentSummary(payments) {
 
     if (paid >= total) {
 
-        statusElement.textContent = "Paid";
+        statusElement.textContent =
+            "Paid";
 
         statusElement.className =
             "badge status-paid";
 
     } else if (paid > 0) {
 
-        statusElement.textContent = "Partial";
+        statusElement.textContent =
+            "Partial";
 
         statusElement.className =
             "badge payment-partial";
 
     } else {
 
-        statusElement.textContent = "Pending";
+        statusElement.textContent =
+            "Pending";
 
         statusElement.className =
             "badge status-pending";
@@ -2852,31 +2435,38 @@ function updatePaymentSummary(payments) {
 function openPaymentModal() {
 
     if (!selectedOrder) {
-
         return;
-
     }
 
 
     const total =
-        Number(selectedOrder.total || 0);
+        Number(
+            selectedOrder.total || 0
+        );
 
 
     const paid =
         selectedPayments
             .filter(
                 payment =>
-                    payment.payment_status === "completed"
+                    payment.payment_status ===
+                    "completed"
             )
             .reduce(
                 (sum, payment) =>
-                    sum + Number(payment.amount || 0),
+                    sum +
+                    Number(
+                        payment.amount || 0
+                    ),
                 0
             );
 
 
     const balance =
-        Math.max(total - paid, 0);
+        Math.max(
+            total - paid,
+            0
+        );
 
 
     if (total <= 0) {
@@ -2953,7 +2543,9 @@ async function savePayment() {
 
     if (!selectedOrder) {
 
-        alert("No order selected.");
+        alert(
+            "No order selected."
+        );
 
         return;
 
@@ -3015,29 +2607,34 @@ async function savePayment() {
 
 
     const total =
-        Number(selectedOrder.total || 0);
+        Number(
+            selectedOrder.total || 0
+        );
 
 
     const completedPaid =
         selectedPayments
             .filter(
                 payment =>
-                    payment.payment_status === "completed"
+                    payment.payment_status ===
+                    "completed"
             )
             .reduce(
                 (sum, payment) =>
-                    sum + Number(payment.amount || 0),
+                    sum +
+                    Number(
+                        payment.amount || 0
+                    ),
                 0
             );
 
 
     const balance =
-        Math.max(total - completedPaid, 0);
+        Math.max(
+            total - completedPaid,
+            0
+        );
 
-
-    /*
-       Prevent overpayment for completed payments.
-    */
 
     if (
         status === "completed" &&
@@ -3063,9 +2660,7 @@ async function savePayment() {
 
 
     saveButton.disabled = true;
-
-    saveButton.textContent =
-        "Saving...";
+    saveButton.textContent = "Saving...";
 
 
     try {
@@ -3098,9 +2693,7 @@ async function savePayment() {
 
 
         if (error) {
-
             throw error;
-
         }
 
 
@@ -3111,11 +2704,6 @@ async function savePayment() {
 
         closePaymentModal();
 
-
-        /*
-           Reload the order so the payment trigger
-           and order payment_status are reflected.
-        */
 
         await loadOrders();
 
@@ -3133,6 +2721,7 @@ async function savePayment() {
             selectedOrder =
                 refreshedOrder;
 
+
             document.getElementById(
                 "orderPaymentStatus"
             ).value =
@@ -3142,10 +2731,13 @@ async function savePayment() {
         }
 
 
-        await loadPayments(
-            selectedOrder.id
-        );
+        if (selectedOrder) {
 
+            await loadPayments(
+                selectedOrder.id
+            );
+
+        }
 
     } catch (error) {
 
@@ -3163,7 +2755,6 @@ async function savePayment() {
     } finally {
 
         saveButton.disabled = false;
-
         saveButton.textContent =
             "Save Payment";
 
@@ -3179,9 +2770,7 @@ async function savePayment() {
 async function saveStatus() {
 
     if (!selectedOrder) {
-
         return;
-
     }
 
 
@@ -3200,7 +2789,6 @@ async function saveStatus() {
     try {
 
         const {
-            data,
             error
         } = await sb.rpc(
             "admin_update_order_status",
@@ -3218,9 +2806,7 @@ async function saveStatus() {
 
 
         if (error) {
-
             throw error;
-
         }
 
 
@@ -3256,18 +2842,19 @@ async function saveStatus() {
                 selectedOrder.order_status ||
                 "pending";
 
+
             document.getElementById(
                 "orderPaymentStatus"
             ).value =
                 selectedOrder.payment_status ||
                 "pending";
 
+
             await loadPayments(
                 selectedOrder.id
             );
 
         }
-
 
     } catch (error) {
 
@@ -3288,7 +2875,7 @@ async function saveStatus() {
 
 
 /* =========================================================
-   CLOSE ORDER MODAL
+   CLOSE MODALS
 ========================================================= */
 
 function closeModal() {
@@ -3299,10 +2886,6 @@ function closeModal() {
 
 }
 
-
-/* =========================================================
-   CLOSE PAYMENT MODAL
-========================================================= */
 
 function closePaymentModal() {
 
@@ -3356,12 +2939,8 @@ function openWhatsApp(phone) {
     }
 
 
-    const url =
-        `https://wa.me/${cleaned}`;
-
-
     window.open(
-        url,
+        `https://wa.me/${cleaned}`,
         "_blank"
     );
 
@@ -3392,14 +2971,15 @@ function callCustomer(phone) {
 
 
 /* =========================================================
-   STATUS BADGE
+   BADGES
 ========================================================= */
 
 function statusBadge(status) {
 
     const value =
-        String(status || "pending")
-            .toLowerCase();
+        String(
+            status || "pending"
+        ).toLowerCase();
 
 
     return `
@@ -3410,16 +2990,13 @@ function statusBadge(status) {
 
 }
 
-
-/* =========================================================
-   PAYMENT BADGE
-========================================================= */
 
 function paymentBadge(status) {
 
     const value =
-        String(status || "pending")
-            .toLowerCase();
+        String(
+            status || "pending"
+        ).toLowerCase();
 
 
     return `
@@ -3430,16 +3007,13 @@ function paymentBadge(status) {
 
 }
 
-
-/* =========================================================
-   PAYMENT HISTORY STATUS BADGE
-========================================================= */
 
 function paymentStatusBadge(status) {
 
     const value =
-        String(status || "pending")
-            .toLowerCase();
+        String(
+            status || "pending"
+        ).toLowerCase();
 
 
     return `
@@ -3451,15 +3025,12 @@ function paymentStatusBadge(status) {
 }
 
 
-/* =========================================================
-   TYPE BADGE
-========================================================= */
-
 function typeBadge(type) {
 
     const value =
-        String(type || "normal")
-            .toLowerCase();
+        String(
+            type || "normal"
+        ).toLowerCase();
 
 
     return `
@@ -3472,7 +3043,7 @@ function typeBadge(type) {
 
 
 /* =========================================================
-   FORMAT CURRENCY
+   HELPERS
 ========================================================= */
 
 function formatCurrency(value) {
@@ -3494,16 +3065,10 @@ function formatCurrency(value) {
 }
 
 
-/* =========================================================
-   FORMAT DATE
-========================================================= */
-
 function formatDate(value) {
 
     if (!value) {
-
         return "-";
-
     }
 
 
@@ -3511,10 +3076,12 @@ function formatDate(value) {
         new Date(value);
 
 
-    if (Number.isNaN(date.getTime())) {
-
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
         return "-";
-
     }
 
 
@@ -3529,30 +3096,20 @@ function formatDate(value) {
 }
 
 
-/* =========================================================
-   CAPITALIZE
-========================================================= */
-
 function capitalize(value) {
 
     if (!value) {
-
         return "";
-
     }
 
 
-    return value
-        .charAt(0)
-        .toUpperCase() +
-        value.slice(1);
+    return (
+        value.charAt(0).toUpperCase() +
+        value.slice(1)
+    );
 
 }
 
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
 
 function escapeHtml(value) {
 
@@ -3565,10 +3122,6 @@ function escapeHtml(value) {
 
 }
 
-
-/* =========================================================
-   ESCAPE JS
-========================================================= */
 
 function escapeJs(value) {
 
@@ -3592,12 +3145,8 @@ document
         "click",
         function(event) {
 
-            if (
-                event.target === this
-            ) {
-
+            if (event.target === this) {
                 closeModal();
-
             }
 
         }
@@ -3610,12 +3159,8 @@ document
         "click",
         function(event) {
 
-            if (
-                event.target === this
-            ) {
-
+            if (event.target === this) {
                 closePaymentModal();
-
             }
 
         }
@@ -3633,7 +3178,6 @@ document.addEventListener(
         if (event.key === "Escape") {
 
             closeModal();
-
             closePaymentModal();
 
         }
